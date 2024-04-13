@@ -44,51 +44,49 @@ In the following, let $V$ be a Vector Space over $bb(R)$. \
 
 == Sobolev Spaces
 <sub:sobolev-spaces>
-When we solve a quadratic minimization problem, i.e., a quadratic
-function for which we search a minimizer, we first need to define the
-space of functions in which we want to look for the solution. For
-example, in Physics, we generally want the solution (function that
-describes e.g. the shape of an elastic string) to be continuous. So it
-makes no sense to look for a minimizer with jumps. \
+When we solve a quadratic minimization problem, i.e., a quadratic function for
+which we search a minimizer, we first need to define the space of functions in
+which we want to look for the solution. For example, in Physics, we generally
+want the solution (function that describes e.g. the shape of an elastic string)
+to be continuous. So it makes no sense to look for a minimizer with jumps.\
 \
-To formulate this mathematically we need the #strong[Sobolev space];.
-For functions in a Sobolev space, it is ensured that the bilinear form
-in the quadratic functional is well defined (i.e. finite). Hence the
-mathematical space in which we look for minimizers is determined by the
-given quadratic functional. To select the space for your problem, follow
-the guideline ... #emph[Choose the largest space such that the problem
-is well defined];.
+To formulate this mathematically we need the #strong[Sobolev space];. For
+functions in a Sobolev space, it is ensured that the bilinear form in the
+quadratic functional is well defined (i.e. finite). Hence the mathematical space
+in which we look for minimizers is determined by the given quadratic functional.
+To select the space for your problem, follow the guideline ... #emph[Choose the largest space such that the problem is well defined];.
 
 #mybox("Sobolev Spaces")[
   $H^1_0 (Omega)$ is a vector space with norm 
   $ |v|_(H^1) := (integral_Omega norm(grad v)^2 dif bx)^(1 / 2) $
   $H^1 (Omega)$ is another vector space with norm 
   $ norm(v)^2_(H^1) := norm(v)^2_(L^2) + |v|^2_(H^1) $
-  Note that $|dot|_(H^1)$ is not a norm on the space $H^1 (Omega)$, but a seminorm. Both spaces contain all functions for which the norm is finite (and, in the case of $H^1_0 (Omega)$, which are 0 on $partial Omega$).
+  Note that $|dot|_(H^1)$ is not a norm on the space $H^1 (Omega)$, but a
+  seminorm. Both spaces contain all functions for which the norm is finite (and,
+  in the case of $H^1_0 (Omega)$, which are 0 on $partial Omega$).
 ]
 *Alternative notation* for norms includes $norm(dot)_0$ for $norm(dot)_(L^2)$ and $|dot|_1$ for $|dot|_(H^1)$.
 
-If the quadratic minimization problem is well defined, we get the
-following lemma for existence and uniqueness of minimizers:
+If the quadratic minimization problem is well defined, we get the following
+lemma for existence and uniqueness of minimizers:
 
 #theorem(number: "1.3.3.6", "Existence of minimizers in Hilbert spaces")[
   On a real Hilbert space $V$ with norm $norm(dot)_a$ for any
   $norm(dot)_a$-bounded linear functional
 $ell : V arrow.r bb(R)$ the quadratic minimization problem
 #neq($ u_(\*) & = op("argmin", limits: #true)_(v in V) J (v)\
-J (v) & := 1 / 2 norm(v)_a^2 - ell (v) $)
- has a unique
-  solution.
+  J (v)  & := 1 / 2 norm(v)_a^2 - ell (v) $)
+  has a unique solution.
 ]
 
 Note that here, we use the bilinear form to define the norm
-$a (u , u) = norm(u)_a^2$. The main point is that in
-(energy) minimization problems, the bilinear form of the quadratic
-minimization problem can be seen as the norm of some Sobolev space. This
-then leads to a solution if we check boundedness of the linear form.
+$a (u , u) = norm(u)_a^2$. The main point is that in (energy) minimization
+problems, the bilinear form of the quadratic minimization problem can be seen as
+the norm of some Sobolev space. This then leads to a solution if we check
+boundedness of the linear form.
 
-For checking boundedness we can often use Cauchy-Schwarz and
-Poincaré-Friedrichs inequalities.
+For checking boundedness we can often use Cauchy-Schwarz and Poincaré-Friedrichs
+inequalities.
 
 == Linear Variational Problem
 <sub:linear-variational-problem>
@@ -102,25 +100,30 @@ is called a (generalized) #emph[linear variational problem];, if
 - $ell : V_0 arrow.r bb(R)$ is a linear form
 ]
 Knowing that a solution exists is of course not enough. And solving a
-minimization problem over infinite-dimensional spaces is not an easy
-task. So we reformulate the problems in a linear variational form which
-is then already pretty close to what we can solve numerically. For this,
-we have the following equivalence:
+minimization problem over infinite-dimensional spaces is not an easy task. So we
+reformulate the problems in a linear variational form which is then already
+pretty close to what we can solve numerically. For this, we have the following
+equivalence:
 
-#theorem(number: "1.4.1.8", "Equivalence of quadratic
-minimization problem and linear variational problem")[
-  For a (generalized) quadratic functional $J (v) = 1 / 2 a (v , v) - ell (v) + c$ on a vector space $V$ and with a symmetric positive definite bilinear form $a : V times V arrow.r bb(R)$ the following is equivalent: 
+#theorem(
+  number: "1.4.1.8", "Equivalence of quadratic
+    minimization problem and linear variational problem",
+)[
+  For a (generalized) quadratic functional $J (v) = 1 / 2 a (v , v) - ell (v) + c$ on
+  a vector space $V$ and with a symmetric positive definite bilinear form $a : V times V arrow.r bb(R)$ the
+  following is equivalent:
 
-  - The quadratic minimization problem for $J (v)$ has the unique minimizer $u_(\*) in mhat(V)$ over the affine subspace $mhat(V) = g + V_0 , g in V$
-  - The linear variational problem $ u in mhat(V) quad a (u , v) = ell (v) &quad forall v in V_0 $ has the unique solution $u_(\*) in mhat(V).$
+  - The quadratic minimization problem for $J (v)$ has the unique minimizer $u_(\*) in mhat(V)$ over
+    the affine subspace $mhat(V) = g + V_0 , g in V$
+  - The linear variational problem $ u in mhat(V) quad a (u , v) = ell (v) &quad forall v in V_0 $ has
+    the unique solution $u_(\*) in mhat(V).$
 ]<thm:variational-problem-equiv>
-Note that the test space $V_0$ and the trial space $mhat(V)$ can be
-different. When our problem has Dirichlet boundary conditions, we
-incorporate them into the trial space $mhat(V)$, which is also the space
-from which we pick a solution. In the test space $V_0$ we do not need to
-respect the boundary conditions. Instead, we set test functions to zero
-where the boundary data is given (\"Don’t test where the solution is
-known!\").
+Note that the test space $V_0$ and the trial space $mhat(V)$ can be different.
+When our problem has Dirichlet boundary conditions, we incorporate them into the
+trial space $mhat(V)$, which is also the space from which we pick a solution. In
+the test space $V_0$ we do not need to respect the boundary conditions. Instead,
+we set test functions to zero where the boundary data is given (\"Don't test
+where the solution is known!\").
 
 == Boundary Value Problems
 <sub:boundary-value-problems>
@@ -145,18 +148,18 @@ known!\").
   then $f equiv 0$.
 ] <thm:variational-calculus-fundamental-lemma>
 
-We have seen equivalence of minimization problem of a quadratic
-functional and linear variational problem. The variational problem is called the #strong[weak form];, we can transform it (with extra smoothness
-requirements) into the problem's #strong[strong form];, i.e., into an
-elliptic BVP, mainly with the help of the above lemmas.
+We have seen equivalence of minimization problem of a quadratic functional and
+linear variational problem. The variational problem is called the #strong[weak form];,
+we can transform it (with extra smoothness requirements) into the problem's #strong[strong form];,
+i.e., into an elliptic BVP, mainly with the help of the above lemmas.
 
 #counter(heading).step(level: 2)
 
 == Boundary Conditions
 <sub:boundary-conditions>
 For 2nd-order elliptic BVPs we need boundary conditions to get a unique
-solution. To be more precise, we need #strong[exactly one] of the
-following boundary conditions on every part of $partial Omega$
+solution. To be more precise, we need #strong[exactly one] of the following
+boundary conditions on every part of $partial Omega$
 
 #mybox("Main boundary conditions for 2nd-order elliptic BVPs")[
   - #strong[Dirichlet]: $u$ is fixed to be
@@ -194,16 +197,18 @@ $ H_(\*)^1 (Omega) := { v in H^1 (Omega) : integral_Omega v thin dif bx = 0 } $
   If $Omega subset bb(R)^d$ is bounded and connected, then
   #neq($ exists C = C (Omega) > 0 : norm(u)_0 lt.eq C "diam" #h(-0.1pt) (Omega) thin norm(grad u)_0 quad forall u in H_(\*)^1 (Omega) $)
 ] <thm:poincare-friedrichs>
-This theorem tells us that (under some conditions), the $L^2$ norm of functions from this space is bounded by the $H^1$-seminorm.
+This theorem tells us that (under some conditions), the $L^2$ norm of functions
+from this space is bounded by the $H^1$-seminorm.
 
 == Essential and Natural boundary Conditions
 <sub:essential-and-natural-boundary-conditions>
-Essential boundary conditions are boundary conditions which have been
-imposed directly on the trial space, i.e. Dirichlet BC. On the other
-hand, Neumann BC are only enforced through the variational equation. They are callednatural boundary conditions.
+Essential boundary conditions are boundary conditions which have been imposed
+directly on the trial space, i.e. Dirichlet BC. On the other hand, Neumann BC
+are only enforced through the variational equation. They are callednatural
+boundary conditions.
 
-- #strong[Admissible Dirichlet Data];: Dirichlet boundary values need to
-  be continuous.
+- #strong[Admissible Dirichlet Data];: Dirichlet boundary values need to be
+  continuous.
 
 - #strong[Admissible Neumann Data];: $h$ needs to be in $L^2 (Omega)$
   (can be discontinuous)
