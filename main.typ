@@ -8,10 +8,7 @@
   if el != none and el.func() == eq {
     // Override equation references.
     link(
-      it.at("target"),
-      numbering(
-      el.numbering,
-      ..counter(eq).at(el.location())),
+      it.at("target"), numbering(el.numbering, ..counter(eq).at(el.location())),
 
     )
 []
@@ -42,8 +39,7 @@ Last updated on April 11, 2024.
 <ch:preface>
 
 #theorem(number: "0.3.1.19", "Cauchy-Schwarz Inequality")[
-  If $a$ is a symmetric
-positive semi-definite bilinear form, then
+  If $a$ is a symmetric positive semi-definite bilinear form, then
 #neq($ lr(|a (u , v)|) lt.eq a (u , u)^(1 / 2) a (v , v)^(1 / 2) $)
 ] <thm:cauchy-schwarz>
 #mybox("Norms")[
