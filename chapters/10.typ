@@ -94,8 +94,7 @@ comes from the fact that the Galerkin matrix becomes close to singular.
 So our goal is to get a robust method that can solve Eq.
 @eq:convection-diffusion-weak no matter the $epsilon.alt$.
 
-Consider again Eq. @eq:convection-diffusion-weak but in $d = 1$ and with zero
-boundary conditions
+Consider again Eq. @eq:convection-diffusion-weak but in $d = 1$ and with zero boundary conditions
 $ epsilon.alt integral_0^1 frac(partial u, partial x) frac(partial v, partial x) dif x + integral_0^1 frac(partial u, partial x) v dif x = integral_0^1 f (x) v dif x $
 To calculate the Galerkin matrix for an equidistant mesh with $M$ cells,
 we use the global composite trapezoidal rule for the convective term
@@ -134,9 +133,9 @@ the added term will be zero for the exact solution (strong PDE) and the
 anisotropic diffusion is still here. The control parameter is usually
 chosen according to
 $ delta_K = cases(delim: "{", epsilon.alt^(- 1) h_K^2 & upright("if ") norm(bold(v))_(K , oo) h_K lt.eq  2 epsilon.alt, h & upright("if ") norm(bold(v))_(K , oo) h_K >  2 epsilon.alt) $
-With this, the $cal(O) (h_(cal(M))^2)$ convergence of
+With this, the $Order(h_(cal(M))^2)$ convergence of
 $norm(u-u_h)_(L^2 (Omega))$ for $h$-refinement is preserved, while upwind
-quadrature only achieves $cal(O) (h_(cal(M)))$ convergence.
+quadrature only achieves $Order(h_(cal(M)))$ convergence.
 
 == Discretization of Time-Dependent (Transient) Convection-Diffusion IBVPs
 <sub:discrete-time-dependent-convection-diffusion>
