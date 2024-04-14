@@ -105,9 +105,7 @@
 }
 
 #let weblink = (url, content) => {
-  text(fill: blue)[
-    #underline[
-      #link(url)[#content]]]
+  text(fill: blue)[#underline[#link(url)[#content]]]
 }
 
 #let tip = (title, content) => {

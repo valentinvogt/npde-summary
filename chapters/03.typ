@@ -137,7 +137,7 @@ So we gain one order of convergence in the $L^2$ norm compared to the $H^1$ norm
   $ norm(u)_(H^(k + 2) (Omega)) <= C norm(div (sigma grad u))_(H^k (Omega)) $
 ]
 
-This tells us, that when solving the typical PDE
+This tells us that when solving the typical PDE
 $-div (sigma grad u) = f$ and the source term $f$
 is in $H^k (Omega)$, the solution $u$ will be in $H^(k + 2) (Omega)$ (of
 course under the right assumptions).
@@ -180,6 +180,7 @@ So how to not temper with the convergence?
 - if $V_(0 , h) = cal(S)_p^0 (cal(M))$ then approximate the boundary with
   polynomials of degree $p$
 ]
+#pagebreak()
 == FEM: Duality Techniques for Error Estimation
 <sub:duality>
 #theorem(number: "3.6.1.7", "Duality estimate for linear functional output")[

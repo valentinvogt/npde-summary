@@ -134,7 +134,7 @@ anisotropic diffusion is still here. The control parameter is usually
 chosen according to
 $ delta_K = cases(delim: "{", epsilon.alt^(- 1) h_K^2 & upright("if ") norm(bold(v))_(K , oo) h_K lt.eq  2 epsilon.alt, h & upright("if ") norm(bold(v))_(K , oo) h_K >  2 epsilon.alt) $
 With this, the $cal(O) (h_(cal(M))^2)$ convergence of
-$norm(u-u_h)_(L^2 (Omega))$ for $h$ -efinement is preserved, while upwind
+$norm(u-u_h)_(L^2 (Omega))$ for $h$-refinement is preserved, while upwind
 quadrature only achieves $cal(O) (h_(cal(M)))$ convergence.
 
 == Discretization of Time-Dependent (Transient) Convection-Diffusion IBVPs

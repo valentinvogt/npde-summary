@@ -28,33 +28,34 @@ In the following, let $V$ be a Vector Space over $bb(R)$. \
   It is #emph[positive semi-definite] if
     $ a (u , u) & gt.eq 0 quad forall u in V $
 ]
-#v(-1cm)
+#v(-1.1cm)
 
 #mybox("Quadratic Functional")[
   A #emph[quadratic functional] $J : V arrow.r bb(R)$ is defined by
-  #neq($ J (u) := 1 / 2 a (u , u) - l (u) + c, quad u in V $) 
+  #neq($ J (u) := 1 / 2 a (u , u) - ell (u) + c, quad u in V $) 
   where $a : V times V arrow.r bb(R)$ a symmetric bilinear form, $ell : V arrow.r bb(R)$ a linear form and $c in bb(R)$. 
 ]
 #v(-1cm)
 
 #mybox("Continuity of linear form")[
   A linear form $ell : V arrow.r bb(R)$ is #emph[continuous / bounded] on $V$, if
-  #neq($ exists C > 0 quad lr(|ell (v)|) lt.eq C norm(v) quad forall v in V $)
+  #neq($ exists C > 0 quad lr(|ell (v)|) lt.eq C norm(v) quad forall v in V, $)
+  where $norm(dot)$ is a norm on $V$.
 ]
 
 == Sobolev Spaces
 <sub:sobolev-spaces>
-When we solve a quadratic minimization problem, i.e., a quadratic function for
-which we search a minimizer, we first need to define the space of functions in
+When we solve a quadratic minimization problem, we first need to define the space of functions in
 which we want to look for the solution. For example, in Physics, we generally
 want the solution (function that describes e.g. the shape of an elastic string)
 to be continuous. So it makes no sense to look for a minimizer with jumps.\
-\
+
 To formulate this mathematically we need the #strong[Sobolev space];. For
 functions in a Sobolev space, it is ensured that the bilinear form in the
 quadratic functional is well defined (i.e. finite). Hence the mathematical space
 in which we look for minimizers is determined by the given quadratic functional.
-To select the space for your problem, follow the guideline ... #emph[Choose the largest space such that the problem is well defined];.
+To select the space for your problem, follow the guideline ... 
+#emph[Choose the largest space such that the problem is well defined];.
 
 #mybox("Sobolev Spaces")[
   $H^1_0 (Omega)$ is a vector space with norm 
@@ -72,8 +73,7 @@ lemma for existence and uniqueness of minimizers:
 
 #theorem(number: "1.3.3.6", "Existence of minimizers in Hilbert spaces")[
   On a real Hilbert space $V$ with norm $norm(dot)_a$ for any
-  $norm(dot)_a$-bounded linear functional
-$ell : V arrow.r bb(R)$ the quadratic minimization problem
+  $norm(dot)_a$-bounded linear functional $ell : V arrow.r bb(R)$, the quadratic minimization problem
 #neq($ u_(\*) & = op("argmin", limits: #true)_(v in V) J (v)\
   J (v)  & := 1 / 2 norm(v)_a^2 - ell (v) $)
   has a unique solution.
@@ -85,20 +85,21 @@ problems, the bilinear form of the quadratic minimization problem can be seen as
 the norm of some Sobolev space. This then leads to a solution if we check
 boundedness of the linear form.
 
-For checking boundedness we can often use Cauchy-Schwarz and Poincaré-Friedrichs
-inequalities.
+For checking boundedness we can often use Cauchy-Schwarz (@eq:cauchy-schwarz-integrals) and Poincaré-Friedrichs (@thm:poincare-friedrichs).
 
+#pagebreak()
 == Linear Variational Problem
 <sub:linear-variational-problem>
 #definition(number: "1.4.1.6", "Linear Variational Problem")[
   Let $V$ be a vector (function) space, $mhat(V) subset V$ an affine space, and $V_0 subset V$ the associated subspace. The equation
-#neq($ #text("Find") u in mhat(V) med #text("such that") a (u , v) = ell (v) quad forall v in V_0 $)
-is called a (generalized) #emph[linear variational problem];, if
+  #neq($ #text("Find") u in mhat(V) med #text("such that") a (u , v) = ell (v) quad forall v in V_0 $)
+  is called a (generalized) #emph[linear variational problem];, if
 
-- $a : V times V_0 arrow.r bb(R)$ is a bilinear form
+  - $a : V times V_0 arrow.r bb(R)$ is a bilinear form
 
-- $ell : V_0 arrow.r bb(R)$ is a linear form
+  - $ell : V_0 arrow.r bb(R)$ is a linear form
 ]
+
 Knowing that a solution exists is of course not enough. And solving a
 minimization problem over infinite-dimensional spaces is not an easy task. So we
 reformulate the problems in a linear variational form which is then already
@@ -118,6 +119,7 @@ equivalence:
   - The linear variational problem $ u in mhat(V) quad a (u , v) = ell (v) &quad forall v in V_0 $ has
     the unique solution $u_(\*) in mhat(V).$
 ]<thm:variational-problem-equiv>
+
 Note that the test space $V_0$ and the trial space $mhat(V)$ can be different.
 When our problem has Dirichlet boundary conditions, we incorporate them into the
 trial space $mhat(V)$, which is also the space from which we pick a solution. In
@@ -133,7 +135,8 @@ where the solution is known!\").
 ] <thm:general-product-rule>
 
 #lemma(number: "1.5.2.4", "Gauss' Theorem")[
-  Let $bold(n) : partial Omega arrow.r bb(R)^d$ denote the exterior unit normal vector field on $partial Omega$ and $d S$ denote integration over a surface. We have
+  Let $bold(n) : partial Omega arrow.r bb(R)^d$ denote the exterior unit normal vector field
+  on $partial Omega$ and $d S$ denote integration over a surface. We have
   #neq($ integral_Omega div thin bold(j (x)) dif bx = integral_(partial Omega) bold(j (x) dot.op n (x)) dif S (x) quad forall bold(j) in (C_(upright(p w))^1 (overline(Omega)))^d $)
 ] <thm:gauss-theorem>
 

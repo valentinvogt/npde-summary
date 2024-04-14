@@ -108,7 +108,7 @@ Since polynomials are easy to differentiate and integrate, computing (bi)linear 
 We define a space of piecewise-linear functions analogously to @eq:linfem1d-space:
 #neq($ V_(0 , h) = S_1^0 (cal(M)) = {v in C^0 (overline(Omega)) : v_K (bx) = alpha_K + bold(beta)_K dot.op bx , alpha_K in bb(R) , bold(beta)_K in bb(R)^2 , bx in K} $)<eq:linfem2d-space>
 $ arrow.r upright("dim") S_1^0 (cal(M)) = \# cal(V (M)) $ And
-$S_(1 , 0)^0 (cal(M))$ would additionally require functions to be zero
+$S_(1 , 0)^0 (cal(M))$ additionally requires functions to be zero
 on $partial Omega$, with
 $ upright("dim") S_(1 , 0)^0 (cal(M)) = \# { x in cal(V (M)) : in.not partial Omega } } $
 Similarly the 1D tent functions can be extended to 2D by requiring the
@@ -199,18 +199,14 @@ b_K^3 & = (2 lambda_3 - 1) lambda_3 , quad b_K^6 = 4 lambda_1 lambda_3 $
   image("../images/triangle_nodes.png", width: 80%),
 )
 where the local basis functions 1-3 are associated with vertices and 4-6 with edges.
-Analogously, the following space is well suited for quadrilaterals:
+Analogously, the following space is well suited for quadrilaterals, as its local dimension $(p + 1)^2$ is the same as the amount of vertices and interpolation points.
 
 #definition(number: "2.6.2.5", "Tensor product Lagrangian finite element spaces")[
   #neq($ cal(S)_p^0 (cal(M)) = {v in C^0 (overline(Omega)) : v|_K in cal(Q)_p (K) , forall K in cal(M)} $) <eq:tens_lfes>
 ]
 
 Note that the choice of local polynomial space is the only difference,
-$cal(Q)_p (K)$ instead of $cal(P)_p (K)$. This space works well for
-quadrilaterals, as the dimension $(p + 1)^d = (p + 1)^2$ (in 2D) is
-again the same as the amount of vertices and interpolation points.
-
-Of course these spaces can be mixed: on mixed (so-called hybrid) meshes, we use
+$cal(Q)_p (K)$ instead of $cal(P)_p (K)$. Of course these spaces can be mixed: on mixed (so-called hybrid) meshes, we use
 @eq:simp_lfes on triangles and @eq:tens_lfes on quadrilaterals.
 
 == Implementation of Finite Element Methods
@@ -248,40 +244,40 @@ highest-dimensional entity has co-dimension 0. This ensures that cells
 are always of co-dimension 0.
 
 To assemble the Galerkin matrix,
-#weblink("https://craffael.github.io/lehrfempp/group__assemble__matrix__locally.html#ga39b4197203dd4e896bd7073fc033aca3")[ `lf::assemble::AssembleMatrixLocally`];
+#weblink("https://craffael.github.io/lehrfempp/group__assemble__matrix__locally.html#ga39b4197203dd4e896bd7073fc033aca3")[`lf::assemble::AssembleMatrixLocally`];
 can be used. To use it, we need element matrix providers
 (#weblink("https://craffael.github.io/lehrfempp/group__entity__matrix__provider.html")[docs];).
 These are constructs which provide the element matrix for given bilinear
 forms. Some common bilinear forms are already implemented.
 
-- $integral_K alpha (x) med grad med u dot.op grad med v dif x$
+- $integral_K alpha (bx) med grad med u dot.op grad med v dif bx$
   is implemented in
   #weblink("https://craffael.github.io/lehrfempp/classlf_1_1fe_1_1_diffusion_element_matrix_provider.html")[`lf::fe::DiffusionElementMatrixProvider`]
 
-- $integral_K gamma (x) med u med v dif x$ is
+- $integral_K gamma (bx) med u med v dif bx$ is
   implemented in
   #weblink("https://craffael.github.io/lehrfempp/classlf_1_1fe_1_1_mass_element_matrix_provider.html")[`lf::fe::MassElementMatrixProvider`]
 
-- $integral_e gamma (x) med u med v med dif S$ is
+- $integral_e gamma (bx) med u med v med dif S$ is
   implemented in
   #weblink("https://craffael.github.io/lehrfempp/classlf_1_1fe_1_1_mass_edge_matrix_provider.html")[`lf::fe::MassEdgeMatrixProvider`];.
-  Note the integration over edge and not cell.
+  Note the integration over an edge and not a cell.
 
-- $integral_K alpha (x) med grad med u dot.op grad med v dif x med med + integral_K gamma (x) med u med v dif x$
+- $integral_K alpha (bx) med grad med u dot.op grad med v dif bx med med + integral_K gamma (bx) med u med v dif bx$
   combined is implemented in \
-  #weblink("https://craffael.github.io/lehrfempp/classlf_1_1uscalfe_1_1_reaction_diffusion_element_matrix_provider.html")[lf::uscalfe::ReactionDiffusionElementMatrixProvider]
+  #weblink("https://craffael.github.io/lehrfempp/classlf_1_1uscalfe_1_1_reaction_diffusion_element_matrix_provider.html")[`lf::uscalfe::ReactionDiffusionElementMatrixProvider`]
 
-- $integral_K f (x) v dif x$ is implemented by
-  #weblink("https://craffael.github.io/lehrfempp/classlf_1_1fe_1_1_scalar_load_element_vector_provider.html")[lf::fe::ScalarLoadElementVectorProvider]
+- $integral_K f (bx) v dif bx$ is implemented by
+  #weblink("https://craffael.github.io/lehrfempp/classlf_1_1fe_1_1_scalar_load_element_vector_provider.html")[`lf::fe::ScalarLoadElementVectorProvider`]
 
-- $integral_e f (x) v med dif S$ is implemented by
-  #weblink("https://craffael.github.io/lehrfempp/classlf_1_1fe_1_1_scalar_load_edge_vector_provider.html")[lf::fe::ScalarLoadEdgeVectorProvider];.
-  Note again the integration over edge.
+- $integral_e f (bx) v med dif S$ is implemented by
+  #weblink("https://craffael.github.io/lehrfempp/classlf_1_1fe_1_1_scalar_load_edge_vector_provider.html")[`lf::fe::ScalarLoadEdgeVectorProvider`];.
+  Note again the integration over an edge.
 
 Note that the last two are actually element vector providers.
 
 #lemma(number: "2.7.5.5", "Integration of powers of barycentric coordinate functions")[
-  For a $d$-simplex (line in 1D, triangle in 2D, tetrahedron in 3D) with barycentric coordinate functions
+  For a $d$-simplex $K$ (line in 1D, triangle in 2D, tetrahedron in 3D) with barycentric coordinate functions
   $lambda_1 , dots.h , lambda_(d + 1)$
   #neq($ integral_K lambda_1^(alpha_1) dot.op dots.h.c dot.op lambda_(d + 1)^(alpha_(d + 1)) dif bx = d ! lr(|K|) frac(alpha_1 ! dot.op dots.h.c dot.op alpha_(d + 1) !, (alpha_1 + dots.h.c + alpha_(d + 1) + d) !) , quad alpha_i in bb(N), $)
   where $|K|$ is the volume of the simplex.
@@ -289,24 +285,16 @@ Note that the last two are actually element vector providers.
 
 #strong[Quadrature rules]
 $ integral_K f (x) dif x approx sum_(l = 1)^(P_K) w_l^K f (zeta_l^K) , quad w_l^K arrow.r upright("weights") , zeta_l^K arrow.r upright("(quadrature) nodes") $
-Order of a quadrature rule: a quad rule is of order $q$ if
+#subtle-box()[
+  *Order* of a quadrature rule: a quad rule is of order $q$ if
 
-- for a simplex $K$, it is exact for all polynomials
-  $f in cal(P)_(p - 1) (bb(R)^d)$
+  - for a simplex $K$, it is exact for all polynomials
+    $f in cal(P)_(p - 1) (bb(R)^d)$
 
-- for a tensor product element $K$, it is exact for all polynomials
-  $f in cal(Q)_(p - 1) (bb(R)^d)$
+  - for a tensor product element $K$, it is exact for all polynomials
+    $f in cal(Q)_(p - 1) (bb(R)^d)$
+]
 
-#lemma(number: "2.7.5.14", "Affine transformation of triangles")[
-  For any triangle $K$ s.t. $lr(|K|) > 0$, there is a unique affine transformation
-  $Phi_K (bxhat) = F_K bxhat + tau_K$, with $K = Phi_K (Khat)$ and
-  $Khat$ the unit triangle. 
-]<thm:affine-triangle-transformation>
-
-This is nice since it allows us to transform integrals on an arbitrary triangle to ones
-on the unit triangle and perform easy integration there. Additionally, $Phi_K$ can be
-computed straightforwardly:
-$ "Let " K "be a triangle with vertices " a^1 , a^2 , a^3 arrow.r Phi_K (bxhat) = mat(delim: "[", a_1^2 - a_1^1, a_1^3 - a_1^2; a_2^2 - a_2^1, a_2^3 - a_2^2) bxhat + mat(delim: "[", a_1^1; a_2^1) $
 #strong[Essential Boundary Conditions] Remember from @sub:essential-and-natural-boundary-conditions that essential
 boundary conditions are Dirichlet boundary conditions, i.e., $u = g$ on
 $partial Omega$, and can be solved with the offset function trick. This
@@ -339,6 +327,16 @@ the same solution as the above equation, but do it in slightly different ways
 
 == Parametric Finite Element Methods
 <sub:parametric-fem>
+#lemma(number: "2.7.5.14", "Affine transformation of triangles")[
+  For any triangle $K$ s.t. $lr(|K|) > 0$, there is a unique affine transformation
+  $Phi_K (bxhat) = F_K bxhat + tau_K$, with $K = Phi_K (Khat)$ and
+  $Khat$ the unit triangle. 
+]<thm:affine-triangle-transformation>
+
+This is nice since it allows us to transform integrals on an arbitrary triangle to ones
+on the unit triangle and perform easy integration there. Additionally, $Phi_K$ can be
+computed straightforwardly:
+$ "Let " K "be a triangle with vertices " a^1 , a^2 , a^3. "Then" Phi_K (bxhat) = mat(delim: "[", a_1^2 - a_1^1, a_1^3 - a_1^2; a_2^2 - a_2^1, a_2^3 - a_2^2) bxhat + mat(delim: "[", a_1^1; a_2^1) $
 #definition(number: "2.8.1.2",  "Pullback")[
   Given domains $Omega , mhat(Omega) subset bb(R)^d$ and a bijective mapping
   $Phi : mhat(Omega) arrow.r Omega$, the #emph[pullback] $Phi^(\*) u$ of a function

@@ -42,6 +42,11 @@ Last updated on April 11, 2024.
   If $a$ is a symmetric positive semi-definite bilinear form, then
 #neq($ lr(|a (u , v)|) lt.eq a (u , u)^(1 / 2) a (v , v)^(1 / 2) $)
 ] <thm:cauchy-schwarz>
+
+#equation(number: "1.3.4.15", "Cauchy-Schwarz for Integrals")[
+  #neq($ lr(|integral_Omega u(bx) v(bx) dif bx|) <= (integral_Omega |u(bx)|^2 dif bx)^(1 / 2) (integral_Omega |v(bx)|^2 dif bx)^(1 / 2) = norm(u)_(L^2 (Omega)) norm(v)_(L^2 (Omega)) $)
+] <eq:cauchy-schwarz-integrals>
+
 #mybox("Norms")[
 - $ bold("Supremum norm: ") norm(bold(u))_oo = norm(bold(u))_(L^oo (Omega)) := sup_(bx in Omega) " "norm(bold(u (x))) $
 - $bold(L^2) bold("norm: ") norm(bold(u))_2 = norm(bold(u))_(L^2 (Omega)) := (integral_Omega norm(bold(u (x)))^2 dif x)^(1 / 2) $
