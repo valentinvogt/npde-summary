@@ -21,8 +21,8 @@ this expression over $mu$. A continuous model is derived by replacing
 the discrete positions $mu_i$ by a function $u (x_i)$, and the mass by a
 mass density. Then, performing some manipulations, one obtains
 
-#mybox("Total energy for the continuous string model")[
-  $ J_s (u) = integral_a^b 1 / 2 frac(b - a, L) sigma (x) (sqrt(1 + lr(|u prime (x)|)^2) - frac(L, b - a))^2 + integral_a^b g rho (x) u (x) dif x $
+#mybox("Total energy for the continuous string model", ..unimportant)[
+  $ J_s (u) = integral_a^b 1 / 2 frac(b - a, L) sigma (x) (sqrt(1 + lr(|u prime (x)|)^2) - frac(L, b - a))^2 + g rho (x) u (x) dif x $
 ]
 where $sigma$ is the spring stiffness, $L$ is the total rest length of the string, and $rho$ is the mass density. The term $sqrt(1 + lr(|u' (x)|)^2)$ is the length of the spring at position $x$.
 
@@ -38,7 +38,7 @@ In the limit of a taut membrane, i.e. for $L lt.double b - a$, these
 equations just reduce to the problem of minimizing the familiar
 functionals seen in earlier chapters:
 
-#mybox("Elastic string/membrane: taut limit")[
+#mybox("Elastic string/membrane: taut limit", ..unimportant)[
   #neq($ J_s (u) &= 1 / 2 integral_a^b hat(sigma) (x) lr(|u prime (x)|)^2 + g rho (x) u (x) dif x \
   J_M (u) &= 1 / 2 integral_Omega hat(sigma) (bx) norm(grad med u (bx))^2 + g rho (bx) u (bx) dif bx $)<eq:taut-limit>
 ]
@@ -65,8 +65,8 @@ $f (t) = J (u_* + t v)$ has a minimum at $t = 0$ for every function $v$:
 This means that nonlinear variational equations can be derived by
 computing this derivative for an arbitrary $v$. As an example, for the
 elastic string model introduced in the last sub-chapter, this yields
-#mybox("Variational equations for elastic string model")[
-  $ integral_a^b frac(sigma (x), c) (sqrt(1 + lr(|u prime (x)|)^2) - c) frac(u prime (x) v (x), sqrt(1 + lr(|u prime (x)|)^2)) + g rho (x) v (x) dif x = 0 quad forall v in H_0^1 (\] a , b \[) $
+#mybox("Variational equations for elastic string model", ..unimportant)[
+  $ integral_a^b frac(sigma (x), c) (sqrt(1 + lr(|u prime (x)|)^2) - c) frac(u' (x) v' (x), sqrt(1 + lr(|u' (x)|)^2)) + g rho (x) v (x) dif x = 0 quad forall v in H_0^1 (\] a , b \[) $
 ]
 This can be formulated more generally as a #strong[general variational equation];:
 #mybox("General variational equation")[
