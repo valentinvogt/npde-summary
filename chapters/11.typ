@@ -6,7 +6,7 @@
 == Scalar Conservation Laws in 1D
 <sub:scalar-conservation-laws-in-1d>
 The goal of this chapter is solve Cauchy problems which are of the form
-#neq($ frac(partial u, partial t) (x , t) + frac(partial, partial x) (f (u (x , t) , x)) = s (u (x , t) , x , t) . $) <eq:cons_law>
+#neq($ frac(partial u, partial t) (x , t) + frac(partial, partial x) (f (u (x , t) , x)) = s (u (x , t) , x , t) . $) <eq:cons-law>
 The flux $f : bb(R) times Omega arrow.r bb(R)$ can be a general
 function, which can depend non-linearly on the solution $u$. Everything
 in this chapter will be one dimensional in space and time. So we have
@@ -33,7 +33,7 @@ in some infinitesimally small interval at position $x$ and time $t$).
 
 === Characteristics
 <sub:characteristics>
-We consider the conservation law as in @eq:cons_law with $s = 0$. Then a
+We consider the conservation law as in @eq:cons-law with $s = 0$. Then a
 characteristic curve is defined as
 #definition(number: "11.2.2.3", "Characteristic curve for 1D scalar conservation law")[
   $Gamma : [0 , T] arrow.r bb(R) times [0 , T]$ with $Gamma (tau) := (gamma (tau) , tau)$, such that $gamma$ satisfies
@@ -48,7 +48,7 @@ starts in the point $x_0$ and travels to the point in space time
 $(x , t)$. One property of characteristic curves is the following:
 
 #lemma(number: "11.2.2.6", "Classical solution and characteristic curves")[
-  Smooth solutions of @eq:cons_law with $s equiv 0$ are constant along
+  Smooth solutions of @eq:cons-law with $s equiv 0$ are constant along
   characteristic curves.
 ]
 
@@ -69,7 +69,7 @@ the solution will usually have a discontinuity after the time where the
 method of characteristics breaks down. So we study how the solution
 behaves at these jumps (discontinuities).
 
-The setting is as follows: We still study the equation @eq:cons_law with
+The setting is as follows: We still study the equation @eq:cons-law with
 $s equiv 0$. Then we can derive that along jumps, the normal components
 must be continuous, which leads to the
 #definition(number: "11.2.4.2", "Rankine-Hugoniot (jump) condition")[
@@ -111,11 +111,10 @@ If the jump only exists in the beginning we have a different solution
 The question when to choose which of the two solution is answered by
 
 #definition(number: "11.2.6.1", "Lax entropy condition")[
-  $u hat(=)$ weak solution of the @eq:cons_law piecewise classical solution in neighborhood of $C^2$-curve $Gamma := (gamma (tau) , tau) , 0 <= tau <= T$, discontinuous across $Gamma$.
+  Let $u$ be a weak solution of @eq:cons-law, and piecewise classical solution in neighborhood of $C^2$-curve $Gamma := (gamma (tau) , tau) , 0 <= tau <= T$, discontinuous across $Gamma$.
 
-  $u$ satisfies the #emph[Lax entropy condition] in $(x_0 , t_0) in Gamma$
-  $arrow.l.r.double$
-  $f prime (u_l) > frac(f (u_l) - f (u_r), u_l - u_r) > f prime (u_r)$.
+  $u$ satisfies the #emph[Lax entropy condition] in $(x_0 , t_0) in Gamma$ iff. 
+  $ f prime (u_l) > underbrace(frac(f (u_l) - f (u_r), u_l - u_r), dot(s)) > f prime (u_r) $
 ]
 
 Now if $u$ satisfies the Lax entropy condition, then we
