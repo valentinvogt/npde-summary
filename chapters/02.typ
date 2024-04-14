@@ -147,12 +147,12 @@ $cal(P)_2 (bb(R)^2) = "Span"{ 1 , x_1 , x_2 , x_1^2 , x_2^2 , x_1 x_2 }$
 
 #lemma(number: "2.5.2.5", "Dimension of spaces of Polynomials")[
   $ upright("dim") cal(P)_p (bb(R)^d) = binom(d + p, p) , quad p in bb(N)_0 , d in bb(N) $
-  which in the limit of $p arrow.r oo$ behaves like $O (p^d)$.
+  which in the limit of $p arrow.r oo$ behaves like $Order(p^d)$.
 ]
 
 #definition(number: "2.5.2.7", "Tensor Product Polynomials")[
   The space of tensor product polynomials of degree $p$ in each coordinate is
-  $ cal(Q)_p (bb(R)^d) = {bx in bb(R)^d arrow.r sum_(l_1 = 0)^p dots.h.c sum_(l_d = 0)^p c_(l_1 , dots.h , l_d) x_1^(l_1) dot.op dots.h.c dot.op x_d^(l_d) , c_(l_1 , dots.h , l_d) in bb(R)}\
+  $ cal(Q)_p (bb(R)^d) = {bx in bb(R)^d arrow.r sum_(l_1 = 0)^p dots.h.c sum_(l_d = 0)^p c_(l_1 , dots.h , l_d) x_1^(l_1) dot.op dots.h.c dot.op x_d^(l_d) , quad "where" c_(l_1 , dots.h , l_d) in bb(R)}\
   = "Span"{bx arrow.r p_1 (x_1) dot.op dots.h.c dot.op p_d (x_d) , p_i in cal(P)_p (bb(R))} $
 
 ]
@@ -172,7 +172,7 @@ constraints:
 + Each $b_h^i$ is associated with a single mesh geometry entity
   (cell/edge/face/vertex).
 
-+ Each $b_h^i$ is only locally supported, i.e. only nonzero in adjacent
++ Each $b_h^i$ is only locally supported, i.e., only nonzero in adjacent
   cells.
 
 == Lagrangian Finite Element Methods
@@ -199,7 +199,8 @@ b_K^3 & = (2 lambda_3 - 1) lambda_3 , quad b_K^6 = 4 lambda_1 lambda_3 $
   image("../images/triangle_nodes.png", width: 80%),
 )
 where the local basis functions 1-3 are associated with vertices and 4-6 with edges.
-Analogously, the following space is well suited for quadrilaterals, as its local dimension $(p + 1)^2$ is the same as the amount of vertices and interpolation points.
+
+Analogously, the following space is well suited for quadrilaterals, as its local dimension $(p + 1)^2$ is the same as the amount of vertices and interpolation points on quads.
 
 #definition(number: "2.6.2.5", "Tensor product Lagrangian finite element spaces")[
   #neq($ cal(S)_p^0 (cal(M)) = {v in C^0 (overline(Omega)) : eval(v)_K in cal(Q)_p (K) , forall K in cal(M)} $) <eq:tens_lfes>
@@ -228,7 +229,7 @@ It provides the following main methods:
   indices of the global basis function covering the given entity. Their order is determined by the local numbering of the basis functions. E.g., the global index of local basis function 0 is given by `GlobalDofIndices(cell)[0]`.
 
 - `NumInteriorDofs(const lf::mesh::Entity &)`, returns the number of
-  global basis function *associated with* the given entity (so for a triangle, the number of basis functions in the interior of the triangle, not those of the edges or vertices).
+  global basis functions *associated with* the given entity (so for a triangle, the number of basis functions in the interior of the triangle, not those of the edges or vertices).
 
 - `InteriorGlobalDofIndices(const lf::mesh::Entity &)`, similar to
   `GlobalDofIndices` but returns only the indices of the global basis
@@ -258,7 +259,7 @@ forms. Some common bilinear forms are already implemented.
   implemented in
   #weblink("https://craffael.github.io/lehrfempp/classlf_1_1fe_1_1_mass_element_matrix_provider.html")[`lf::fe::MassElementMatrixProvider`]
 
-- $integral_e gamma (bx) med u med v med dif S$ is
+- $integral_e gamma (bx) med u med v dif S$ is
   implemented in
   #weblink("https://craffael.github.io/lehrfempp/classlf_1_1fe_1_1_mass_edge_matrix_provider.html")[`lf::fe::MassEdgeMatrixProvider`];.
   Note the integration over an edge and not a cell.
@@ -270,7 +271,7 @@ forms. Some common bilinear forms are already implemented.
 - $integral_K f (bx) v dif bx$ is implemented by
   #weblink("https://craffael.github.io/lehrfempp/classlf_1_1fe_1_1_scalar_load_element_vector_provider.html")[`lf::fe::ScalarLoadElementVectorProvider`]
 
-- $integral_e f (bx) v med dif S$ is implemented by
+- $integral_e f (bx) v  dif S$ is implemented by
   #weblink("https://craffael.github.io/lehrfempp/classlf_1_1fe_1_1_scalar_load_edge_vector_provider.html")[`lf::fe::ScalarLoadEdgeVectorProvider`];.
   Note again the integration over an edge.
 
@@ -403,7 +404,7 @@ $ "Let " K "be a triangle with vertices " a^1 , a^2 , a^3. "Then" Phi_K (bxhat) 
 
 An example for this is the affine transformation of triangles (@thm:affine-triangle-transformation) above. Note that in the following we will use $hat(x)$ for an
 element that \"lives\" in a reference triangle (or quadrilateral). The
-reference triangle has corners ${ (0 , 0) , (1 , 0) , (0 , 1) \) }$, the
+reference triangle has corners ${ (0 , 0) , (1 , 0) , (0 , 1) }$; the
 reference quad is the unit square.
 
 When dealing with #emph[parametric] finite element methods, we know that 

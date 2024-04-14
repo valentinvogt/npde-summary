@@ -27,7 +27,7 @@ $V'_(0 , h) := S_(p + 1)^0 (cal(M))$, yielding a larger space: $V_(0 , h) subset
 ]
 So h-refinement refines the mesh (smaller and smaller triangles) and
 p-refinement chooses more powerful basis functions (start with linear,
-then quadratic, etc.). The h in h-refinement corresponds to the mesh
+then quadratic, etc.). The h in h-refinement refers to the mesh
 width:
 #definition(number: "3.2.1.4", "Mesh width")[
   Given a mesh $cal(M) = { K }$, the *mesh width* $h_(cal(M))$ is defined as
@@ -44,9 +44,9 @@ $N arrow.r oo$. Note that both exercises and theorems are often posed in terms o
 
 #definition(number: "3.2.2.1", "Types of convergence")[
 
-  $ norm(u - u_N)_a = cal(O) (N^(- alpha)) , alpha > 0$ is called *algebraic* convergence with rate $alpha$. \
+  $ norm(u - u_N)_a = Order(N^(- alpha)) , alpha > 0$ is called *algebraic* convergence with rate $alpha$. \
 
-  $ norm(u - u_N)_a = cal(O) (exp (- gamma N^delta)) , gamma , delta > 0$ is called *exponential* convergence.
+  $ norm(u - u_N)_a = Order(exp (- gamma N^delta)) , gamma , delta > 0$ is called *exponential* convergence.
 ]
 
 Note that in the case of h-refinement we get the relation between $N$
@@ -74,7 +74,7 @@ Since FEM is similar to polynomial interpolation, we can use interpolation error
   In 2D, linear interpolation corresponds to using tent functions: $I_1 u = sum_(p in cal(V) (cal(M))) u (p) b^p$, where $b^p$ is the tent function associated with point $p$.
   #neq($ norm(u - I_1 u)_(L^2 (Omega)) &<= C h_(cal(M))^2 norm(norm(D^2 u)_F)_(L^2 (Omega)) \
    norm(grad (u - I_1 u))_(L^2 (Omega)) &<= C rho_(cal(M)) h_(cal(M)) norm(norm(D^2 u)_F)_(L^2 (Omega)) $) <eq:lin_interpolate_2d>
-  Here, $D^2 u$ is the Hessian of $u$ --- equivalent to the second derivative, $norm(dot)_F$ is the Frobenius norm, and $rho_(cal(M))$ is the shape regularity measure of the mesh $cal(M)$, defined as $rho_(cal(M)) = max_(K in cal(M)) h_(cal(M))^2 / lr(|K|)$ for a triangular mesh.
+  Here, $D^2 u$ is the Hessian of $u$, $norm(dot)_F$ is the Frobenius norm, and $rho_(cal(M))$ is the shape regularity measure of the mesh $cal(M)$, defined as $rho_(cal(M)) = max_(K in cal(M)) h_(cal(M))^2 / lr(|K|)$ for a triangular mesh.
 ]
 
 To get rid of this cumbersome notation, we can introduce more Sobolev
@@ -121,9 +121,9 @@ So we gain one order of convergence in the $L^2$ norm compared to the $H^1$ norm
   [Rules of thumb for converge],
   [
     If we are using $cal(S)_p^0 (cal(M))$ and $u$ is sufficiently smooth (e.g., $u in C^oo (Omega)$), we have
-    $ norm(u - u_h)_(H^1 (Omega)) &= cal(O) (h^p) \
-      |u - u_h|_(H^1 (Omega)) &= cal(O) (h^p) \
-      norm(u - u_h)_(L^2 (Omega)) &= cal(O) (h^(p + 1)) $
+    $ norm(u - u_h)_(H^1 (Omega)) &= Order(h^p) \
+      |u - u_h|_(H^1 (Omega)) &= Order(h^p) \
+      norm(u - u_h)_(L^2 (Omega)) &= Order(h^(p + 1)) $
   ]
 )
 == Elliptic regularity
@@ -174,7 +174,7 @@ So the only distinction we can make is between acceptable and inacceptable "crim
 So how to not temper with the convergence?
 
 #subtle-box[
-- if $norm(u - u_h)_1 in cal(O) (h_(cal(M))^p)$, use a
+- if $norm(u - u_h)_1 in Order(h_(cal(M))^p)$, use a
   quadrature rule of order at least $2 p - 1$
 
 - if $V_(0 , h) = cal(S)_p^0 (cal(M))$ then approximate the boundary with

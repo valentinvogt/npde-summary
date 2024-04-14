@@ -1,6 +1,6 @@
 #import "theorems.typ": *
 #import "@preview/colorful-boxes:1.2.0": *
-#import "@preview/physica:0.9.3": eval
+#import "@preview/physica:0.9.3": eval, Order
 
 #let theorem = thmbox(
   "theorem", "Theorem", fill: rgb("#ffecd9"),
