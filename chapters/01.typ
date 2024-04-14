@@ -137,12 +137,12 @@ where the solution is known!\").
 #lemma(number: "1.5.2.4", "Gauss' Theorem")[
   Let $bold(n) : partial Omega arrow.r bb(R)^d$ denote the exterior unit normal vector field
   on $partial Omega$ and $d S$ denote integration over a surface. We have
-  #neq($ integral_Omega div thin bold(j (x)) dif bx = integral_(partial Omega) bold(j (x) dot.op n (x)) dif S (x) quad forall bold(j) in (C_(upright(p w))^1 (overline(Omega)))^d $)
+  #neq($ integral_Omega div bold(j (x)) dif bx = integral_(partial Omega) bold(j (x) dot.op n (x)) dif S (x) quad forall bold(j) in (C_(upright(p w))^1 (overline(Omega)))^d $)
 ] <thm:gauss-theorem>
 
 #lemma(number: "1.5.2.7", "Green's first formula")[
-  For all vector fields $bold(j) in (C^1 (overline(Omega)))^d$ and functions $v in C^1 (overline(Omega))$ holds
-  #neq($ integral_Omega bold(j) dot.op grad v dif bx = - integral_Omega div thin bold(j) thin v dif bx + integral_(partial Omega) bold(j dot.op n) v thin dif S $)
+  For all vector fields $bold(j) in (C^1_"pw" (overline(Omega)))^d$ and functions $v in C^1_"pw" (overline(Omega))$ holds
+  #neq($ integral_Omega bold(j) dot.op grad v dif bx = - integral_Omega div bold(j) thin v dif bx + integral_(partial Omega) bold(j dot.op n) v thin dif S $)
 ] <thm:greens-formula>
 
 #lemma(number: "1.5.3.4", "Fundamental lemma of the calculus of variations")[
