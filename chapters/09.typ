@@ -43,14 +43,14 @@ which looks like something we know how to solve from NumCSE.
   $ norm(u (t))_m lt.eq e^(- gamma t) norm(u_0)_m , quad norm(u (t))_a lt.eq e^(- gamma t) norm(u_0)_a quad forall t in \] 0 , T \[ $
   where $gamma = upright("diam") (Omega)^(- 2)$.
 ]
-Note that lemma also tells us that if $f$ is time-independent, the
+Note that this lemma also tells us that if $f$ is time-independent, the
 solution $u (t)$ converges exponentially (in time) to the stationary
 solution (the solution of @eq:heat-integral-form without the
 $m (dot.op , dot.op)$ part).
 
 #strong[Method of Lines]
 
-Now lets look into how we can solve @eq:heat-short. Let's apply the Galerkin discretization. As $u$ is now
+Now let's look into how we can solve @eq:heat-short. Let's apply the Galerkin discretization. As $u$ is now
 also time-dependent, we let the coefficients of $u$ (and not the basis) depend on time. $ u_h (t) = sum_(i = 1)^N mu_i (t) b_h^i $ Combining this
 with @eq:heat-short, we get
 #neq($ bold(M) {frac(dif, dif t) arrow(mu) (t)} + bA arrow(mu) (t) & = arrow(phi) (t)\
@@ -105,7 +105,7 @@ immediate. One usually considers
 The RK-SSM methods can be written down in compact form (the butcher
 scheme) as 
 #set math.mat(gap: 1em)
-$ mat(
+#neq($ mat(
   bold(c), bold(frak(A));  "", bold(b);
   delim: #none, 
   augment: #(
@@ -113,7 +113,7 @@ $ mat(
   vline: 1,
   stroke: 1pt
 ))
-$
+$) <eq:butcher>
  where $bold(c)$ is a vector containing the
 coefficients $c_i$, $bold(b)$ the coefficients $b_i$ and $frak(A)$ a
 matrix containing the coefficients $a_(i , j)$.
@@ -165,7 +165,7 @@ arrow.r frac(dif, dif t) arrow(eta) (t) + bold(D) arrow(eta) (t) = bold(T)^top a
 As $bold(D)$ is diagonal, this amounts to $N$ decoupled scalar ODEs. On those, we can perform our analysis more easily. In NumCSE you have seen that the Euler schemes and also Crank-Nicolson can be rewritten as a
 RK-SSM for appropriate coefficients, so we can study the stability of
 the general RK-SSM for the scalar case. For $dot(u) = - lambda u$, with
-the butcher scheme eq:butcher we obtain
+the butcher scheme @eq:butcher we obtain
 $Psi_lambda^(t , t + tau) u = S (- lambda tau) u$, with the stability
 function
 $ S (z) = 1 + z bold(b)^top (I - z frak(A))^(- 1) bold(1) = frac(upright("det") (bold(I) - z frak(A) + z bold(b 1)^top), upright("det") (bold(I) - z frak(A))) $
