@@ -114,8 +114,9 @@
     color: "blue",
     radius: 2pt,
   )[
+    #v(-0.2cm)
     #content
-  ]
+    ]
 }
 
 #let subtle-box = (content, width: 100%) => {
