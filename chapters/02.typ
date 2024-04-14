@@ -65,7 +65,7 @@ In FEM, the goal is to approximate $u$ by piecewise polynomial functions.
 
 A simple space for continuous, $cal(M)$-piecewise polynomial functions
 in $H_0^1 (\] a , b \[)$ consists of linear functions on each cell:
-#neq($ V_(0 , h) = S_(1 , 0)^0 (cal(M)) = {v in C^0 ([a , b]) : v|_[x_(i - 1),x_i ] upright("is linear") , i = 1 , dots.h , M , v (a) = v (b) = 0} $)<eq:linfem1d-space>
+#neq($ V_(0 , h) = S_(1 , 0)^0 (cal(M)) = {v in C^0 ([a , b]) : eval(v)_[x_(i - 1),x_i ] upright("is linear") , i = 1 , dots.h , M , v (a) = v (b) = 0} $)<eq:linfem1d-space>
 $ arrow.r N = upright("dim") S_(1 , 0)^0 (cal(M)) = M - 1 $ The
 0-superscript stands for global $C^0$ of the functions. The 1-subscript
 denotes local degree 1 polynomial and the 0-subscript denotes value 0 on the
@@ -101,7 +101,7 @@ Since polynomials are easy to differentiate and integrate, computing (bi)linear 
 
 #grid(
   columns: (0.75fr, 0.2fr),
-  "This definition does not allow for hanging nodes because of point 4. Hanging nodes are those which lie on the edge of a triangle.", 
+  "This definition does not allow for hanging nodes because of point 4. Hanging nodes are those which lie on the edge of a triangle:", 
   image("../images/hanging_node.png", width: 80%),
 )
 #v(-0.9cm)
@@ -111,7 +111,7 @@ $ arrow.r upright("dim") S_1^0 (cal(M)) = \# cal(V (M)) $ And
 $S_(1 , 0)^0 (cal(M))$ additionally requires functions to be zero
 on $partial Omega$, with
 $ upright("dim") S_(1 , 0)^0 (cal(M)) = \# { x in cal(V (M)) : in.not partial Omega } } $
-Similarly the 1D tent functions can be extended to 2D by requiring the
+Similarly, the 1D tent functions can be extended to 2D by requiring the
 cardinal property. This property is already enough since three points
 fully define a plane — in other words, knowing the values in three
 points (the vertices of a triangle) fully defines a linear function.
@@ -119,12 +119,12 @@ Cardinal bases will produce sparse Galerkin matrices, as the support of a basis 
 
 #mybox("Computation of Galerkin Matrix")[
   Often bilinear forms are defined by integration over the whole domain. But we have seen that the support of basis functions is only local. We can exploit this by performing integration only over the cells.
-  #neq($ bA_(i j) = a (b_h^j , b_h^i) = sum_(K in "supp"(b_h^j) sect "supp"(b_h^i)) a|_K thin(b_h^j , b_h^i) $)<eq:galerkin_matrix_entry>
-  where $a|_K$ is the local bilinear form over cell $K$. 
+  #neq($ bA_(i j) = a (b_h^j , b_h^i) = sum_(K in "supp"(b_h^j) sect "supp"(b_h^i)) eval(a)_K (b_h^j , b_h^i) $)<eq:galerkin_matrix_entry>
+  where $eval(a)_K$ is the local bilinear form over cell $K$. 
 ]
-#v(-1.2cm)
+#v(-1.1cm)
 #mybox("Cell oriented assembly")[
-  To further take advantage of @eq:galerkin_matrix_entry, cell oriented assembly can be performed. Go through all cells and compute $a|_K thin (b_h^j , b_h^i)$ for all pairs of basis functions associated with cell $K$ (element matrix) and add the values to the entry at $(i , j)$ of $bA$.
+  To further take advantage of @eq:galerkin_matrix_entry, cell oriented assembly can be performed. Go through all cells and compute $eval(a)_K  (b_h^j , b_h^i)$ for all pairs of basis functions associated with cell $K$ (element matrix) and add the values to the entry at $(i , j)$ of $bA$.
 ]
 The same procedure can be applied to calculating the right hand side
 vector $phi$, just that only one basis function is involved as the RHS comes from a linear functional.
@@ -202,7 +202,7 @@ where the local basis functions 1-3 are associated with vertices and 4-6 with ed
 Analogously, the following space is well suited for quadrilaterals, as its local dimension $(p + 1)^2$ is the same as the amount of vertices and interpolation points.
 
 #definition(number: "2.6.2.5", "Tensor product Lagrangian finite element spaces")[
-  #neq($ cal(S)_p^0 (cal(M)) = {v in C^0 (overline(Omega)) : v|_K in cal(Q)_p (K) , forall K in cal(M)} $) <eq:tens_lfes>
+  #neq($ cal(S)_p^0 (cal(M)) = {v in C^0 (overline(Omega)) : eval(v)_K in cal(Q)_p (K) , forall K in cal(M)} $) <eq:tens_lfes>
 ]
 
 Note that the choice of local polynomial space is the only difference,

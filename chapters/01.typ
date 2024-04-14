@@ -142,7 +142,7 @@ where the solution is known!\").
 
 #lemma(number: "1.5.2.7", "Green's first formula")[
   For all vector fields $bold(j) in (C^1_"pw" (overline(Omega)))^d$ and functions $v in C^1_"pw" (overline(Omega))$ holds
-  #neq($ integral_Omega bold(j) dot.op grad v dif bx = - integral_Omega div bold(j) thin v dif bx + integral_(partial Omega) bold(j dot.op n) v thin dif S $)
+  #neq($ integral_Omega bold(j) dot.op grad v dif bx = - integral_Omega div bold(j) thin v dif bx + integral_(partial Omega) bold(j dot.op n) thin v dif S $)
 ] <thm:greens-formula>
 
 #lemma(number: "1.5.3.4", "Fundamental lemma of the calculus of variations")[
@@ -190,11 +190,11 @@ section 1.5 and considering the boundary conditions to choose a suitable
 
 For Neumann problems there is a #strong[compatibility condition];. If we
 choose test function $v equiv 1$ we get the requirement
-$ - integral_(partial Omega) h thin dif S = integral_Omega f thin dif bx $
+$ - integral_(partial Omega) h dif S = integral_Omega f dif bx $
 for the existence of solutions. Additionally, the solution of Neumann
 problems is unique only up to constants. To address this we can use the
 constrained function space
-$ H_(\*)^1 (Omega) := { v in H^1 (Omega) : integral_Omega v thin dif bx = 0 } $
+$ H_(\*)^1 (Omega) := { v in H^1 (Omega) : integral_Omega v dif bx = 0 } $
 
 #theorem(number: "1.8.0.20", title: "Theorem", "Second Poincaré-Friedrichs inequality")[
   If $Omega subset bb(R)^d$ is bounded and connected, then

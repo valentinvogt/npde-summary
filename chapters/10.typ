@@ -1,5 +1,4 @@
 #import "../src/setup.typ": *
-#import "@preview/physica:0.9.3": eval
 
 #show: thmrules
 
