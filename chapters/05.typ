@@ -119,7 +119,7 @@ Here, the directional derivative is defined as
     $ upright(D)_u a (u^((k)) ; v) w = lim_(t arrow.r 0) frac(a (u + t w ; v) - a (u ; v), t) , quad u^((k)) in mhat(V) , quad v , w in V_0 $
   ]
 ]
-#tip("Computing the directional derivative")[
+#tip_box("Computing the directional derivative")[
   You can simply compute the defining limit by Taylor-expanding $a(u + t w, v)$. If you do this once, you notice that only the first-order term in $t$ remains: the 0th order term cancels out with $a(u, v)$, and the higher-order terms vanish in the limit $t arrow.r 0$.
   
   So a more convenient method is to do Taylor expansion and to keep only the first-order term.

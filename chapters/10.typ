@@ -211,7 +211,7 @@ triangular mesh with the advected nodes/particles.
 === Semi-Lagrangian Method
 <sub:semi-lagrangian>
 
-#tip("")[
+#tip_box("")[
   Check out this #weblink("https://youtu.be/kvBRFxRIJuY", "video") for an intuitive explanation of the method in 1D.
 ]
 

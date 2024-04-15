@@ -1,6 +1,7 @@
 #import "src/theorems.typ": *
 #import "@preview/xarrow:0.3.1": xarrow
 #import "src/setup.typ": *
+
 #show: thmrules
 #show ref: it => {
   let eq = math.equation
@@ -48,7 +49,7 @@ Last updated on #date.display("[month repr:long] [day], [year]")
 ]
 #v(-0.3cm)
 
-#tip("Tips and practical advice")[
+#tip_box("Tips and practical advice")[
   from the TAs are highlighted like this.
 ]
 

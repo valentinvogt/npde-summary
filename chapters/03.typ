@@ -49,7 +49,7 @@ $N arrow.r oo$. Note that both exercises and theorems are often posed in terms o
   $ norm(u - u_N)_a = Order(exp (- gamma N^delta)) , gamma , delta > 0$ is called *exponential* convergence.
 ]
 
-#tip(
+#tip_box(
   [Determining convergence rates],
   [
     - *algebraic* 
@@ -127,7 +127,7 @@ Another useful result hidden in the lecture notes is
   #neq($ norm(u - u_h)_(L^2 (Omega)) <= C h_(cal(M)) / p norm(u - u_h)_(H^1 (Omega)) $)
 ]
 So we gain one order of convergence in the $L^2$ norm compared to the $H^1$ norm.
-#tip(
+#tip_box(
   [Rules of thumb for converge],
   [
     If we are using $cal(S)_p^0 (cal(M))$ and $u$ is sufficiently smooth (e.g., $u in C^oo (Omega)$), we have
@@ -159,7 +159,7 @@ convex, something similar still holds:
   If $Omega subset RR^d$ is convex, $u in H_0^1 (Omega)$ and $Delta u in L^2 (Omega)$, then $u in H^2 (Omega)$.
 ]<thm:elliptic-lifting-convex-domains>
 If we are solving the Laplace equation on a convex domain, we just need to check if $f in L^2 (Omega)$, since $-Delta u = f$.
-#tip(
+#tip_box(
   [Finding $k$ in @thm:best-approximation-error],
   [
     - Often, the exercise gives you $u$ which is in $C^oo (Omega)$, which means $u$ is infinitely smooth. In this case, $k = oo$.

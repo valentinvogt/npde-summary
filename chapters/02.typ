@@ -42,7 +42,7 @@ matter, for solving the equation numerically, the choice is crucial as
 the basis determines how stable and efficiently the solution can be
 computed, as it determines for example the sparsity of $bA$.
 
-#tip([Computing the energy norm in code])[
+#tip_box([Computing the energy norm in code])[
   Sometimes, problems ask you to compute $norm(u_h)_a$, i.e., the energy norm of a discrete solution. 
   // $|u_h|_a = a(u_h,u_h) = a\left(\sum_{i=0}^N \mu_i \cdot b_i^h, \sum_{i=0}^N \mu_i \cdot b_i^h\right) $
   $ norm(u_h)_a = sqrt(a(u_h,u_h)) = a(sum_(i=0)^N mu_i b_i^h, sum_(j=0)^N mu_j b_j^h) = sum_(i=0)^N sum_(j=0)^N mu_i mu_j a(b_i^h,b_j^h) = arrow(mu)^top bA arrow(mu) $
@@ -325,7 +325,7 @@ or \
 Both modify the matrix $bA$ and RHS vector $bold(arrow(b))$ such that $bold(A arrow(mu) = arrow(b))$ has
 the same solution as the above equation, but do it in slightly different ways (see  docs).
 
-#tip([Boundary data in LehrFEM])[
+#tip_box([Boundary data in LehrFEM])[
   `FixFlaggedSolutionComponents` (in both versions) requires a lambda function `std::pair<bool, double> selector(unsigned int dof_idx)`. It returns wether the dof is to be fixed and if so, the value it should be fixed to. 
 
   We get the boundary flags with
