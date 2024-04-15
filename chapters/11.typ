@@ -267,7 +267,7 @@ The following kind of condition appears over and over in numerical
 integration and gives an upper bound for the timestep size $tau$ that can
 be used to construct the numerical solution, such that the solution is
 stable.
-#definition(number: "11.4.2.11", "Courant-Friedrichs-Lewy (CFL-) condition")[
+#definition(number: "11.4.2.11", "Courant-Friedrichs-Lewy (CFL) condition")[
   An explicit local fully discrete evolution
   $mu^((t + 1)) := cal(H) (mu)$ on uniform spatio-temporal mesh
   ($x_j = h j , j in bb(Z) , t_k = k tau , k in bb(N)$) satisfies the CFL
@@ -289,4 +289,4 @@ $L^1$ norm. This can be seen by the following fact
   Monotone numerical fluxes (@def:monotone-flux) are at most first order consistent.
 ]
 
-Alternative ways to see this is to do numerical experiments or Taylor expansion of flux functions.
+Alternative ways to see this are numerical experiments or Taylor expansion of flux functions.

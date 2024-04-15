@@ -45,7 +45,7 @@ computed, as it determines for example the sparsity of $bA$.
 #tip([Computing the energy norm in code])[
   Sometimes, problems ask you to compute $norm(u_h)_a$, i.e., the energy norm of a discrete solution. 
   // $|u_h|_a = a(u_h,u_h) = a\left(\sum_{i=0}^N \mu_i \cdot b_i^h, \sum_{i=0}^N \mu_i \cdot b_i^h\right) $
-  $ norm(u_h)_a = sqrt(a(u_h,u_h)) = a(sum_(i=0)^N mu_i b_i^h, sum_(j=0)^N mu_j b_j^h) = sum_(i=0)^N sum_(j=0)^N mu_i mu_j a(b_i^h,b_j^h) = bold(arrow(mu))^top bA bold(arrow(mu)) $
+  $ norm(u_h)_a = sqrt(a(u_h,u_h)) = a(sum_(i=0)^N mu_i b_i^h, sum_(j=0)^N mu_j b_j^h) = sum_(i=0)^N sum_(j=0)^N mu_i mu_j a(b_i^h,b_j^h) = arrow(mu)^top bA arrow(mu) $
   So it can be computed as `sqrt(mu.transpose() * A * mu)`.
 ]
 
@@ -426,7 +426,7 @@ analysis)
 
 where we have simply applied the pullback to both functions, switched to integration on $Khat$, and added an integration element. Similarly, for the diffusion matrix we get
 
-#neq($ integral_K gradsub(bx) &b_K^i (x) dot.op gradsub(bx) b_K^j (x) dif x \
+#neq($ integral_K gradsub(bx) &b_K^j (x) dot.op gradsub(bx) b_K^i (x) dif x \
 &= integral_(Khat) Phi_K^(\*) (gradsub(bx) b_K^j) (hat(x)) thin dot thin Phi_K^(\*) (gradsub(bx) b_K^i) (hat(x)) med sqrt(det (D Phi_K^top (hat(x)) D Phi_K (hat(x)))) dif x . $) <eq:diffusion-matrix-pullback>
 
 by pulling back the global gradients (denoted by $gradsub(x)$) of the global shape functions.
@@ -440,7 +440,7 @@ In the simpler case of square $Phi$, this simplifes to $det (Phi_K)$. For both c
 
 The next thing which needs clarification is
 $Phi_K^(\*) (gradsub(bx) b_K^i)$, pullback of the gradient.
-As the gradient $gradsub(bx) b_K^j (x)$ depends on the shape of
+As the gradient $gradsub(bx) b_K^i (x)$ depends on the shape of
 $K$, it would be complicated to compute this term directly.
 
 Therefore we use

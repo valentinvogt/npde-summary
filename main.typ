@@ -9,7 +9,6 @@
     // Override equation references.
     link(
       it.at("target"), numbering(el.numbering, ..counter(eq).at(el.location())),
-
     )
 []
     

@@ -3,9 +3,10 @@
 
 = Second-Order Linear Evolution Problems
 <ch:second-order-evolution-problems>
+#counter(heading).update((9,1))
 == Parabolic Initial-Boundary Value Problems
 <sub:parabolic-ivps>
-#strong[Heat Equation]
+=== Heat Equation
 
 In local form the heat equation is given by
 #neq($ frac(partial, partial t) (rho u) - div (kappa (bx) grad u) = f quad upright("in ") tilde(Omega) = Omega times \] 0 , T \[ $) <eq:heat-local>
@@ -36,7 +37,8 @@ as only $u$ depends on time (note that importantly, the domain $Omega$ also stay
 which looks like something we know how to solve from NumCSE.
 
 #pagebreak()
-#strong[Stability]
+#counter(heading).update((9,2,2))
+=== Stability
 
 #lemma(number: "9.2.3.8.", "Decay of solutions of parabolic evolutions")[
   If $f equiv 0$, the solution $u (t)$ of the heat equation @eq:heat-integral-form satisfies
@@ -45,10 +47,10 @@ which looks like something we know how to solve from NumCSE.
 ]
 Note that this lemma also tells us that if $f$ is time-independent, the
 solution $u (t)$ converges exponentially (in time) to the stationary
-solution (the solution of @eq:heat-integral-form without the
+solution (the solution of @eq:heat-short without the
 $m (dot.op , dot.op)$ part).
 
-#strong[Method of Lines]
+=== Method of Lines
 
 Now let's look into how we can solve @eq:heat-short. Let's apply the Galerkin discretization. As $u$ is now
 also time-dependent, we let the coefficients of $u$ (and not the basis) depend on time. $ u_h (t) = sum_(i = 1)^N mu_i (t) b_h^i $ Combining this
@@ -115,7 +117,7 @@ scheme) as
 ))
 $) <eq:butcher>
  where $bold(c)$ is a vector containing the
-coefficients $c_i$, $bold(b)$ the coefficients $b_i$ and $frak(A)$ a
+coefficients $c_i$, $bold(b)$ the coefficients $b_i$ and $bold(frak(A))$ a
 matrix containing the coefficients $a_(i , j)$.
 
 So continuing from @eq:heat-galerkin with different time stepping
@@ -140,7 +142,7 @@ system of equations
 $ bold(M) arrow(kappa)_i + sum_(m = 1)^s tau a_(i , m) bA arrow(kappa)_m & = arrow(phi) (t_j + c_i tau) - bA arrow(mu)^((j))\
 arrow(mu)^((j + 1)) & = arrow(mu)^((j)) + tau sum_(m = 1)^s b_m arrow(kappa)_m $
 with the Kronecker product, this can be rewritten as
-$ (bold(I)_s times.circle bold(M) + tau frak(A) times.circle bA) mat(delim: "[", arrow(kappa)_1; dots.v; arrow(kappa)_s) = mat(delim: "[", arrow(phi) (t_j + c_1 tau) - bA arrow(mu)^((j)); dots.v; arrow(phi) (t_j + c_s tau) - bA arrow(mu)^((j))) $
+$ (bold(I)_s times.circle bold(M) + tau bold(frak(A)) times.circle bA) mat(delim: "[", arrow(kappa)_1; dots.v; arrow(kappa)_s) = mat(delim: "[", arrow(phi) (t_j + c_1 tau) - bA arrow(mu)^((j)); dots.v; arrow(phi) (t_j + c_s tau) - bA arrow(mu)^((j))) $
 which can be used to solve for the increments $arrow(kappa)_i$.
 
 Recall stiff initial value problems:
@@ -162,13 +164,13 @@ eigenvector basis, one can diagonalize @eq:heat-galerkin.
 $ arrow(mu) (t) = sum_k eta_k (t) arrow(psi)_k arrow.l.r.double arrow(mu) (t) = bold(T) arrow(eta) (t) arrow.l.r.double bold(T^top M) arrow(mu) (t) = arrow(eta) (t)\
 arrow.r bold(M T) frac(dif, dif t) arrow(eta) (t) + bold(M T D) arrow(eta) (t) = arrow(phi) (t)\
 arrow.r frac(dif, dif t) arrow(eta) (t) + bold(D) arrow(eta) (t) = bold(T)^top arrow(phi) (t) $
-As $bold(D)$ is diagonal, this amounts to $N$ decoupled scalar ODEs. On those, we can perform our analysis more easily. In NumCSE you have seen that the Euler schemes and also Crank-Nicolson can be rewritten as a
-RK-SSM for appropriate coefficients, so we can study the stability of
+As $bold(D)$ is diagonal, this amounts to $N$ decoupled scalar ODEs. On those, we can perform our analysis more easily. In NumCSE you have seen that both Euler and Crank-Nicolson can be rewritten as a
+RK-SSM with appropriate coefficients, so we can study the stability of
 the general RK-SSM for the scalar case. For $dot(u) = - lambda u$, with
 the butcher scheme @eq:butcher we obtain
 $Psi_lambda^(t , t + tau) u = S (- lambda tau) u$, with the stability
 function
-$ S (z) = 1 + z bold(b)^top (I - z frak(A))^(- 1) bold(1) = frac(upright("det") (bold(I) - z frak(A) + z bold(b 1)^top), upright("det") (bold(I) - z frak(A))) $
+$ S (z) = 1 + z bold(b)^top (I - z bold(frak(A)))^(- 1) bold(1) = frac(upright("det") (bold(I) - z bold(frak(A)) + z bold(b 1)^top), upright("det") (bold(I) - z bold(frak(A)))) $
 
 #strong[Unconditional stability of single step methods] A necessary
 condition for unconditional stability of a single step method, is that
@@ -181,10 +183,10 @@ $dot(u) = - lambda u$ satisfies $ lambda > 0 arrow.r lim_(j arrow.r oo) (Psi_lam
 ]
 
 Plugging $- oo$ int $S$ we obtain
-$S (- oo) = 1 - bold(b)^top frak(A)^(- 1) bold(1)$, which is equal to
-zero if $bold(b)$ is equal to the last row of $frak(A)$.
+$S (- oo) = 1 - bold(b)^top bold(frak(A))^(- 1) bold(1)$, which is equal to
+zero if $bold(b)$ is equal to the last row of $bold(frak(A))$.
 
-#theorem(number: "9.2.8.5", "Meta-theorem: Convergence of fully discrete evolution")[
+#theorem(number: "9.2.8.5", [Meta-theorem --- Convergence of fully discrete evolution])[
   Assume that 
   - the solution of the parabolic IBVP is "sufficiently smooth"
   - its spatial Galerkin finite element discretization relies on degree $p$ Lagrangian finite elements on uniformly shape-regular families of meshes
@@ -197,14 +199,14 @@ zero if $bold(b)$ is equal to the last row of $frak(A)$.
 ]
 Hence the total error is the spatial error plus the temporal error.
 
-== Models for Vibrating Membrane
-<sub:models-for-vibrating-membrane>
-#strong[Wave Equation] In local form, the (linear) wave equation is
-given by
+== Linear wave equations
+<sub:linear-wave-equations>
+
+In local form, the (linear) wave equation is given by
 #neq($ rho (bx) frac(partial^2, partial t^2) u - div (sigma (bx) grad u) = f quad upright("in ") tilde(Omega) $) <eq:wave-strong>
 
 Note the similarity to the heat equation @eq:heat-local. Since the wave equation is a second order ODE $accent(bold(u), dot.double) = bold(f (u))$,
-two initial conditions are needed. Additionally to the initial conditions @eq:heat-bc-ic, the initial velocity
+two initial conditions are needed. In addition to the initial conditions @eq:heat-bc-ic, the initial velocity
 $ frac(partial, partial t) u (bx , 0) = v_0 (bx) quad upright("for all ") bx in Omega $
 is also needed.
 
@@ -231,7 +233,8 @@ We can formulate the variational problem:
   where
   $1 / 2 m (frac(partial, partial t) u , frac(partial, partial t) u)$ can be understood as the 'kinetic' energy and $1 / 2 a (u , u)$ as the 'potential' energy.
 ]
-#strong[Method of Lines]
+#counter(heading).update((9,3,2))
+=== Method of Lines
 
 The method of lines gives rise to
 $ bold(M) {frac(d^2, d t^2) arrow(mu) (t)} + bA arrow(mu) (t) & = arrow(phi) (t)\
