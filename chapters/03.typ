@@ -49,6 +49,16 @@ $N arrow.r oo$. Note that both exercises and theorems are often posed in terms o
   $ norm(u - u_N)_a = Order(exp (- gamma N^delta)) , gamma , delta > 0$ is called *exponential* convergence.
 ]
 
+#tip(
+  [Determining convergence rates],
+  [
+    - *algebraic* 
+    $ alpha approx (log epsilon.alt_(i-1) - log epsilon.alt_i)/(log N_i - log N_(i-1)) = log(epsilon.alt_i\/epsilon.alt_(i-1))/log(h_i\/h_(i-1)) $
+    - *exponential* In general: complicated (see §3.2.2.5 Lecture Notes)
+      
+      If $delta=1$ (plain exponential convergence) and we let $N$ increase linearly (e.g., $N_i = i$), $ epsilon.alt_(i+1)/epsilon.alt_i approx exp(-gamma) $
+  ]
+)
 Note that in the case of h-refinement we get the relation between $N$
 and $h$ given by
 #equation(number: "3.2.2.1")[
