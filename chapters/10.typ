@@ -73,14 +73,17 @@ with the left-hand side the bilinear form $a (u , v)$. However, $a$ is
 not symmetric. This also means that it does not induce an energy norm.
 However, it is still positive definite (see lecture document).
 
-#strong[Singular perturbation] A boundary value problem depending on a
+#strong[Singular perturbation]
+
+A boundary value problem depending on a
 parameter $epsilon.alt$ is called singularly perturbed, if the limit
 problem for $epsilon.alt arrow.r epsilon.alt_0$ is not compatible with
 the boundary conditions.
 
 For $epsilon.alt = 0$ the above PDE is singular perturbed. It cannot
 satisfy Dirichlet boundary conditions on the outflow part of the
-boundary.
+boundary. 
+// TODO: give a clear example
 $Gamma_(upright("out")) = bx in partial Omega : bold(v (x)) dot.op bold(n (x)) > 0$,
 similarly
 $Gamma_(upright("in")) = bx in partial Omega : bold(v (x)) dot.op bold(n (x)) < 0$
@@ -167,26 +170,19 @@ Strang Splitting single step method provides a method to solve this.
 #mybox("Strang Splitting")[
   Compute $bold(y)^((j + 1))$ given
   $bold(y)^((j))$ according to
-  $  tilde(bold(y)) = bold(z) (t_j + 1 / 2 tau) , #h(2em) upright(" where ") bold(z) (t) upright(" solves ") dot(bold(z)) = bold(g) (t , bold(z)) , bold(z) (t_j) = bold(y)^((j))\
-  hat(bold(y)) = bold(w) (t_(j + 1)) , #h(2em) upright(" where ") bold(w) (t) upright(" solves ") dot(bold(z)) = bold(r) (t , bold(w)) , bold(w) (t_j) = tilde(bold(y))\
-  bold(y)^((j + 1)) = bold(z) (t_(j + 1)) , #h(2em) upright(" where ") bold(z) (t) upright(" solves ") dot(bold(z)) = bold(g) (t , bold(z)) , bold(z) (t_j + 1 / 2) = hat(bold(y)) $
+  $  tilde(bold(y)) &= bold(z) (t_j + 1 / 2 tau) , #h(2em) &&upright(" where ") bold(z) (t) &&upright(" solves ") dot(bold(z)) &&= bold(g) (t , bold(z)) , bold(z) (t_j) = bold(y)^((j))\
+  hat(bold(y)) &= bold(w) (t_(j + 1)) , #h(2em) &&upright(" where ") bold(w) (t) &&upright(" solves ") dot(bold(z)) &&= bold(r) (t , bold(w)) , bold(w) (t_j) = tilde(bold(y))\
+  bold(y)^((j + 1)) &= bold(z) (t_(j + 1)) , #h(2em) &&upright(" where ") bold(z) (t) &&upright(" solves ") dot(bold(z)) &&= bold(g) (t , bold(z)) , bold(z) (t_j + 1 / 2 tau) = hat(bold(y)) $
   and $t_(j + 1) = t_j + tau$
 ]
 #v(-1cm)
 #theorem(number: "10.3.3.5", "Order of Strang splitting single step method")[
-  Assuming exact or second order accuracy solution of the initial value
-  problems of the sub-steps, the Strang splitting method is of
-  second order.
+  If the IVP in each sub-step is solved exactly or with a 2nd-order time stepping method, the Strang splitting method is of second order.
 ]
 We can now apply this to Eq. @eq:transient_conv_diff.
-$ A && B quad && C E \
- M quad && N && P $
 $ frac(partial, partial t) &u &= quad& epsilon.alt  Delta u & quad f - bold(v) & dot.op grad u\
   &arrow.t.b & quad & med med arrow.t.b & quad & med med arrow.t.b\
-  & dot(bold(y)) &= quad bold(&g (y)) & &bold(r(y)) $ This amount to once
-// $ frac(partial, partial t) &u quad &= & quad epsilon.alt Delta u & quad f - bold(v) dot.op grad u\
-// arrow.t.b &  & arrow.t.b & arrow.t.b\
-// dot(bold(&y)) & =  bold(g (y)) & bold(r (y)) $ This amount to once
+  & dot(bold(y)) &= quad bold(&g (y)) & &bold(r(y)) $ This amounts to once
 solving pure diffusion
 $ frac(partial t, partial z) - epsilon.alt Delta z = 0 $ and once pure
 transport
@@ -199,7 +195,7 @@ streamlines. One idea is to solve it with the particle method.
   positions
 
 + Solve initial value problems
-  $ bold(dot(y)) (t) = bold(v \( y ,) t \) quad , quad bold(y) (0) = bold(p)_i $
+  $ bold(dot(y)) (t) = bold(y)(bold(v)(t), t) quad , quad bold(y) (0) = bold(p)_i $
   with suitable single step methods
 
 + Reconstruct the approximation. With the composite midpoint rule
@@ -211,18 +207,25 @@ leave the domain. Because of the movement of the nodes and potential
 creation and deletion, each step we need to re-mesh, i.e., create a new
 triangular mesh with the advected nodes/particles.
 
-#strong[Semi Lagrangian]
+#counter(heading).update((10,3,3))
+=== Semi-Lagrangian Method
+<sub:semi-lagrangian>
 
-Another method, which relies on a fixed mesh, is the semi Lagrangian method.
-#definition(number: "10.3.4.2", "Material derivative")[
+#tip("")[
+  Check out this #weblink("https://youtu.be/kvBRFxRIJuY", "video") for an intuitive explanation of the method in 1D.
+]
+
+Another method which relies on a fixed mesh is the Semi-Lagrangian method.
+#definition(number: "10.3.4.2", "Material derivative", ..unimportant)[
   Given a velocity field $bold(v)$, the material derivative of a function
   $f$ is given by
-  $ frac(D f, D bold(v)) (bx , t_0) = lim_(tau arrow.r 0) frac(f (bx , t_0) - f (Phi^(t_0 , - tau) bx , t_0 - tau), tau) $
+  $ frac(D f, D bold(v)) (bx , t_0) = lim_(tau arrow.r 0) frac(f (bx , t_0) - f (Phi^(t_0 , t_0 - tau) bx , t_0 - tau), tau) $
 ]
 
 By the chain rule we find
 $ frac(D f, D bold(v)) (bx , t) = grad f (bx , t) dot.op bold(v \( x) , t \) + frac(partial t, partial f) (bx , t) $
-Hence the transient convection diffusion Eq.
+
+Hence the transient convection-diffusion equation
 @eq:transient_conv_diff can be rewritten as
 $ frac(D u, D bold(v)) - epsilon.alt Delta u = f quad upright(" in ") Omega $
 By using a backwards difference of the material derivative, we get a
@@ -237,6 +240,6 @@ and is hence not a finite element function on $cal(M)$. To get around
 this, simply replace it by its linear interpolant
 $I_1 (u^((j - 1)) circle.stroked.tiny Phi^(t_j , t_j - tau))$ and
 replace $Phi^(t_j , t_j - tau) bx$ by
-$bx - tau bold(v \( x ,) t_j \)$ (explicit Euler).
-$ integral_Omega frac(u^((j)) (bx) - I_i (u^((j - 1)) (dot.op - tau bold(v \( dot.op ,) t_j)) \) (bx), tau) v dif bx + epsilon.alt integral_Omega grad u^((j)) dot.op grad v dif bx = integral_Omega f (bx , t_j) v dif bx $
-This can be implemented now.
+$bx - tau bold(v)(bx, t_j \)$ (explicit Euler).
+$ integral_Omega frac(u^((j)) (bx) - I_1 lr({u^((j - 1)) (bold(s) - tau bold(v)(bold(s) , t_j))}, size: #110%) (bx), tau) v dif bx + epsilon.alt integral_Omega grad u^((j)) dot.op grad v dif bx = integral_Omega f (bx , t_j) v dif bx $
+Here, $bold(s)$ is the variable which the interpolation operator $I_1$ acts on (in the lecture notes, this variable is written as a dot "$med dot.op med$"). The above equation still looks quite complicated, but can be implemented.
