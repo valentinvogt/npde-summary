@@ -24,12 +24,12 @@ $ bold(v (x) dot.op n (x)) = 0 , quad forall bx in partial Omega $
 
 
 #strong[Fourier’s law in a moving fluid]
-$ bold(j (x)) = - kappa grad med u (bx) + bold(v (x)) rho u (bx) $
+$ bold(j (x)) = - kappa grad  u (bx) + bold(v (x)) rho u (bx) $
 with $kappa$ the heat conductivity and $rho$ the volumetric heat
 capacity. We already know the first part, called diffusive heat flux, from the
 heat equation. The second part is called convective heat flux. With this
 new flux, the standard PDE becomes
-#neq($ - div (kappa grad med u) + div (rho bold(v (x)) u) = f quad upright("in ") Omega $) <eq:convection-diffusion-strong>
+#neq($ - div (kappa grad u) + div (rho bold(v (x)) u) = f quad upright("in ") Omega $) <eq:convection-diffusion-strong>
 #strong[Incompressible Fluids]
 
 A fluid is called incompressible if its
@@ -51,10 +51,10 @@ Hence the fluid is incompressible if its flow velocity is divergence-free.
 In case of incompressibility, equation @eq:convection-diffusion-strong can be
 simplified using the general product rule @thm:general-product-rule and
 $upright("div ") bold(v) = 0$
-$ - div (kappa grad med u) + bold(v (x)) dot.op grad rho u = f quad upright("in ") Omega $
+$ - div (kappa grad u) + bold(v (x)) dot.op grad rho u = f quad upright("in ") Omega $
 We can also look at the time-dependent heat flow, which is similar to
 the heat equation @eq:wave-variational
-$ frac(partial, partial t) med (rho u) - div (kappa grad med u) + div (rho med bold(v) (bx ,t) med bu) = f quad upright("in ") Omega $
+$ frac(partial, partial t) med (rho u) - div (kappa grad u) + div (rho med bold(v) (bx ,t) med bu) = f quad upright("in ") Omega $
 We will see later on how this can be solved.
 
 #pagebreak()
@@ -68,12 +68,12 @@ Non-dimensionalizing the problem results in
 $ - epsilon.alt Delta u + bold(v (x)) dot.op grad u = f quad upright("in ") Omega , #h(2em) u = 0 quad upright("on ") partial Omega $
 with $norm(bold(v))_(L^oo (Omega)) = 1$. This results in the following
 variational form
-#neq($ epsilon.alt integral_Omega grad u dot.op grad v dif bx + integral_Omega (bold(v) dot.op grad u) v dif bx = integral_Omega f (bx) v dif x $) <eq:convection-diffusion-weak>
-with the left-hand side the bilinear form $a (u , v)$. However, $a$ is
+#neq($ epsilon.alt integral_Omega grad u dot.op grad w dif bx + integral_Omega (bold(v) dot.op grad u) w dif bx = integral_Omega f (bx) w dif x $) <eq:convection-diffusion-weak>
+with the left-hand side the bilinear form $a (u , w)$. However, $a$ is
 not symmetric. This also means that it does not induce an energy norm.
 However, it is still positive definite (see lecture document).
 
-#strong[Singular perturbation]
+=== Singular perturbation
 
 A boundary value problem depending on a
 parameter $epsilon.alt$ is called singularly perturbed, if the limit
@@ -88,7 +88,7 @@ $Gamma_(upright("out")) = bx in partial Omega : bold(v (x)) dot.op bold(n (x)) >
 similarly
 $Gamma_(upright("in")) = bx in partial Omega : bold(v (x)) dot.op bold(n (x)) < 0$
 
-#strong[Upwinding]
+=== Upwinding
 
 When trying to solve Eq. @eq:convection-diffusion-weak with
 the Galerkin approach, when $epsilon.alt$ is very close to 0, one can
@@ -98,12 +98,12 @@ So our goal is to get a robust method that can solve Eq.
 @eq:convection-diffusion-weak no matter the $epsilon.alt$.
 
 Consider again Eq. @eq:convection-diffusion-weak but in $d = 1$ and with zero boundary conditions
-$ epsilon.alt integral_0^1 frac(partial u, partial x) frac(partial v, partial x) dif x + integral_0^1 frac(partial u, partial x) v dif x = integral_0^1 f (x) v dif x $
+$ epsilon.alt integral_0^1 frac(partial u, partial x) frac(partial w, partial x) dif x + integral_0^1 frac(partial u, partial x) w dif x = integral_0^1 f (x) w dif x $
 To calculate the Galerkin matrix for an equidistant mesh with $M$ cells,
 we use the global composite trapezoidal rule for the convective term
 $ integral_0^1 psi (x) dif x = h sum_(j = 0)^M psi (j h) $
 Hence the convective term of the bilinear form will be approximated by
-$ integral_0^1 frac(partial u_h, partial x) v_h dif x approx h sum_(j = 1)^(M - 1) frac(partial u_h, partial x) med (j h) v_h (j h) $
+$ integral_0^1 frac(partial u_h, partial x) w_h dif x approx h sum_(j = 1)^(M - 1) frac(partial u_h, partial x) med (j h) w_h (j h) $
 But $frac(partial u_h, partial x) med (j h)$ is not valid, as it's
 discontinuous at the nodes for $u_h in cal(S)_(1 , 0)^0$. However,
 convection transports the information in the direction of $bold(v)$ ($= 1$
@@ -112,7 +112,8 @@ $ frac(partial u_h, partial x) med (j h) = lim_(delta arrow.r 0) frac(partial u_
 And generalized in more dimensions
 $ bold(v (p)) dot.op grad u_h (bold(p)) = lim_(delta arrow.r 0) bold(v (p)) dot.op grad u_h (bold(p) - delta bold(v (p))) $
 
-#strong[Streamline diffusion]
+#counter(heading).update((10,2,2,1))
+==== Streamline Diffusion
 
 A totally different idea to fix the
 problem of $epsilon.alt arrow.r 0$ is to add some $h$-dependent

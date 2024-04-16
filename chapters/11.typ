@@ -1,17 +1,21 @@
 #import "../src/setup.typ": *
 #show: thmrules
 
-= Numerical Methods for Conservation-Laws
+= Numerical Methods for Conservation  Laws
 <ch:conservation-laws>
+#counter(heading).update((11,1))
 == Scalar Conservation Laws in 1D
 <sub:scalar-conservation-laws-in-1d>
-The goal of this chapter is solve Cauchy problems which are of the form
-#neq($ frac(partial u, partial t) (x , t) + frac(partial, partial x) (f (u (x , t) , x)) = s (u (x , t) , x , t) . $) <eq:cons-law>
+The goal of this chapter is solve general conservation laws which are of the form
+#neq($ frac(partial u, partial t) (x , t) + frac(partial, partial x) (f (u (x , t) , x)) = s (u (x , t) , x , t) . $) <eq:general-cons-law>
 The flux $f : bb(R) times Omega arrow.r bb(R)$ can be a general
 function, which can depend non-linearly on the solution $u$. Everything
 in this chapter will be one dimensional in space and time. So we have
 $Omega subset.eq bb(R)$.
 
+We usually consider the special case $s = 0$ and $f=f(u)$, known as the *Cauchy problem*
+#neq($ frac(partial u, partial t) + frac(partial, partial x) f (u) &= 0 \
+u(x,0) &= u_0 (x) $) <eq:cauchy-problem>
 #strong[Particle Model]
 
 One first example is the particle model, in the lecture we took cars as
@@ -31,9 +35,10 @@ $ frac(partial u, partial t) (x , t) = frac(partial, partial x) u (1 - u) , $
 where $u$ describes the care density (average number of cars on the road
 in some infinitesimally small interval at position $x$ and time $t$).
 
+#counter(heading).step(level: 3)
 === Characteristics
 <sub:characteristics>
-We consider the conservation law as in @eq:cons-law with $s = 0$. Then a
+We consider the Cauchy problem @eq:cauchy-problem. Then a
 characteristic curve is defined as
 #definition(number: "11.2.2.3", "Characteristic curve for 1D scalar conservation law")[
   $Gamma : [0 , T] arrow.r bb(R) times [0 , T]$ with $Gamma (tau) := (gamma (tau) , tau)$, such that $gamma$ satisfies
@@ -48,7 +53,7 @@ starts in the point $x_0$ and travels to the point in space time
 $(x , t)$. One property of characteristic curves is the following:
 
 #lemma(number: "11.2.2.6", "Classical solution and characteristic curves")[
-  Smooth solutions of @eq:cons-law with $s equiv 0$ are constant along
+  Smooth solutions of @eq:cauchy-problem are constant along
   characteristic curves.
 ]
 
@@ -61,6 +66,7 @@ But this does not work if the solution is not smooth. For example, in
 the traffic flow model above, the solution has a jump after a certain
 time and hence this approach breaks down.
 
+#counter(heading).step(level: 3)
 === Jump conditions and Riemann Problem
 <sub:jump-conditions-and-riemann-problem>
 The method of characteristics usually only works up to a certain point
@@ -69,8 +75,7 @@ the solution will usually have a discontinuity after the time where the
 method of characteristics breaks down. So we study how the solution
 behaves at these jumps (discontinuities).
 
-The setting is as follows: We still study the equation @eq:cons-law with
-$s equiv 0$. Then we can derive that along jumps, the normal components
+The setting is as follows: We still study the Cauchy problem @eq:cauchy-problem. We can derive that along jumps, the normal components
 must be continuous, which leads to the
 #definition(number: "11.2.4.2", "Rankine-Hugoniot (jump) condition")[
   $ dot(s) (u_l - u_r) = f (u_l) - f (u_r) $ where
@@ -111,7 +116,7 @@ If the jump only exists in the beginning we have a different solution
 The question when to choose which of the two solution is answered by
 
 #definition(number: "11.2.6.1", "Lax entropy condition")[
-  Let $u$ be a weak solution of @eq:cons-law, and piecewise classical solution in neighborhood of $C^2$-curve $Gamma := (gamma (tau) , tau) , 0 <= tau <= T$, discontinuous across $Gamma$.
+  Let $u$ be a weak solution of @eq:cauchy-problem, and a piecewise classical solution in neighborhood of $C^2$-curve $Gamma := (gamma (tau) , tau) , 0 <= tau <= T$, discontinuous across $Gamma$.
 
   $u$ satisfies the #emph[Lax entropy condition] in $(x_0 , t_0) in Gamma$ iff. 
   $ f prime (u_l) > underbrace(frac(f (u_l) - f (u_r), u_l - u_r), dot(s)) > f prime (u_r) $
@@ -122,7 +127,6 @@ have to pick the shock solution. Otherwise we pick the rarefaction
 solution.
 
 #counter(heading).update((11,2,6))
-// #set heading(numbering: "counter", level: 2)
 === Properties of Entropy Solutions
 <sub:properties-of-entropy-solutions>
 The essential properties here are that with the propagation speed
@@ -282,11 +286,13 @@ Applied to our problem, this means
 #counter(heading).update((11,4,3))
 === Convergence of Fully Discrete FV Method
 <sub:convergence-of-fully-discrete-fv>
-We essentially get at most order one convergence in the maximum and the
-$L^1$ norm. This can be seen by the following fact
+The *consistency error* is defined as follows:
+$ epsilon.alt := max_j {F(u(x_j, t), u(x_(j+1), t)) - f(u(x_(j+1/2), t))}, $
+if we assume $u$ to be an exact solution of If $epsilon.alt = Order(h^q)$, the flux is called _q-th order consistent_. $q$ is then the order of convergence of the FV method.
 
+We get at most order one convergence in the maximum and the
+$L^1$ norm. This can be seen by the following fact
 #mybox("Order barrier for monotone numerical fluxes")[
   Monotone numerical fluxes (@def:monotone-flux) are at most first order consistent.
 ]
-
 Alternative ways to see this are numerical experiments or Taylor expansion of flux functions.

@@ -92,16 +92,16 @@ spaces.
 
 #definition(number: "3.3.3.1", "Higher order Sobolev spaces/norms", ..unimportant)[
   The $m$-th order Sobolev norm is defined as
-  #neq($ norm(u)_(H^m (Omega))^2 = sum_(k = 0)^m sum_(alpha in bb(N)^d , lr(|alpha|) = k) integral_Omega lr(|D^alpha u|)^2 dif bx, wide "where" D^alpha u = frac(partial^(lr(|alpha|)) u, partial x_1^(alpha_1) dots.h.c thin partial x_d^(alpha_d)) $)
+  #neq($ norm(u)_(H^m (Omega))^2 = sum_(k = 0)^m sum_(balpha in bb(N)^d , lr(|balpha|) = k) integral_Omega lr(|D^balpha u|)^2 dif bx, wide "where" D^balpha u = frac(partial^(lr(|balpha|)) u, partial x_1^(alpha_1) dots.h.c thin partial x_d^(alpha_d)) $)
   Hence we can define the $m$-th Sobolev space as
   #neq($ H^m (Omega) = {v : Omega arrow.r bb(R) : norm(v)_(H^m (Omega)) < oo} $)
 ]
 #definition(number: "3.3.3.3", "Higher order Sobolev semi-norms", ..unimportant)[
   The $m$-th order Sobolev semi-norm is defined as
-  #neq($ lr(|u|)_(H^m (Omega))^2 = sum_(alpha in bb(N)^d , lr(|alpha|) = m) integral_Omega lr(|D^alpha u|)^2 dif bx $)
+  #neq($ lr(|u|)_(H^m (Omega))^2 = sum_(bold(alpha) in bb(N)^d , lr(|bold(alpha)|) = m) integral_Omega lr(|D^bold(alpha) u|)^2 dif bx $)
 ]
 
-Remember the multi-index $alpha$ already seen in @concept:multi-index. Using
+Remember the multi-index $balpha$ already seen in @concept:multi-index. Using
 this new notation, we can rewrite the error bounds from
 @eq:lin_interpolate_2d as
 $ norm(u - I_1 u)_(L^2 (Omega)) &<= C h_(cal(M))^2 lr(|u|)_(H^2 (Omega)) \

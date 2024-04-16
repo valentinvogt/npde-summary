@@ -40,7 +40,7 @@ functionals seen in earlier chapters:
 
 #mybox("Elastic string/membrane: taut limit", ..unimportant)[
   #neq($ J_s (u) &= 1 / 2 integral_a^b hat(sigma) (x) lr(|u prime (x)|)^2 + g rho (x) u (x) dif x \
-  J_M (u) &= 1 / 2 integral_Omega hat(sigma) (bx) norm(grad med u (bx))^2 + g rho (bx) u (bx) dif bx $)<eq:taut-limit>
+  J_M (u) &= 1 / 2 integral_Omega hat(sigma) (bx) norm(grad u (bx))^2 + g rho (bx) u (bx) dif bx $)<eq:taut-limit>
 ]
 
 == Calculus of Variations

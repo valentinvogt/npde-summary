@@ -23,7 +23,7 @@
 #let bu = $ bold(u) $
 #let bw = $ bold(w) $
 #let bA = $ bold(A) $
-
+#let balpha = $ bold(alpha) $
 #let mhat = content => $ hat(content, size: #140%)$
 #let Khat = $ hat(K, size: #120%)$
 #let bxhat = $ hat(bx) $
