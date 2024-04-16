@@ -1,4 +1,4 @@
-#import "@preview/physica:0.9.3": eval, Order
+#import "@preview/physica:0.9.3": eval, Order, Set
 #import "boxes.typ": *
 
 #let neq(content) = math.equation(
@@ -31,3 +31,24 @@
 #let grad = $bold("grad")thin $
 #let gradsub = content => $bold("grad"_(#content)) $
 #let div = $"div"thin $
+#let openint(a,b) = $lr(\] #a, #b \[)$
+
+#let this-template(doc) = [
+  #show: thmrules
+  #show ref: it => {
+    let eq = math.equation
+    let el = it.element
+    if el != none and el.func() == eq {
+      // Override equation references.
+      link(
+        it.at("target"), numbering(el.numbering, ..counter(eq).at(el.location())),
+      )
+  []
+  } else {
+    it
+  }
+}
+  #set page(numbering: "1")
+  
+  #doc
+]

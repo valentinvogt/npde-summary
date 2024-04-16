@@ -49,7 +49,7 @@ $N arrow.r oo$. Note that both exercises and theorems are often posed in terms o
   $ norm(u - u_N)_a = Order(exp (- gamma N^delta)) , gamma , delta > 0$ is called *exponential* convergence.
 ]
 
-#tip_box(
+#tip-box(
   [Determining convergence rates],
   [
     - *algebraic* 
@@ -76,9 +76,9 @@ piecewise linear basis functions, we get $h_(cal(M))^(- 2) approx N$.
 Since FEM is similar to polynomial interpolation, we can use interpolation error estimates to get error bounds. Here are some results for linear interpolation:
 #mybox("Linear interpolation error 1D")[
   Using the linear interpolant $I_1$ we want to study the interpolation error $u - I_1 u$. The following interpolation error estimates can be used for sufficiently smooth functions $u$:
-  #neq($ norm(u - I_1 u)_(L^oo (\] a , b \[)) <= 1 / 4 h_(cal(M))^2 norm(u'')_(L^oo (\] a , b \[)) $)
-  #neq($ norm(u - I_1 u)_(L^2 (\] a , b \[)) <= h_(cal(M))^2 norm(u'')_(L^2 (\] a , b \[)) $)
-  #neq($ lr(|u - I_1 u|)_(H^1 (\] a , b \[)) <= h_(cal(M)) norm(u'')_(L^2 (\] a , b \[)) $)
+  #neq($ norm(u - I_1 u)_(L^oo (openint(a, b))) <= 1 / 4 h_(cal(M))^2 norm(u'')_(L^oo (openint(a, b))) $)
+  #neq($ norm(u - I_1 u)_(L^2 (openint(a, b))) <= h_(cal(M))^2 norm(u'')_(L^2 (openint(a, b))) $)
+  #neq($ lr(|u - I_1 u|)_(H^1 (openint(a, b))) <= h_(cal(M)) norm(u'')_(L^2 (openint(a, b))) $)
 ]
 #mybox("Linear interpolation error 2D")[
   In 2D, linear interpolation corresponds to using tent functions: $I_1 u = sum_(p in cal(V) (cal(M))) u (p) b^p$, where $b^p$ is the tent function associated with point $p$.
@@ -127,7 +127,7 @@ Another useful result hidden in the lecture notes is
   #neq($ norm(u - u_h)_(L^2 (Omega)) <= C h_(cal(M)) / p norm(u - u_h)_(H^1 (Omega)) $)
 ]
 So we gain one order of convergence in the $L^2$ norm compared to the $H^1$ norm.
-#tip_box(
+#tip-box(
   [Rules of thumb for converge],
   [
     If we are using $cal(S)_p^0 (cal(M))$ and $u$ is sufficiently smooth (e.g., $u in C^oo (Omega)$), we have
@@ -159,7 +159,7 @@ convex, something similar still holds:
   If $Omega subset RR^d$ is convex, $u in H_0^1 (Omega)$ and $Delta u in L^2 (Omega)$, then $u in H^2 (Omega)$.
 ]<thm:elliptic-lifting-convex-domains>
 If we are solving the Laplace equation on a convex domain, we just need to check if $f in L^2 (Omega)$, since $-Delta u = f$.
-#tip_box(
+#tip-box(
   [Finding $k$ in @thm:best-approximation-error],
   [
     - Often, the exercise gives you $u$ which is in $C^oo (Omega)$, which means $u$ is infinitely smooth. In this case, $k = oo$.

@@ -108,7 +108,7 @@ But $frac(partial u_h, partial x) med (j h)$ is not valid, as it's
 discontinuous at the nodes for $u_h in cal(S)_(1 , 0)^0$. However,
 convection transports the information in the direction of $bold(v)$ ($= 1$
 in our case). Hence use
-$ frac(partial u_h, partial x) med (j h) = lim_(delta arrow.r 0) frac(partial u_h, partial x) med (j h - delta bold(v)) = eval(frac(partial u_h, partial x)) _( \] x_(j - 1) , x_j \[) $ 
+$ frac(partial u_h, partial x) med (j h) = lim_(delta arrow.r 0) frac(partial u_h, partial x) med (j h - delta bold(v)) = eval(frac(partial u_h, partial x)) _openint(x_(j - 1) , x_j) $ 
 And generalized in more dimensions
 $ bold(v (p)) dot.op grad u_h (bold(p)) = lim_(delta arrow.r 0) bold(v (p)) dot.op grad u_h (bold(p) - delta bold(v (p))) $
 
@@ -211,7 +211,7 @@ triangular mesh with the advected nodes/particles.
 === Semi-Lagrangian Method
 <sub:semi-lagrangian>
 
-#tip_box("")[
+#tip-box("")[
   Check out this #weblink("https://youtu.be/kvBRFxRIJuY", "video") for an intuitive explanation of the method in 1D.
 ]
 

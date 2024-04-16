@@ -9,7 +9,7 @@
 === Heat Equation
 
 In local form the heat equation is given by
-#neq($ frac(partial, partial t) (rho u) - div (kappa (bx) grad u) = f quad upright("in ") tilde(Omega) = Omega times \] 0 , T \[ $) <eq:heat-local>
+#neq($ frac(partial, partial t) (rho u) - div (kappa (bx) grad u) = f quad upright("in ") tilde(Omega) = Omega times openint(0, T) $) <eq:heat-local>
 where $u$ is the temperature, $rho$ the heat capacity, $kappa$ the heat
 conductivity and $f$ a (time-dependent) heat source/sink. Without the
 time derivative, this looks very similar to standard PDEs, for which we
@@ -18,7 +18,7 @@ know the transformation into a nice variational problem.
 To solve it we still need boundary conditions. Besides the boundary
 conditions of the spatial domain --- which are now required for all times --- one also needs initial conditions over the whole domain at time 0.
 
-#neq($ u (bx , t) & = g (bx , t) quad upright("for ") (bx , t) in partial Omega times \] 0 , T \[\
+#neq($ u (bx , t) & = g (bx , t) quad upright("for ") (bx , t) in partial Omega times openint(0, T)\
 u (bx , 0) & = u_0 (bx) quad upright("for all ") bx in Omega $) <eq:heat-bc-ic>
 
 Testing with time-independent test functions $v$ and assuming $rho$ to
@@ -42,7 +42,7 @@ which looks like something we know how to solve from NumCSE.
 
 #lemma(number: "9.2.3.8.", "Decay of solutions of parabolic evolutions")[
   If $f equiv 0$, the solution $u (t)$ of the heat equation @eq:heat-integral-form satisfies
-  $ norm(u (t))_m lt.eq e^(- gamma t) norm(u_0)_m , quad norm(u (t))_a lt.eq e^(- gamma t) norm(u_0)_a quad forall t in \] 0 , T \[ $
+  $ norm(u (t))_m lt.eq e^(- gamma t) norm(u_0)_m , quad norm(u (t))_a lt.eq e^(- gamma t) norm(u_0)_a quad forall t in openint(0, T) $
   where $gamma = upright("diam") (Omega)^(- 2)$.
 ]
 Note that this lemma also tells us that if $f$ is time-independent, the

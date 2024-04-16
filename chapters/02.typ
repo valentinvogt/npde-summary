@@ -42,7 +42,7 @@ matter, for solving the equation numerically, the choice is crucial as
 the basis determines how stable and efficiently the solution can be
 computed, as it determines for example the sparsity of $bA$.
 
-#tip_box([Computing the energy norm in code])[
+#tip-box([Computing the energy norm in code])[
   Sometimes, problems ask you to compute $norm(u_h)_a$, i.e., the energy norm of a discrete solution. 
   // $|u_h|_a = a(u_h,u_h) = a\left(\sum_{i=0}^N \mu_i \cdot b_i^h, \sum_{i=0}^N \mu_i \cdot b_i^h\right) $
   $ norm(u_h)_a = sqrt(a(u_h,u_h)) = a(sum_(i=0)^N mu_i b_i^h, sum_(j=0)^N mu_j b_j^h) = sum_(i=0)^N sum_(j=0)^N mu_i mu_j a(b_i^h,b_j^h) = arrow(mu)^top bA arrow(mu) $
@@ -58,13 +58,13 @@ In FEM, the goal is to approximate $u$ by piecewise polynomial functions.
   Let $Omega = [a , b]$, we equip it with $M + 1$ #strong[nodes] resulting in the set of nodes:
   $ cal(V (M)) = { a = x_0 < x 1 < dots.h.c < x_M = b } $
   The nodes define intervals, which build up the mesh:
-  $ cal(M) = { \] x_(j - 1) , x_j \[ : 1 lt.eq j lt.eq M } $
+  $ cal(M) = { openint(x_(j - 1) , x_j) : 1 lt.eq j lt.eq M } $
   The intervals $[x_(j - 1) , x_j]$ are the #strong[cells] of the mesh.
   We define local cell size $h_j = lr(|x_j - x_(j - 1)|)$ and global mesh width $h_(cal(M)) = max_j h_j$.
 ]
 
 A simple space for continuous, $cal(M)$-piecewise polynomial functions
-in $H_0^1 (\] a , b \[)$ consists of linear functions on each cell:
+in $H_0^1 (openint(a, b))$ consists of linear functions on each cell:
 #neq($ V_(0 , h) = S_(1 , 0)^0 (cal(M)) = {v in C^0 ([a , b]) : eval(v)_[x_(i - 1),x_i ] upright("is linear") , i = 1 , dots.h , M , v (a) = v (b) = 0} $)<eq:linfem1d-space>
 $ arrow.r N = upright("dim") S_(1 , 0)^0 (cal(M)) = M - 1 $ The
 0-superscript stands for global $C^0$ of the functions. The 1-subscript
@@ -296,7 +296,7 @@ $ integral_K f (x) dif x approx sum_(l = 1)^(P_K) w_l^K f (zeta_l^K) , quad w_l^
     $f in cal(Q)_(p - 1) (bb(R)^d)$
 ]
 
-#strong[Essential Boundary Conditions] Remember from @sub:essential-and-natural-boundary-conditions that essential
+#strong[Essential Boundary Conditions] Remember from @sub:boundary-conditions that essential
 boundary conditions are Dirichlet boundary conditions, i.e., $u = g$ on
 $partial Omega$, and can be solved with the offset function trick. This
 trick can also be used in FEM. \
@@ -325,7 +325,7 @@ or \
 Both modify the matrix $bA$ and RHS vector $bold(arrow(b))$ such that $bold(A arrow(mu) = arrow(b))$ has
 the same solution as the above equation, but do it in slightly different ways (see  docs).
 
-#tip_box([Boundary data in LehrFEM])[
+#tip-box([Boundary data in LehrFEM])[
   `FixFlaggedSolutionComponents` (in both versions) requires a lambda function `std::pair<bool, double> selector(unsigned int dof_idx)`. It returns wether the dof is to be fixed and if so, the value it should be fixed to. 
 
   We get the boundary flags with

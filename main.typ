@@ -1,23 +1,7 @@
 #import "src/theorems.typ": *
 #import "@preview/xarrow:0.3.1": xarrow
 #import "src/setup.typ": *
-
-#show: thmrules
-#show ref: it => {
-  let eq = math.equation
-  let el = it.element
-  if el != none and el.func() == eq {
-    // Override equation references.
-    link(
-      it.at("target"), numbering(el.numbering, ..counter(eq).at(el.location())),
-    )
-[]
-    
-  } else {
-    it
-  }
-}
-
+#show: this-template
 
 #align(center)[
 = Numerical Methods for PDEs — TA Summary
@@ -49,12 +33,11 @@ Last updated on #date.display("[month repr:long] [day], [year]")
 ]
 #v(-0.3cm)
 
-#tip_box("Tips and practical advice")[
+#tip-box("Tips and practical advice")[
   from the TAs are highlighted like this.
 ]
 
 = Basics
-<ch:preface>
 #v(-0.1cm)
 
 #theorem(number: "0.3.1.19", "Cauchy-Schwarz Inequality")[

@@ -122,7 +122,7 @@
   ]
 }
 
-#let tip_box = (title, content) => {
+#let tip-box = (title, content) => {
   colorbox(
     title: title,
     color: "blue",

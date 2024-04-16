@@ -66,7 +66,7 @@ This means that nonlinear variational equations can be derived by
 computing this derivative for an arbitrary $v$. As an example, for the
 elastic string model introduced in the last sub-chapter, this yields
 #mybox("Variational equations for elastic string model", ..unimportant)[
-  $ integral_a^b frac(sigma (x), c) (sqrt(1 + lr(|u prime (x)|)^2) - c) frac(u' (x) v' (x), sqrt(1 + lr(|u' (x)|)^2)) + g rho (x) v (x) dif x = 0 quad forall v in H_0^1 (\] a , b \[) $
+  $ integral_a^b frac(sigma (x), c) (sqrt(1 + lr(|u prime (x)|)^2) - c) frac(u' (x) v' (x), sqrt(1 + lr(|u' (x)|)^2)) + g rho (x) v (x) dif x = 0 quad forall v in H_0^1 (openint(a, b)) $
 ]
 This can be formulated more generally as a #strong[general variational equation];:
 #mybox("General variational equation")[
@@ -84,7 +84,7 @@ partial integration and employing the fundamental lemma of calculus of
 variations. As an example, for the string model, this yields for
 $u (a) = u_a$, $u (b) = u_b$
 
-$ frac(dif, dif x) (frac(sigma (x), c) (sqrt(1 + lr(|u '(x)|)^2) - c) frac(u' (x), sqrt(1 + lr(|u ' (x)|)^2))) = g rho (x) quad upright(" in ") thin \] a , b \[ $
+$ frac(dif, dif x) (frac(sigma (x), c) (sqrt(1 + lr(|u '(x)|)^2) - c) frac(u' (x), sqrt(1 + lr(|u ' (x)|)^2))) = g rho (x) quad upright(" in ") thin openint(a, b) $
 
 == Galerkin Discretization of Non-Linear BVPs
 <sub:galerkin-non-linear-bvps>
@@ -119,7 +119,7 @@ Here, the directional derivative is defined as
     $ upright(D)_u a (u^((k)) ; v) w = lim_(t arrow.r 0) frac(a (u + t w ; v) - a (u ; v), t) , quad u^((k)) in mhat(V) , quad v , w in V_0 $
   ]
 ]
-#tip_box("Computing the directional derivative")[
+#tip-box("Computing the directional derivative")[
   You can simply compute the defining limit by Taylor-expanding $a(u + t w, v)$. If you do this once, you notice that only the first-order term in $t$ remains: the 0th order term cancels out with $a(u, v)$, and the higher-order terms vanish in the limit $t arrow.r 0$.
   
   So a more convenient method is to do Taylor expansion and to keep only the first-order term.

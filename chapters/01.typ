@@ -50,7 +50,7 @@ which we want to look for the solution. For example, in Physics, we generally
 want the solution (function that describes e.g. the shape of an elastic string)
 to be continuous. So it makes no sense to look for a minimizer with jumps.\
 
-To formulate this mathematically we need the #strong[Sobolev space];. For
+To formulate this mathematically, we need the #strong[Sobolev space];. For
 functions in a Sobolev space, it is ensured that the bilinear form in the
 quadratic functional is well defined (i.e. finite). Hence the mathematical space
 in which we look for minimizers is determined by the given quadratic functional.
@@ -87,7 +87,7 @@ boundedness of the linear form.
 
 For checking boundedness we can often use Cauchy-Schwarz (@eq:cauchy-schwarz-integrals) and Poincaré-Friedrichs (@thm:poincare-friedrichs).
 
-#pagebreak()
+#pagebreak(weak: true)
 == Linear Variational Problem
 <sub:linear-variational-problem>
 #definition(number: "1.4.1.6", "Linear Variational Problem")[
@@ -127,6 +127,7 @@ the test space $V_0$ we do not need to respect the boundary conditions. Instead,
 we set test functions to zero where the boundary data is given (\"Don't test
 where the solution is known!\").
 
+#pagebreak(weak: true)
 == Boundary Value Problems
 <sub:boundary-value-problems>
 #lemma(number: "1.5.2.1", "General product rule")[
@@ -149,15 +150,19 @@ where the solution is known!\").
   Let $f in L^2 (Omega)$ satisfy
   #neq($ integral_Omega f (bx) v (bx) dif bx = 0 quad forall v in C_0^oo (Omega), $)
   then $f equiv 0$.
-] <thm:variational-calculus-fundamental-lemma>
+] <thm:fund-lemma>
 
 We have seen equivalence of minimization problem of a quadratic functional and
 linear variational problem. The variational problem is called the #strong[weak form];,
 we can transform it (with extra smoothness requirements) into the problem's #strong[strong form];,
-i.e., into an elliptic BVP, mainly with the help of the above lemmas.
-
+i.e., into an elliptic BVP, mainly with the help of the above lemmas:
+#tip-box("Weak to strong")[
+  + Use @thm:greens-formula to get rid of derivatives on $v$ (e.g. turn $grad u grad v$ into $-div(grad u) +...$
+  + Use properties of the test space (usually that $v=0$ on $partial Omega$) to get rid of boundary terms)
+  + Use @thm:fund-lemma to remove the integrals and test functions
+]
 #counter(heading).step(level: 2)
-
+#pagebreak(weak: true)
 == Boundary Conditions
 <sub:boundary-conditions>
 For 2nd-order elliptic BVPs we need boundary conditions to get a unique
@@ -179,15 +184,36 @@ boundary conditions on every part of $partial Omega$
     $ bold(j dot.op n) = Psi (u) quad upright("on") thin partial Omega $
 ]
 
+Dirichlet conditions, which have to be imposed directly on the trial space, are called #strong[essential boundary conditions];. Neumann conditions, which are only enforced through the variational equation, are called #strong[natural boundary conditions];.
+- #strong[Admissible Dirichlet Data];: Dirichlet boundary values need to be
+    continuous.
+
+- #strong[Admissible Neumann Data];: $h$ needs to be in $L^2 (Omega)$
+    (can be discontinuous)
+
+
+The following theorem is frequently needed when dealing with integrals over the boundary:
+#theorem(number: "1.9.0.19", title: "Theorem", "Multiplicative trace inequality")[
+  #neq($ exists C = C (Omega) > 0 : norm(u)_(L^2(partial Omega)) lt.eq C norm(u)_(L^2(Omega)) dot.op norm(u)_(H^1(Omega)) quad forall u in H^1 (Omega) $)
+] <thm:mult-trace-inequality>
+
 == Second-Order Elliptic Variational Problems
 <sub:second-order-elliptic-variational-problems>
 We have seen how we can get from a minimization problem via a
 variational problem to a BVP. Now we want to move in the opposite
 direction, from a PDE and its boundary conditions we want to get to a
-variational problem. This can again be done using the lemmas from
-section 1.5 and considering the boundary conditions to choose a suitable
-(Sobolev) function space.
-
+variational problem. 
+#tip-box("Strong to weak")[
+  + Test the PDE with (multiply by $v$) and integrate over $Omega$
+  + Use @thm:greens-formula to "shift" one derivative from $u$ to $v$ (e.g., from $-div(grad u)$ to $grad u grad v + ...$)
+  + Use Neumann BC on boundary terms ($grad u dot n = h$)
+  + Pick Sobolev trial/test spaces $V,V_0$ such that 
+    
+      - $a(u,u)$ is finite for $u in V,V_0$
+      - boundary conditions are satisfied ($u=g$ in $V$ $=>$ $v=0$ in $V_0$)
+    
+    To fulfill the first condition, we can define the "base" space for both trial and test as $Set(v,a(v,v)<oo)$, which is equal to $H^1$ for the usual $Delta u = f$ problem. If there are extra (e.g., boundary) terms in $a$, try to bound these with the $H^1$ norm.
+]
 For Neumann problems there is a #strong[compatibility condition];. If we
 choose test function $v equiv 1$ we get the requirement
 $ - integral_(partial Omega) h dif S = integral_Omega f dif bx $
@@ -202,21 +228,3 @@ $ H_(\*)^1 (Omega) := { v in H^1 (Omega) : integral_Omega v dif bx = 0 } $
 ] <thm:poincare-friedrichs>
 This theorem tells us that (under some conditions), the $L^2$ norm of functions
 from this space is bounded by the $H^1$-seminorm.
-
-== Essential and Natural boundary Conditions
-<sub:essential-and-natural-boundary-conditions>
-Essential boundary conditions are boundary conditions which have been imposed
-directly on the trial space, i.e. Dirichlet BC. On the other hand, Neumann BC
-are only enforced through the variational equation. They are callednatural
-boundary conditions.
-
-- #strong[Admissible Dirichlet Data];: Dirichlet boundary values need to be
-  continuous.
-
-- #strong[Admissible Neumann Data];: $h$ needs to be in $L^2 (Omega)$
-  (can be discontinuous)
-
-#theorem(number: "1.9.0.19", title: "Theorem", "Multiplicative trace inequality")[
-  #neq($ exists C = C (Omega) > 0 : norm(u)_(L^2(partial Omega)) lt.eq C norm(u)_(L^2(Omega)) dot.op norm(u)_(H^1(Omega)) quad forall u in H^1 (Omega) $)
-] <thm:mult-trace-inequality>
-This theorem is frequently needed when dealing with integrals over the boundary.
