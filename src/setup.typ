@@ -8,7 +8,7 @@
 )
 
 #let colMath(x, color) = text(fill: color)[$#x$]
-#let my_accent = rgb(255, 0, 255)
+#let accentcolor = rgb(255, 0, 255)
 
 #let weblink = (url, content) => {
   text(fill: blue)[#underline[#link(url)[#content]]]

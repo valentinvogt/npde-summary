@@ -61,8 +61,8 @@ Last updated on #date.display("[month repr:long] [day], [year]")
 #v(-0.5cm)
 
 #theorem(number: "0.3.2.31", "Transformation rule for Integration")[
-  Given two domains $Omega , mhat(Omega)$ and a continuous, differentiable mapping $bold(Phi) : mhat(Omega) arrow.r Omega$
-  #neq($ integral_Omega f (bx) dif bx = integral_(mhat(Omega)) f bold((Phi (hat(x)))) lr(|det D bold(Phi (hat(x)))|) dif bold(hat(x)) $)
+  Given two domains $Omega , mhat(Omega)$ and a continuous, differentiable mapping $Phi : mhat(Omega) arrow.r Omega$
+  #neq($ integral_Omega f (bx) dif bx = integral_(mhat(Omega)) f (Phi (hat(x))) lr(|det D Phi (hat(x))|) dif bold(hat(x)) $)
 ] <thm:transformation-rule-for-integration>
 
 #set heading(numbering: "1.1")

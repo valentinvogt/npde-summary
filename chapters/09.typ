@@ -41,7 +41,7 @@ which looks like something we know how to solve from NumCSE.
 === Stability
 
 #lemma(number: "9.2.3.8.", "Decay of solutions of parabolic evolutions")[
-  If $f equiv 0$, the solution $u (t)$ of the heat equation @eq:heat-integral-form satisfies
+  $colMath("If " f equiv 0, accentcolor)$, the solution $u (t)$ of the heat equation @eq:heat-integral-form satisfies
   $ norm(u (t))_m lt.eq e^(- gamma t) norm(u_0)_m , quad norm(u (t))_a lt.eq e^(- gamma t) norm(u_0)_a quad forall t in openint(0, T) $
   where $gamma = upright("diam") (Omega)^(- 2)$.
 ]
@@ -141,7 +141,7 @@ Using a general RK-SSM method as the time step, we get the following
 system of equations
 $ bold(M) arrow(kappa)_i + sum_(m = 1)^s tau a_(i , m) bA arrow(kappa)_m & = arrow(phi) (t_j + c_i tau) - bA arrow(mu)^((j))\
 arrow(mu)^((j + 1)) & = arrow(mu)^((j)) + tau sum_(m = 1)^s b_m arrow(kappa)_m $
-with the Kronecker product, this can be rewritten as
+With the Kronecker product, this can be rewritten as
 $ (bold(I)_s times.circle bold(M) + tau bold(frak(A)) times.circle bA) mat(delim: "[", arrow(kappa)_1; dots.v; arrow(kappa)_s) = mat(delim: "[", arrow(phi) (t_j + c_1 tau) - bA arrow(mu)^((j)); dots.v; arrow(phi) (t_j + c_s tau) - bA arrow(mu)^((j))) $
 which can be used to solve for the increments $arrow(kappa)_i$.
 

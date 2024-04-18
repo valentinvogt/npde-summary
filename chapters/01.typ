@@ -79,10 +79,8 @@ lemma for existence and uniqueness of minimizers:
 ] <thm:existence-minimizer-hilbert>
 
 Note that here, we use the bilinear form to define the norm
-$norm(u)_a = sqrt(a (u , u))$. The main point is that in (energy) minimization
-problems, the bilinear form of the quadratic minimization problem can be seen as
-the norm of some Sobolev space. This then leads to a solution if we check
-boundedness of the linear form.
+$norm(u)_a = sqrt(a (u , u))$. The main point is that we can see the bilinear form of the quadratic minimization problem as
+the norm of some Sobolev space. The above theorem guarantees that a solution exists in this space if the linear form is bounded.
 
 For checking boundedness we can often use Cauchy-Schwarz (@eq:cauchy-schwarz-integrals) and Poincaré-Friedrichs (@thm:poincare-friedrichs).
 
@@ -122,7 +120,7 @@ Note that the trial space $mhat(V)$, from which we pick a solution, and the test
 #pagebreak(weak: true)
 == Boundary Value Problems
 <sub:boundary-value-problems>
-#lemma(number: "1.5.2.1", "General product rule")[
+#lemma(number: "1.5.2.1", "General product rule", ..unimportant)[
   For all $bold(j) in (C^1 (overline(Omega)))^d , v in C^1 (overline(Omega))$ holds
   #neq($ div (bold(j) v) = v div bold(j) + bold(j) dot.op grad v quad upright("in") Omega $)
 ] <thm:general-product-rule>
@@ -146,7 +144,7 @@ Note that the trial space $mhat(V)$, from which we pick a solution, and the test
 
 We have seen that minimizing a quadratic functional is equivalent to solving a linear variational problem @eq:linear-variational-problem. The variational problem is called the #strong[weak form];. We can transform it (with extra smoothness requirements) into the problem's #strong[strong form];, an elliptic BVP (PDE with boundary conditions).
 #tip-box("Weak to strong")[
-  + Use @thm:greens-formula to get rid of derivatives on $v$ (e.g. turn $grad u grad v$ into $-div(grad u) +...$
+  + Use @thm:greens-formula to get rid of derivatives on $v$ (e.g. turn $grad u dot grad v$ into $-div(grad u) +...$
   + Use properties of the test space (usually that $v=0$ on $partial Omega$) to get rid of boundary terms
   + Use @thm:fund-lemma to remove the integrals and test functions
 ]
@@ -204,7 +202,7 @@ direction, from a PDE and its boundary conditions we want to get to a
 variational problem. 
 #tip-box("Strong to weak")[
   + Test the PDE with (multiply by $v$) and integrate over $Omega$
-  + Use @thm:greens-formula to "shift" one derivative from $u$ to $v$ (e.g., from $-div(grad u)$ to $grad u grad v + ...$)
+  + Use @thm:greens-formula to "shift" one derivative from $u$ to $v$ (e.g., from $-div(grad u)$ to $grad u dot grad v + ...$)
   + Use Neumann BC on boundary terms ($grad u dot n = h$)
   + Pick Sobolev trial/test spaces $V,V_0$ such that 
     

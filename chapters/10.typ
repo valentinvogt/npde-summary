@@ -136,7 +136,7 @@ $ integral_Omega epsilon.alt grad u dot.op grad v dif bx + integral_Omega (bold(
 the added term will be zero for the exact solution (strong PDE) and the
 anisotropic diffusion is still here. The control parameter is usually
 chosen according to
-$ delta_K = cases(delim: "{", epsilon.alt^(- 1) h_K^2 & upright("if ") norm(bold(v))_(K , oo) h_K lt.eq  2 epsilon.alt, h & upright("if ") norm(bold(v))_(K , oo) h_K >  2 epsilon.alt) $
+$ delta_K = cases(delim: "{", epsilon.alt^(- 1) h_K^2 & quad upright("if ") norm(bold(v))_(K , oo) h_K lt.eq  2 epsilon.alt, h_K & quad upright("if ") norm(bold(v))_(K , oo) h_K >  2 epsilon.alt) $
 With this, the $Order(h_(cal(M))^2)$ convergence of
 $norm(u-u_h)_(L^2 (Omega))$ for $h$-refinement is preserved, while upwind
 quadrature only achieves $Order(h_(cal(M)))$ convergence.
@@ -147,19 +147,18 @@ Now we will take a look at how time dependent convection diffusion can
 be modeled. Assuming the incompressibility condition and
 non-dimensionalizing, Eq. @eq:heat-integral-form becomes
 #neq($ frac(partial, partial t) med u - epsilon.alt Delta u + bold(v \( x ,) t \) dot.op grad u = f quad upright("in ") Omega $) <eq:transient_conv_diff>
-Up on inspecting the solution obtained with method of lines, one
-observes that without upwind quadrature, oscillations occur. However,
-with upwind damping is observed, which is wrong. Hence other methods of
-solving have to be explored. Of course the limit of
-$epsilon.alt arrow.r 0$ again poses a problem. So lets first look at the
-pure transport problem
+If we solve this with the method of lines without upwind quadrature, oscillations occur. But with upwinding, damping is observed, which is  also wrong. 
+Therefore, we need a different method. Of course the limit of
+$epsilon.alt arrow.r 0$ again poses a problem. So let's first look at the
+pure transport problem, which we get by setting $epsilon.alt = 0$:
 $ frac(partial, partial t) med u + bold(v \( x ,) t \) dot.op grad u = f quad upright("in ") Omega $
 Its solution is given by the #emph[Method of Characteristics]
 #neq($ u (bx , t) = cases(delim: "{", u_0 (bold(x_0)) + integral_0^t f (bold(y) (s) , s) dif s & upright("if ") bold(y) (s) in Omega quad &forall 0 < s < t, g (bold(y) (s_0) , s_0) + integral_(s_0)^t f (bold(y) (s) , s) dif s quad& upright("if ") bold(y) (s_0) in partial Omega and bold(y) (s) in Omega quad &forall s_0 < s < t) $) <eq:moc>
-where $ dot(bold(y)) (t) = bold(v \( y) (t) , t \) $ $u_0$ the initial
+where $bold(y) (t)$ is defined as the solution of
+$dot(bold(y)) (t) = bold(v \( y) (t) , t \), $ $u_0$ the initial
 condition and $g$ the Dirichlet boundary conditions on the inflow
 boundary. Unfortunately, this only works for the pure transport problem.
-For $epsilon.alt > 0$ we need an other method,
+For $epsilon.alt > 0$ we need an other method.
 
 #strong[Splitting Methods]
 
@@ -190,7 +189,7 @@ transport
 $ frac(partial t, partial w) + bold(v) dot.op grad u = f $ To
 solve the pure transport problem, we have seen the method of
 characteristics @eq:moc. However, it requires integration along
-streamlines. One idea is to solve it with the particle method.
+streamlines. We can approximate these integrals by "following" particles along their path defined by the velocity field. This *particle method* works as follows:
 
 + Pick suitable interpolation nodes $bold(p)_i$, the initial particle
   positions
@@ -202,11 +201,10 @@ streamlines. One idea is to solve it with the particle method.
 + Reconstruct the approximation. With the composite midpoint rule
   $ u_h^((j)) (bold(p)_i^((j))) = u_0 (bold(p)_i) + tau sum_(l = 1)^(j - 1) f (1 / 2 (bold(p)_i^l + bold(p)_i^(l - 1)) , 1 / 2 (t_l + t_(l - 1))) $
 
-But the interpolation nodes change over time and care needs to be taken,
-to add particles each step at the inflow boundary and remove ones, which
-leave the domain. Because of the movement of the nodes and potential
-creation and deletion, each step we need to re-mesh, i.e., create a new
-triangular mesh with the advected nodes/particles.
+Basically, we have an interpolation problem with nodes that change over time.
+At each step, we need to add particles at the inflow boundary and remove
+ones that leave the domain. This means we need to re-mesh in each step,
+ i.e., create a new triangular mesh with the advected nodes/particles.
 
 #counter(heading).update((10,3,3))
 === Semi-Lagrangian Method
@@ -216,7 +214,7 @@ triangular mesh with the advected nodes/particles.
   Check out this #weblink("https://youtu.be/kvBRFxRIJuY", "video") for an intuitive explanation of the method in 1D.
 ]
 
-Another method which relies on a fixed mesh is the Semi-Lagrangian method.
+A method which relies on a _fixed_ mesh is the Semi-Lagrangian method.
 #definition(number: "10.3.4.2", "Material derivative", ..unimportant)[
   Given a velocity field $bold(v)$, the material derivative of a function
   $f$ is given by
@@ -234,7 +232,7 @@ semi-discretization
 $ frac(u^((j)) (bx) - u^((j - 1)) (Phi^(t_j , t_j - tau) bx), tau) - epsilon.alt Delta u^((j)) = f (bx , t_j) quad upright(" in ") Omega $
 with additional initial conditions for $t = t_j$. On this
 semi-discretization the standard Galerkin method can be applied.
-$ integral_Omega frac(u^((j)) (bx) - u^((j - 1)) (Phi^(t_j , t_j - tau) bx), tau) v dif bx + epsilon.alt integral_Omega grad u^((j)) dot.op grad v dif bx = integral_Omega f (bx , t_j) v dif bx $
+$ integral_Omega frac(u^((j)) (bx) - u^((j - 1)) (Phi^(t_j , t_j - tau) bx), tau) w(bx) dif bx + epsilon.alt integral_Omega grad u^((j)) dot.op grad w dif bx = integral_Omega f (bx , t_j) w(bx) dif bx $
 Unfortunately this cannot be implemented as is, because the function
 $u^((j - 1)) (Phi^(t_j , t_j - tau) bx)$ is not smooth in $cal(M)$
 and is hence not a finite element function on $cal(M)$. To get around
@@ -242,5 +240,5 @@ this, simply replace it by its linear interpolant
 $I_1 (u^((j - 1)) circle.stroked.tiny Phi^(t_j , t_j - tau))$ and
 replace $Phi^(t_j , t_j - tau) bx$ by
 $bx - tau bold(v)(bx, t_j \)$ (explicit Euler).
-$ integral_Omega frac(u^((j)) (bx) - I_1 lr({u^((j - 1)) (bold(s) - tau bold(v)(bold(s) , t_j))}, size: #110%) (bx), tau) v dif bx + epsilon.alt integral_Omega grad u^((j)) dot.op grad v dif bx = integral_Omega f (bx , t_j) v dif bx $
-Here, $bold(s)$ is the variable which the interpolation operator $I_1$ acts on (in the lecture notes, this variable is written as a dot "$med dot.op med$"). The above equation still looks quite complicated, but can be implemented.
+$ integral_Omega frac(u^((j)) (bx) - I_1 lr({u^((j - 1)) (bold(s) - tau bold(v)(bold(s) , t_j))}, size: #110%) (bx), tau) w(bx) dif bx + epsilon.alt integral_Omega grad u^((j)) dot.op grad w dif bx = integral_Omega f (bx , t_j) w(bx) dif bx $
+Here, $bold(s)$ is the variable on which the interpolation operator $I_1$ acts (in the lecture notes, this variable is written as a dot "$med dot.op med$"). The above equation still looks quite complicated, but can be implemented.

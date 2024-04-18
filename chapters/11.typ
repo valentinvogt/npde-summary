@@ -295,4 +295,3 @@ $L^1$ norm. This can be seen by the following fact
 #mybox("Order barrier for monotone numerical fluxes")[
   Monotone numerical fluxes (@def:monotone-flux) are at most first order consistent.
 ]
-Alternative ways to see this are numerical experiments or Taylor expansion of flux functions.

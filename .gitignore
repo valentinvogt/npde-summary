@@ -1,3 +1,4 @@
 *.pdf
+!main.pdf
 test/
 .DS_Store

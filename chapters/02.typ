@@ -7,8 +7,8 @@
 #counter(heading).step(level: 2)
 == Galerkin Discretization
 <sub:galerkin-discretization>
-The idea is to replace the infinite-dimensional function space $V_0$ by a
-finite-dimensional subspace $V_(0 , h) subset V_0$
+The idea of Galerkin discretization is to replace the infinite-dimensional function space $V_0$ by a
+finite-dimensional subspace $V_(0 , h) subset V_0$.
 
 #theorem(
   number: "2.2.1.5", title: "Theorem", "Unique solution of discrete variational problems",
@@ -16,7 +16,7 @@ finite-dimensional subspace $V_(0 , h) subset V_0$
   If the bilinear form $a : V_0 times V_0 arrow.r bb(R)$ is symmetric and positive
   definite and the linear form \
   $ell : V_0 arrow.r bb(R)$ is continuous @eq:continuity-linear-form w.r.t. $norm("")_a$,
-  then the discrete variational problem:
+  then the discrete variational problem
   #neq($ u_h in V_(0 , h) : a (u_h , v_h) = ell (v_h) , quad forall v_h in V_(0 , h) $) <eq:disc-var-prob>
   has a unique #emph[Galerkin] solution $u_h in V_(0 , h)$ satisfying the energy
   estimate
@@ -25,7 +25,7 @@ finite-dimensional subspace $V_(0 , h) subset V_0$
 
 Recall the definition of a basis (here, superscripts are indices and not to be
 confused with exponents): ${ b^1 , dots.h , b^N } subset V$ is a basis, if for
-every $v in V$ there are unique coefficients $mu_l$ such that $v = sum_(i = 1)^N mu_i b^i$ and $N=dim V$.
+every $v in V$ there are unique coefficients $mu_i$ such that $v = sum_(i = 1)^N mu_i b^i$ and $N=dim V$.
 Now we can expand $u_h = mu_1 b^1 + dots.h.c + mu_N b^N$ and our goal is to find
 the coefficients $mu_i$.
 
@@ -56,7 +56,6 @@ numerical solution is.
 )[
 Sometimes, problems ask you to compute $norm(u_h)_a$, i.e., the energy norm of a
 discrete solution.
-// $|u_h|_a = a(u_h,u_h) = a\left(\sum_{i=0}^N \mu_i \cdot b_i^h, \sum_{i=0}^N \mu_i \cdot b_i^h\right) $
 $ norm(u_h)_a = sqrt(a(u_h,u_h)) = a(sum_(i=0)^N mu_i b_i^h, sum_(j=0)^N mu_j b_j^h) = sum_(i=0)^N sum_(j=0)^N mu_i mu_j a(b_i^h,b_j^h) = arrow(mu)^top bA arrow(mu) $
 So it can be computed as `sqrt(mu.transpose() * A * mu)`.
 ]
