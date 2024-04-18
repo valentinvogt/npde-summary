@@ -53,9 +53,9 @@ simplified using the general product rule @thm:general-product-rule and
 $upright("div ") bold(v) = 0$
 $ - div (kappa grad u) + bold(v (x)) dot.op grad rho u = f quad upright("in ") Omega $
 We can also look at the time-dependent heat flow, which is similar to
-the heat equation @eq:wave-variational
-$ frac(partial, partial t) med (rho u) - div (kappa grad u) + div (rho med bold(v) (bx ,t) med bu) = f quad upright("in ") Omega $
-We will see later on how this can be solved.
+the heat equation @eq:heat-local
+#neq($ frac(partial, partial t) med (rho u) - div (kappa grad u) + div (rho med bold(v) (bx ,t) med bu) = f quad upright("in ") Omega $)<eq:time-dependent-heat>
+We will see later on how to solve this.
 
 #pagebreak()
 == Stationary Convection-Diffusion Problems
@@ -143,9 +143,9 @@ quadrature only achieves $Order(h_(cal(M)))$ convergence.
 
 == Discretization of Time-Dependent (Transient) Convection-Diffusion IBVPs
 <sub:discrete-time-dependent-convection-diffusion>
-Now we will take a look at how time dependent convection diffusion can
+Now we will take a look at how time-dependent convection-diffusion can
 be modeled. Assuming the incompressibility condition and
-non-dimensionalizing, Eq. @eq:heat-integral-form becomes
+non-dimensionalizing, @eq:time-dependent-heat becomes
 #neq($ frac(partial, partial t) med u - epsilon.alt Delta u + bold(v \( x ,) t \) dot.op grad u = f quad upright("in ") Omega $) <eq:transient_conv_diff>
 If we solve this with the method of lines without upwind quadrature, oscillations occur. But with upwinding, damping is observed, which is  also wrong. 
 Therefore, we need a different method. Of course the limit of
