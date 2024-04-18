@@ -82,7 +82,7 @@ Note that here, we use the bilinear form to define the norm
 $norm(u)_a = sqrt(a (u , u))$. The main point is that we can see the bilinear form of the quadratic minimization problem as
 the norm of some Sobolev space. The above theorem guarantees that a solution exists in this space if the linear form is bounded.
 
-For checking boundedness we can often use Cauchy-Schwarz (@eq:cauchy-schwarz-integrals) and Poincaré-Friedrichs (@thm:poincare-friedrichs).
+For checking boundedness we can often use Cauchy--Schwarz (@eq:cauchy-schwarz-integrals) and Poincaré--Friedrichs (@thm:poincare-friedrichs).
 
 #pagebreak(weak: true)
 == Linear Variational Problem
@@ -219,7 +219,7 @@ problems is unique only up to constants. To address this we can use the
 constrained function space
 $ H_(\*)^1 (Omega) := { v in H^1 (Omega) : integral_Omega v dif bx = 0 } $
 
-#theorem(number: "1.8.0.20", title: "Theorem", "Second Poincaré-Friedrichs inequality")[
+#theorem(number: "1.8.0.20", title: "Theorem", [Second Poincaré--Friedrichs inequality])[
   If $Omega subset bb(R)^d$ is bounded and connected, then
   #neq($ exists C = C (Omega) > 0 : norm(u)_0 lt.eq C "diam" #h(-0.1pt) (Omega) thin norm(grad u)_0 quad forall u in H_(\*)^1 (Omega) $)
 ] <thm:poincare-friedrichs>

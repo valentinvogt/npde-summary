@@ -143,6 +143,7 @@ plane — in other words, knowing the values in three points (the vertices of a
 triangle) fully defines a linear function. Cardinal bases will produce sparse
 Galerkin matrices, as the support of a basis function only covers the triangles
 adjacent to its node, which can only interact with neighboring basis functions.
+#v(-0.1cm)
 
 #mybox(
   "Computation of Galerkin Matrix",

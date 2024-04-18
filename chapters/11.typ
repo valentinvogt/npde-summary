@@ -77,7 +77,7 @@ behaves at these jumps (discontinuities).
 
 The setting is as follows: We still study the Cauchy problem @eq:cauchy-problem. We can derive that along jumps, the normal components
 must be continuous, which leads to the
-#definition(number: "11.2.4.2", "Rankine-Hugoniot (jump) condition")[
+#definition(number: "11.2.4.2", [Rankine--Hugoniot (jump) condition])[
   $ dot(s) (u_l - u_r) = f (u_l) - f (u_r) $ where
   $dot(s) = frac(d gamma, d t)$ is the time derivative of the
   discontinuity curve $Gamma (t) = (gamma (t) , t) in bb(R) times [0 , T]$.
@@ -94,7 +94,7 @@ The Riemann problem is given as
   function.
 ]
 
-Using the Rankine Hugoniot jump condition we then get the following
+Using the Rankine--Hugoniot jump condition we then get the following
 solution for Riemann problems with a shock:
 #lemma(number: "11.2.5.4", "Shock solution for Riemann problem")[
   For any two states $u_r , u_l in bb(R)$ the piecewise constant function
@@ -155,7 +155,7 @@ quotient for example one of the following
 ]
 
 Then we construct a solution by time stepping: given
-$u (x , t_k)$ we compute $u (x , t_(k + 1))$ by using some Runge-Kutta
+$u (x , t_k)$ we compute $u (x , t_(k + 1))$ by using some Runge--Kutta
 integrator.
 
 With the example of finite difference methods, we observe that by the
@@ -176,10 +176,18 @@ the problem definition
 $ frac(partial u, partial t) = - frac(partial, partial x) f (u) $ to
 derive in the simplest case
 #neq($ frac(partial u (x_i , t_k), partial t)& approx frac(partial, partial t) 1 / h integral_(x_(j - 1 \/ 2))^(x_(j + 1 \/ 2)) u (x , t_k) dif x \
-& approx - 1 / h lr(( F (u (x_j , t_k) , u (x_(j + 1) , t_k)) - F (u (x_(j - 1) , t_k) , u (x_j , t_k))), size: #150%) $) <eq:two_points_flux>
+& approx - 1 / h lr(( F (u (x_j , t_k) , u (x_(j + 1) , t_k)) - F (u (x_(j - 1) , t_k) , u (x_j , t_k))), size: #150%) $) <eq:two-points-flux>
+
 where $F (dot,dot)$ is an approximation of the flux function $f (u)$. Note
 that in the above example $F$ only depends on two neighboring nodes,
-but this can also be extended to use more nodes. Since we can simply plug the RHS of @eq:two_points_flux into a Runge-Kutta method, we reduced the problem to choosing appropriate Flux functions.
+but this can also be extended to use more nodes. 
+Now we discretize this similarly to @ch:9, where we let the coefficients $mu_i$ of the basis expansion of $u$ vary in time.
+Here, we define 
+$ mu_j (t) &= u(x_j, t) \
+ bmu &= (mu_1, dots, mu_N) $
+With this, @eq:two-points-flux becomes (we omit the time argument of the $mu_i$)
+#neq($ frac(dif mu_j, dif t) (t) = - 1 / h (F (mu_j, mu_(j+1)) - F (mu_(j-1), mu_j)) $)<eq:two-points-flux-discrete>
+We can simply plug the RHS of @eq:two-points-flux-discrete into a Runge--Kutta method, so the only thing left to do is to find a suitable flux function $F$.
 
 #definition(number: "11.3.3.5", "Consistent numerical flux function")[
   A numerical function $F : bb(R)^(m_l + m_r) arrow.r bb(R)$ is
@@ -201,10 +209,10 @@ corresponds to a average of the two inputs in $F (u , w)$. But then it
 turns out that this flux suffers from similar problems as the finite
 difference methods did.
 
-One remedy for this is the #emph[Lax-Friedrichs / Rusanov] Flux which is
+One remedy for this is the #emph[Lax--Friedrichs / Rusanov] Flux which is
 useful but flattens the edges of jumps (which is due to its construction
 with additional diffusion).
-#equation(number: "11.3.4.16", "Lax-Friedrichs / Rusanov Flux")[
+#equation(number: "11.3.4.16", [Lax--Friedrichs / Rusanov Flux])[
   $ F_(L F) (v , w) = 1 / 2 (f (v) + f (w)) - 1 / 2 (w - v) max_(min { v, w } <= u <= max { v, w }) f prime (u) $
   The third term is the artificial diffusion term.
 ]
@@ -213,7 +221,7 @@ crucial, so an important idea to choose the right flux is to respect
 that. Moreover the flux has to reproduce physical solution in the sense explained above when studying two possible solutions for the Riemann
 problem.
 
-The final flux introduced, which solves these problems, is the Godunov Flux
+The final flux introduced, which solves these problems, is the Godunov Flux.
 
 #definition(number: "11.3.4.33", "Godunov Flux")[
   $ F_(G D) (v , w) = cases(delim: "{", min_(v lt.eq u lt.eq w) f (u) quad  upright("if ") v < w, max_(w lt.eq u lt.eq v) f (u) quad upright("if ") v gt.eq w ,) $
@@ -224,24 +232,24 @@ The final flux introduced, which solves these problems, is the Godunov Flux
 In one of the above subsections it was mentioned that the number of
 extrema must not increase over time. This section shows that the two
 useful fluxes we derived in the previous chapter both have this
-property. This is established by the following two lemmas
+property. This is established by the following two lemmas:
 
-#lemma(number: "11.3.5.8", "Monotonicity of Lax-Friedrichs and Godunov flux")[
+#lemma(number: "11.3.5.8", [Monotonicity of Lax--Friedrichs and Godunov flux])[
   For any continuously differentiable flux function $f$ the associated
-  Lax-Friedrichs flux and Godunov flux are monotone.
+  Lax--Friedrichs flux and Godunov flux are monotone.
 ]
 #lemma(number: "11.3.5.13", "Non-oscillatory monotone semi-discrete evolutions")[
-  If $mu = mu (t)$ solves the two point flux equation @eq:two_points_flux,
-  with a monotone numerical flux and $mu (0)$ has finitely many local
-  extrema, then the number of local extrema of $mu (t)$ cannot be larger
-  than that of $mu (0)$.
+  If $bmu = bmu (t)$ solves the two-point flux equation @eq:two-points-flux-discrete
+  with a monotone numerical flux and $bmu (0)$ has finitely many local
+  extrema, then the number of local extrema of $bmu (t)$ cannot be larger
+  than that of $bmu (0)$.
 ]
 Note that monotonicity is defined as follows
 #definition(number: "11.3.5.5", "Monotonicity of flux functions")[
   A 2-point numerical flux function $F = F(v, w)$ is #emph[monotone] if
 
-  $ -F "is increasing in its first argument, i.e." &F(v, w) <= F(v+Delta v, w) quad forall w in bb(R) \
-  - F "is decreasing in its second argument, i.e." &F(v, w) <= F(v, w+Delta w) quad forall v in bb(R)$
+  $ - thick F "is increasing in its first argument, i.e." &F(v, w) <= F(v+Delta v, w) quad &forall w &in bb(R) \
+  - thick F "is decreasing in its second argument, i.e." &F(v, w) <= F(v, w+Delta w) quad &forall v &in bb(R)$
 ]<def:monotone-flux>
 == Timestepping for Finite-Volume Methods
 <sub:timestepping-for-fv>
@@ -254,16 +262,16 @@ constraints we have, when choosing the timestep size $tau$.
 
 #definition(number: "11.4.2.5", "Numerical domain of dependence")[
   Consider the explicit fully discrete evolution
-  $mu^((k + 1)) := cal(H) (mu^((k)))$ on uniform spatio-temporal mesh
+  $bmu^((k + 1)) := fvH (bmu^((k)))$ on uniform spatio-temporal mesh
   ($x_j = h j , j in bb(Z) , t_k = k tau , k in bb(N)_0$) with
-  $ exists m in bb(N)_0 : (cal(H) (mu))_j = cal(H) (mu_(j - m) , dots.h , mu_(j + m)) , j in bb(Z) . $
+  $ exists m in bb(N)_0 : (fvH (bmu))_j = fvH (mu_(j - m) , dots.h , mu_(j + m)) , j in bb(Z) . $
   Then the *numerical domain of dependence* is given by
   $ D_h^(-) (x_j , t_k) := { (x_n , t_l) in bb(R) times [0 , t_k] : j - m (k - l) lt.eq n lt.eq j + m (k - l) } $
 ]
 // TODO illustrate
 When this definition is applied to the current problem with flux
 function $F (u_(j - m) , dots.h , u_(j + m))$, we point out that
-$cal(H)$ is the symbol for all the operations done in one timestep of
+$fvH$ is the symbol for all the operations done in one timestep of
 Runge--Kutta, and $m$ corresponds to the number of neighbors we need to
 compute the numerical flux in one point.
 
@@ -271,9 +279,9 @@ The following kind of condition appears over and over in numerical
 integration and gives an upper bound for the timestep size $tau$ that can
 be used to construct the numerical solution, such that the solution is
 stable.
-#definition(number: "11.4.2.11", "Courant-Friedrichs-Lewy (CFL) condition")[
+#definition(number: "11.4.2.11", [Courant--Friedrichs--Lewy (CFL) condition])[
   An explicit local fully discrete evolution
-  $mu^((t + 1)) := cal(H) (mu)$ on uniform spatio-temporal mesh
+  $bmu^((t + 1)) := fvH (bmu)$ on uniform spatio-temporal mesh
   ($x_j = h j , j in bb(Z) , t_k = k tau , k in bb(N)$) satisfies the CFL
   condition, if the convex hull of its numerical domain of dependence contains the maximal analytical domain of dependence
   $ D^(-) (x_j , t_k) subset "convex"thin (D_h^(-) (x_j , t_k)) quad forall j , k . $

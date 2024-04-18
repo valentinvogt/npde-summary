@@ -40,14 +40,14 @@ Last updated on #date.display("[month repr:long] [day], [year]")
 = Basics
 #v(-0.1cm)
 
-#theorem(number: "0.3.1.19", "Cauchy-Schwarz Inequality")[
+#theorem(number: "0.3.1.19", [Cauchy--Schwarz Inequality])[
   If $a$ is a symmetric positive semi-definite bilinear form, then
 #neq($ lr(|a (u , v)|) lt.eq a (u , u)^(1 / 2) a (v , v)^(1 / 2) $)
 ] <thm:cauchy-schwarz>
 
 #v(-0.5cm)
 
-#equation(number: "1.3.4.15", "Cauchy-Schwarz for Integrals")[
+#equation(number: "1.3.4.15", [Cauchy--Schwarz for Integrals])[
   #neq($ lr(|integral_Omega u(bx) v(bx) dif bx|) <= (integral_Omega |u(bx)|^2 dif bx)^(1 / 2) (integral_Omega |v(bx)|^2 dif bx)^(1 / 2) = norm(u)_(L^2 (Omega)) norm(v)_(L^2 (Omega)) $)
 ] <eq:cauchy-schwarz-integrals>
 

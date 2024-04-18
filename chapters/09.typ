@@ -2,7 +2,7 @@
 #show: thmrules
 
 = Second-Order Linear Evolution Problems
-<ch:second-order-evolution-problems>
+<ch:9>
 #counter(heading).update((9,1))
 == Parabolic Initial-Boundary Value Problems
 <sub:parabolic-ivps>
@@ -97,9 +97,9 @@ immediate. One usually considers
   with $tau = max_j lr(|t_j - t_(j - 1)|)$.
 ]
 
-#strong[Runge-Kutta Single-Step Methods]
-#definition(number: "7.3.3.1", "General Runge-Kutta single-step method")[
-  For coefficients $b_i , a_(i , j) in bb(R) , c_i = sum_(j = 1)^s a_(i , j)$, the discrete evolution operator $Psi^(s , t)$ of an #strong[s-stage Runge-Kutta single step method] (RK-SSM) for the ODE $bold(dot(u)) = bold(f \() t , bold(u) \)$ is defined by
+#strong[Runge--Kutta Single-Step Methods]
+#definition(number: "7.3.3.1", [General Runge--Kutta single-step method])[
+  For coefficients $b_i , a_(i , j) in bb(R) , c_i = sum_(j = 1)^s a_(i , j)$, the discrete evolution operator $Psi^(s , t)$ of an #strong[s-stage Runge--Kutta single step method] (RK-SSM) for the ODE $bold(dot(u)) = bold(f \() t , bold(u) \)$ is defined by
   $ bold(k)_i = bold(f) (t + c_i tau , bold(u) + tau sum_(j = 1)^s a_(i , j) bold(k)_j) , quad i = 1 , dots.h , s , quad Psi^(t , t + tau) bold(u) = bold(u) + tau sum_(j = 1)^s b_j bold(k)_j $
   with $bold(k)_j$ the increments.
 ]

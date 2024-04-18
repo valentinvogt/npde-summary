@@ -24,6 +24,7 @@
 #let bw = $ bold(w) $
 #let bA = $ bold(A) $
 #let balpha = $ bold(alpha) $
+#let bmu = $ bold(mu) $
 #let mhat = content => $ hat(content, size: #140%)$
 #let Khat = $ hat(K, size: #120%)$
 #let bxhat = $ hat(bx) $
@@ -32,6 +33,7 @@
 #let gradsub = content => $bold("grad"_(#content)) $
 #let div = $"div"thin $
 #let openint(a,b) = $lr(\] #a, #b \[)$
+#let fvH = $bold(cal(H))$
 
 #let this-template(doc) = [
   #show: thmrules
