@@ -238,7 +238,7 @@ triangles (2D) or tetrahedra (3D).
 This space is well suited for triangular meshes, as the local dimension
 $binom(d + p, p) = binom(2 + p, p)$ (in 2D) is the same as the number of interpolation nodes of a triangle. The local basis functions of $cal(S)_1^0$ are
 the barycentric coordinate functions. In
-$cal(S)_2^0$, the local basis functions are linear combinations of barycentric
+$cal(S)_2^0$, the local basis functions are combinations of barycentric
 coordinate functions:
 #grid(
   columns: (0.5fr, 0.5fr), [
@@ -550,7 +550,7 @@ is needed when $Omega$ and $mhat(Omega)$ do not live in the same space. If, for
 example, $Omega subset bb(R)^3$ describes a 2D plane "living" in 3D space and
 $mhat(Omega) subset bb(R)^2$, we will have
 $D Phi_K in bb(R)^(3 times 2)$ and hence $det (Phi_K)$ is not defined, so the
-full term is used. In the simpler case of square $Phi$, this simplifes to $det (Phi_K)$.
+full term is used. In the simpler case of square $Phi$, this simplifies to $det (Phi_K)$.
 For both cases, the term is provided by
 #weblink(
   "https://craffael.github.io/lehrfempp/classlf_1_1geometry_1_1_geometry.html#a80112cf5cfa9314cb44e61756299607d",

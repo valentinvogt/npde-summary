@@ -80,6 +80,7 @@ Last updated on #date.display("[month repr:long] [day], [year]")
 #counter(heading).update(4)
 #include "chapters/05.typ"
 
+#pagebreak()
 #counter(heading).update(8)
 #include "chapters/09.typ"
 

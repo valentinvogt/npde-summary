@@ -6,34 +6,23 @@
 #counter(heading).update((11,1))
 == Scalar Conservation Laws in 1D
 <sub:scalar-conservation-laws-in-1d>
-The goal of this chapter is solve general conservation laws which are of the form
+The goal of this chapter is to solve general conservation laws which are of the form
 #neq($ frac(partial u, partial t) (x , t) + frac(partial, partial x) (f (u (x , t) , x)) = s (u (x , t) , x , t) . $) <eq:general-cons-law>
 The flux $f : bb(R) times Omega arrow.r bb(R)$ can be a general
 function, which can depend non-linearly on the solution $u$. Everything
-in this chapter will be one dimensional in space and time. So we have
+in this chapter will be one-dimensional in space and time, so we have
 $Omega subset.eq bb(R)$.
 
-We usually consider the special case $s = 0$ and $f=f(u)$, known as the *Cauchy problem*
+We usually consider the special case $s = 0$ and $f=f(u)$, known as the *Cauchy problem*:
 #neq($ frac(partial u, partial t) + frac(partial, partial x) f (u) &= 0 \
 u(x,0) &= u_0 (x) $) <eq:cauchy-problem>
-#strong[Particle Model]
-
-One first example is the particle model, in the lecture we took cars as
-particles and wanted to model traffic speed as a function of the number
-of cars in the following way:
-$ dot(x)_i (t) = v_"max" (1 - frac(Delta_0, Delta x_i (t))) , quad Delta x_i (t) = x_(i + 1) (t) - x_i (t) . $
-Intuitively, this describes the speed of car $i$ as a function of the
-maximum velocity the car can drive $v_"max"$, the distance to the car
-in front $Delta x_i (t)$ and the minimal distance, i.e. car length
-$Delta_0$.
-
-To get a differential equation we have to think about what quantities
-must preserved and how we can relate the changes of cars over some space
-interval to the speed of the cars in this interval. This can then be
-modelled as
-$ frac(partial u, partial t) (x , t) = frac(partial, partial x) u (1 - u) , $
-where $u$ describes the care density (average number of cars on the road
-in some infinitesimally small interval at position $x$ and time $t$).
+#mybox("Example: Particle Model", ..unimportant)[
+  We model cars as particles with position $x_i (t)$. Traffic speed is modeled by
+  $ dot(x)_i (t) = v_"max" dot.op (1 - frac(Delta_0, Delta x_i (t))) , quad Delta x_i (t) = x_(i + 1) (t) - x_i (t) , $
+  where $v_"max"$ is the maximum velocity and $Delta_0$ is the minimal distance between cars (i.e., the car length). Using some basic assumptions, we get a PDE:
+  $ frac(partial u, partial t) (x , t) = frac(partial, partial x) u (1 - u) . $
+  We define the car density $u(x)$ as the number of cars in an infinitesimal interval around $x$.
+]
 
 #counter(heading).step(level: 3)
 === Characteristics
@@ -47,7 +36,7 @@ characteristic curve is defined as
 ]
 
 Generally, characteristic curves are lines along which information
-propagates. This means a $u (x , t)$ will only depend on the initial
+propagates. This means $u (x , t)$ will only depend on the initial
 condition at $x_0$, namely $u_0 (x_0)$, if there is a characteristic curve that
 starts in the point $x_0$ and travels to the point in space time
 $(x , t)$. One property of characteristic curves is the following:
@@ -57,8 +46,7 @@ $(x , t)$. One property of characteristic curves is the following:
   characteristic curves.
 ]
 
-For example in the case of linear advection (this is the ODE
-$partial_t u + v partial_x u = 0$) we can use this to solve the equation
+For example in the case of linear advection ($partial_t u + v partial_x u = 0$) we can use this to solve the equation
 because $gamma (tau) = (x_0 + tau v)$, which implies
 $u (x , t) = u_0 (x - t v)$.
 
@@ -221,7 +209,7 @@ crucial, so an important idea to choose the right flux is to respect
 that. Moreover the flux has to reproduce physical solution in the sense explained above when studying two possible solutions for the Riemann
 problem.
 
-The final flux introduced, which solves these problems, is the Godunov Flux.
+ which solves these problems, is the Godunov Flux.
 
 #definition(number: "11.3.4.33", "Godunov Flux")[
   $ F_(G D) (v , w) = cases(delim: "{", min_(v lt.eq u lt.eq w) f (u) quad  upright("if ") v < w, max_(w lt.eq u lt.eq v) f (u) quad upright("if ") v gt.eq w ,) $
@@ -229,7 +217,8 @@ The final flux introduced, which solves these problems, is the Godunov Flux.
 
 === Monotone Schemes
 <sub:monotone-schemes>
-In one of the above subsections it was mentioned that the number of
+In @sub:properties-of-entropy-solutions
+ it was mentioned that the number of
 extrema must not increase over time. This section shows that the two
 useful fluxes we derived in the previous chapter both have this
 property. This is established by the following two lemmas:
@@ -254,20 +243,32 @@ Note that monotonicity is defined as follows
 == Timestepping for Finite-Volume Methods
 <sub:timestepping-for-fv>
 As already introduced earlier, to solve the the equations, once we chose
-the numerical Flux, we use Runge Kutta numerical Integration.
+the numerical Flux, we use Runge--Kutta numerical Integration.
 
 This subsection then studies the some conditions that have to be
-considered, when applying these Runge Kutta methods. In particular, what
+considered, when applying these Runge--Kutta methods. In particular, what
 constraints we have, when choosing the timestep size $tau$.
 
 #definition(number: "11.4.2.5", "Numerical domain of dependence")[
   Consider the explicit fully discrete evolution
-  $bmu^((k + 1)) := fvH (bmu^((k)))$ on uniform spatio-temporal mesh
+  $bmu^((k + 1)) := fvH (bmu^((k)))$ on a uniform spatio-temporal mesh
   ($x_j = h j , j in bb(Z) , t_k = k tau , k in bb(N)_0$) with
-  $ exists m in bb(N)_0 : (fvH (bmu))_j = fvH (mu_(j - m) , dots.h , mu_(j + m)) , j in bb(Z) . $
+  #neq($ exists m in bb(N)_0 : (fvH (bmu))_j = fvH (mu_(j - m) , dots.h , mu_(j + m)) , j in bb(Z) . $) <eq:fv-stencil-width>
   Then the *numerical domain of dependence* is given by
   $ D_h^(-) (x_j , t_k) := { (x_n , t_l) in bb(R) times [0 , t_k] : j - m (k - l) lt.eq n lt.eq j + m (k - l) } $
 ]
+$fvH$ is an operator which produces $bmu$ at the next timestep. It incorporates both the numerical flux and the Runge--Kutta method.
+
+#subtle-box[
+*Example:* Let's say we are solving @eq:two-points-flux-discrete and call the RHS $R(mu_j)$
+$ frac(dif mu_j, dif t) (t) = - 1 / h (F (mu_j, mu_(j+1)) - F (mu_(j-1), mu_j)) = R(mu_j) $
+and we apply explicit Euler:
+$ (fvH (bmu))_j &= mu_j + tau R(mu_j)\ 
+&= mu_j - tau / h (F (mu_j, mu_(j+1)) - F (mu_(j-1), mu_j)) $
+If we compare this to @eq:fv-stencil-width, we see that $m = 1$.
+Then the numerical domain of dependence is the set of all points $(x_n, t_l)$ that are needed to compute $bmu_j$.
+]
+
 // TODO illustrate
 When this definition is applied to the current problem with flux
 function $F (u_(j - m) , dots.h , u_(j + m))$, we point out that
@@ -295,8 +296,8 @@ Applied to our problem, this means
 === Convergence of Fully Discrete FV Method
 <sub:convergence-of-fully-discrete-fv>
 The *consistency error* is defined as follows:
-$ epsilon.alt := max_j {F(u(x_j, t), u(x_(j+1), t)) - f(u(x_(j+1/2), t))}, $
-if we assume $u$ to be an exact solution of If $epsilon.alt = Order(h^q)$, the flux is called _q-th order consistent_. $q$ is then the order of convergence of the FV method.
+$ eps := max_j {F(u(x_j, t), u(x_(j+1), t)) - f(u(x_(j+1/2), t))}, $
+if we assume $u$ to be an exact solution of If $eps = Order(h^q)$, the flux is called _q-th order consistent_. $q$ is then the order of convergence of the FV method.
 
 We get at most order one convergence in the maximum and the
 $L^1$ norm. This can be seen by the following fact

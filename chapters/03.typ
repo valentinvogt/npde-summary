@@ -39,7 +39,7 @@ width:
 <sub:empirical-asymptotic-convergence>
 As in NumCSE, there are two types of convergence, algebraic
 and exponential. We refer to the number of basis functions (dimension of
-the trial space) as $N$ and we study the behaviour of errors as
+the trial space) as $N$ and we study the behavior of errors as
 $N arrow.r oo$. Note that both exercises and theorems are often posed in terms of $h_(cal(M))$ as $h arrow.r 0$, which is equivalent if we have a fixed polynomial degree $p$ and only do h-refinement.
 
 #definition(number: "3.2.2.1", "Types of convergence")[
@@ -53,10 +53,10 @@ $N arrow.r oo$. Note that both exercises and theorems are often posed in terms o
   [Determining convergence rates],
   [
     - *algebraic* 
-    $ alpha approx (log epsilon.alt_(i-1) - log epsilon.alt_i)/(log N_i - log N_(i-1)) = log(epsilon.alt_i\/epsilon.alt_(i-1))/log(h_i\/h_(i-1)) $
+    $ alpha approx (log eps_(i-1) - log eps_i)/(log N_i - log N_(i-1)) = log(eps_i\/eps_(i-1))/log(h_i\/h_(i-1)) $
     - *exponential* In general: complicated (see §3.2.2.5 Lecture Notes)
       
-      If $delta=1$ (plain exponential convergence) and we let $N$ increase linearly (e.g., $N_i = i$), $ epsilon.alt_(i+1)/epsilon.alt_i approx exp(-gamma) $
+      If $delta=1$ (plain exponential convergence) and we let $N$ increase linearly (e.g., $N_i = i$), $ eps_(i+1)/eps_i approx exp(-gamma) $
   ]
 )
 Note that in the case of h-refinement we get the relation between $N$
@@ -179,7 +179,7 @@ with modified (bi-)linear forms $a_h , ell_h$. With computers, the use of
 quadrature and approximation of boundaries result in such a crime and are unavoidable. As
 Hiptmair likes to say, "we are all sinners".
 
-So the only distinction we can make is between acceptable and inacceptable "crimes". Crimes which do not affect the type and rate of convergence are acceptable.
+So the only distinction we can make is between acceptable and unacceptable "crimes". Crimes which do not affect the type and rate of convergence are acceptable.
 
 So how to not temper with the convergence?
 

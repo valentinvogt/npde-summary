@@ -140,4 +140,3 @@ $V_h^((k - 1))$ to $V_h^((k))$. In all of these equations, the previous
 iterate $u_h^((k - 1))$ is kept fixed, a linear system like derived in
 Chapter 2 is solved to obtain the intermediate $w_h$, and then a new
 iterate $u^((k))$ is obtained.
-#pagebreak()

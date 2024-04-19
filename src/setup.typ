@@ -25,6 +25,8 @@
 #let bA = $ bold(A) $
 #let balpha = $ bold(alpha) $
 #let bmu = $ bold(mu) $
+
+// Wider hat
 #let mhat = content => $ hat(content, size: #140%)$
 #let Khat = $ hat(K, size: #120%)$
 #let bxhat = $ hat(bx) $
@@ -34,6 +36,9 @@
 #let div = $"div"thin $
 #let openint(a,b) = $lr(\] #a, #b \[)$
 #let fvH = $bold(cal(H))$
+
+// #let eps = $ #h(0cm)text(epsilon, font: "Asana Math")med$
+#let eps = $epsilon.alt$
 
 #let this-template(doc) = [
   #show: thmrules
@@ -45,12 +50,11 @@
       link(
         it.at("target"), numbering(el.numbering, ..counter(eq).at(el.location())),
       )
-  []
-  } else {
-    it
+    []
+    } else {
+      it
+    }
   }
-}
   #set page(numbering: "1")
-  
   #doc
 ]

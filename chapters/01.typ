@@ -7,7 +7,7 @@
 == Quadratic Minimization Problems
 <sub:quadratic-minimization-problems>
 #v(0.2cm)
-In the following, let $V$ be a Vector Space over $bb(R)$. \
+In the following, let $V$ be a vector space over $bb(R)$. \
 #mybox("Linear forms")[
   $ell : V arrow.r bb(R)$ is a #emph[linear form / linear functional] $arrow.l.r.double.long$
 #neq($ ell (alpha u + beta v) = alpha ell (u) + beta ell (v) wide forall u , v in V , forall alpha , beta in RR $)
@@ -128,7 +128,7 @@ Note that the trial space $mhat(V)$, from which we pick a solution, and the test
 #lemma(number: "1.5.2.4", "Gauss' Theorem")[
   Let $bold(n) : partial Omega arrow.r bb(R)^d$ denote the exterior unit normal vector field
   on $partial Omega$ and $d S$ denote integration over a surface. We have
-  #neq($ integral_Omega div bold(j (x)) dif bx = integral_(partial Omega) bold(j (x) dot.op n (x)) dif S (x) quad forall bold(j) in (C_(upright(p w))^1 (overline(Omega)))^d $)
+  #neq($ integral_Omega div bold(j (x)) dif bx = integral_(partial Omega) bold(j (x) dot.op n (x)) dif S (bx) quad forall bold(j) in (C_(upright(p w))^1 (overline(Omega)))^d $)
 ] <thm:gauss-theorem>
 
 #lemma(number: "1.5.2.7", "Green's first formula")[
@@ -198,7 +198,7 @@ The following theorem is frequently needed when dealing with integrals over the 
 <sub:second-order-elliptic-variational-problems>
 We have seen how we can get from a minimization problem via a
 variational problem to a BVP. Now we want to move in the opposite
-direction, from a PDE and its boundary conditions we want to get to a
+direction: from a PDE with boundary conditions to a
 variational problem. 
 #tip-box("Strong to weak")[
   + Test the PDE with (multiply by $v$) and integrate over $Omega$

@@ -30,7 +30,7 @@ with the shorthand notation
 $ m (dot(u) , v) & = integral_Omega rho (bx) med dot(u) med v dif bx\
 a (u , v) & = integral_Omega kappa (bx) med grad u dot.op grad v dif bx\
 ell (v) & = integral_Omega f (bx , t) med v dif bx $
-and the realisation that $m (dot(u) , v) = frac(dif, dif t) m (u , v)$
+and the realization that $m (dot(u) , v) = frac(dif, dif t) m (u , v)$
 as only $u$ depends on time (note that importantly, the domain $Omega$ also stays constant) we can rewrite @eq:heat-integral-form as
 #neq($ frac(dif, dif t) m (u , v) + a (u , v) = ell (v) $) <eq:heat-short>
 
@@ -86,14 +86,14 @@ As $Psi$ is the discrete approximation, the question about the error is
 immediate. One usually considers
 
 - the error at final time:
-  $epsilon.alt_M = norm(bold(u) (T) - bold(u)^((M)))$
+  $eps_M = norm(bold(u) (T) - bold(u)^((M)))$
 
 - maximum error in the sequence:
-  $epsilon.alt_oo = max_j norm(bold(u)^((j)) - bold(u) (t_j))$
+  $eps_oo = max_j norm(bold(u)^((j)) - bold(u) (t_j))$
 
 #theorem(number: "9.2.6.14", "Convergence of single-step methods")[
   Given the above sequence of solutions, obtained by a single step method of order $q in bb(N)$, then
-  $ epsilon.alt_oo = max_j norm(bold(u)^((j)) - bold(u) (t_j)) lt.eq C tau^q $
+  $ eps_oo = max_j norm(bold(u)^((j)) - bold(u) (t_j)) lt.eq C tau^q $
   with $tau = max_j lr(|t_j - t_(j - 1)|)$.
 ]
 
@@ -192,7 +192,7 @@ zero if $bold(b)$ is equal to the last row of $bold(frak(A))$.
   - its spatial Galerkin finite element discretization relies on degree $p$ Lagrangian finite elements on uniformly shape-regular families of meshes
   - time stepping is based on an L-stable single step method of order $q$, 
 
-  then we can expect an asymptotic behaviour
+  then we can expect an asymptotic behavior
   of the total discretization error according to
   $ (tau sum_(j = 1)^M lr(|u (tau j) - u_h^((j))|)_(H^1 (Omega))^2)^(1 / 2) lt.eq C (h_(cal(M))^p + tau^q) $
 

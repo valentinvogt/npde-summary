@@ -65,10 +65,10 @@ Here we will focus on the convection diffusion equation
 $bold(v)$ and zero Dirichlet boundary conditions. Hence
 $ - kappa Delta u + rho bold(v (x)) dot.op grad u = f quad upright("in ") Omega , #h(2em) u = 0 quad upright("on ") partial Omega $
 Non-dimensionalizing the problem results in
-$ - epsilon.alt Delta u + bold(v (x)) dot.op grad u = f quad upright("in ") Omega , #h(2em) u = 0 quad upright("on ") partial Omega $
+$ - eps Delta u + bold(v (x)) dot.op grad u = f quad upright("in ") Omega , #h(2em) u = 0 quad upright("on ") partial Omega $
 with $norm(bold(v))_(L^oo (Omega)) = 1$. This results in the following
 variational form
-#neq($ epsilon.alt integral_Omega grad u dot.op grad w dif bx + integral_Omega (bold(v) dot.op grad u) w dif bx = integral_Omega f (bx) w dif x $) <eq:convection-diffusion-weak>
+#neq($ eps integral_Omega grad u dot.op grad w dif bx + integral_Omega (bold(v) dot.op grad u) w dif bx = integral_Omega f (bx) w dif x $) <eq:convection-diffusion-weak>
 with the left-hand side the bilinear form $a (u , w)$. However, $a$ is
 not symmetric. This also means that it does not induce an energy norm.
 However, it is still positive definite (see lecture document).
@@ -76,67 +76,67 @@ However, it is still positive definite (see lecture document).
 === Singular perturbation
 
 A boundary value problem depending on a
-parameter $epsilon.alt$ is called singularly perturbed, if the limit
-problem for $epsilon.alt arrow.r epsilon.alt_0$ is not compatible with
+parameter $eps$ is called singularly perturbed, if the limit
+problem for $eps arrow.r eps_0$ is not compatible with
 the boundary conditions.
 
-For $epsilon.alt = 0$ the above PDE is singular perturbed. It cannot
-satisfy Dirichlet boundary conditions on the outflow part of the
+For $eps = 0$, the above PDE is singular perturbed. It cannot
+satisfy Dirichlet boundary conditions on the _outflow_ part of the
 boundary. 
 // TODO: give a clear example
-$Gamma_(upright("out")) = bx in partial Omega : bold(v (x)) dot.op bold(n (x)) > 0$,
-similarly
-$Gamma_(upright("in")) = bx in partial Omega : bold(v (x)) dot.op bold(n (x)) < 0$
+$ Gamma_(upright("out")) &= bx in partial Omega : bold(v (x)) dot.op bold(n (x)) > 0 \
+Gamma_(upright("in")) &= bx in partial Omega : bold(v (x)) dot.op bold(n (x)) < 0 $
 
 === Upwinding
 
 When trying to solve Eq. @eq:convection-diffusion-weak with
-the Galerkin approach, when $epsilon.alt$ is very close to 0, one can
+the Galerkin approach, when $eps$ is very close to 0, one can
 observe huge oscillations in the solution, which is not correct. It
 comes from the fact that the Galerkin matrix becomes close to singular.
 So our goal is to get a robust method that can solve Eq.
-@eq:convection-diffusion-weak no matter the $epsilon.alt$.
+@eq:convection-diffusion-weak no matter the $eps$.
 
 Consider again Eq. @eq:convection-diffusion-weak but in $d = 1$ and with zero boundary conditions
-$ epsilon.alt integral_0^1 frac(partial u, partial x) frac(partial w, partial x) dif x + integral_0^1 frac(partial u, partial x) w dif x = integral_0^1 f (x) w dif x $
+$ eps integral_0^1 frac(partial u, partial x) frac(partial w, partial x) dif x + integral_0^1 frac(partial u, partial x) w dif x = integral_0^1 f (x) w dif x $
 To calculate the Galerkin matrix for an equidistant mesh with $M$ cells,
 we use the global composite trapezoidal rule for the convective term
-$ integral_0^1 psi (x) dif x = h sum_(j = 0)^M psi (j h) $
+$ integral_0^1 psi (x) dif x approx h sum_(j = 0)^M psi (j h) $
 Hence the convective term of the bilinear form will be approximated by
-$ integral_0^1 frac(partial u_h, partial x) w_h dif x approx h sum_(j = 1)^(M - 1) frac(partial u_h, partial x) med (j h) w_h (j h) $
-But $frac(partial u_h, partial x) med (j h)$ is not valid, as it's
-discontinuous at the nodes for $u_h in cal(S)_(1 , 0)^0$. However,
+$ integral_0^1 frac(partial u_h, partial x) med w_h dif x approx h sum_(j = 1)^(M - 1) colMath(frac(partial u_h, partial x)  (j h), accentcolor) med w_h (j h) $
+But $frac(partial u_h, partial x)  (j h)$ is not defined: $u_h in cal(S)_(1 , 0)^0$ is piecewise continuous, so its derivative has jumps at the nodes. However,
 convection transports the information in the direction of $bold(v)$ ($= 1$
-in our case). Hence use
-$ frac(partial u_h, partial x) med (j h) = lim_(delta arrow.r 0) frac(partial u_h, partial x) med (j h - delta bold(v)) = eval(frac(partial u_h, partial x)) _openint(x_(j - 1) , x_j) $ 
+in our case). So we use the value of $frac(partial u_h, partial x)$ from "upwind", i.e., in direction $-bold(v)$, which here is the value in the previous cell:
+$ frac(partial u_h, partial x)  (j h) = lim_(delta arrow.r 0) frac(partial u_h, partial x)  (j h - delta bold(v)) = eval(frac(partial u_h, partial x)) _openint(x_(j - 1) , x_j) $ 
 And generalized in more dimensions
 $ bold(v (p)) dot.op grad u_h (bold(p)) = lim_(delta arrow.r 0) bold(v (p)) dot.op grad u_h (bold(p) - delta bold(v (p))) $
 
 #counter(heading).update((10,2,2,1))
 ==== Streamline Diffusion
 
-A totally different idea to fix the
-problem of $epsilon.alt arrow.r 0$ is to add some $h$-dependent
-diffusion. I.e., replace $epsilon.alt arrow.l epsilon.alt + c (h)$ with
-$c (h) > 0$. However, there is smearing in the internal layers. But as
-the solution is smooth along the direction of $bold(v)$, so adding
+A totally different idea for fixing the
+problem of $eps arrow.r 0$ is to add some $h$-dependent
+diffusion. I.e., replace $eps arrow.l eps + c (h)$ with
+$c (h) > 0$. However, there is smearing in the internal layers. // TODO: Unclear
+But the solution is smooth along the direction of $bold(v)$, so adding
 diffusion along the velocity should not do any harm.
 
-The method of #emph[Anisotropic diffusion] is born. On cell $K$ replace
-$epsilon.alt arrow.l epsilon.alt bold(I) + delta_K bold(v)_K bold(v)_K^top$
-with $bold(v)_K$ the local velocity, i.e. obtained by averaging and
-$delta_K > 0$ some controlling parameter. Resulting in
-$ integral_Omega (epsilon.alt bold(I) + delta_K bold(v)_K bold(v)_K^top) grad u dot.op grad v dif bx + integral_Omega (bold(v) dot.op grad u) v dif bx = integral_Omega f (bx) v dif bx $
+The method of #emph[Anisotropic diffusion] is born. On cell $K$, replace
+$eps arrow.l eps bold(I) + delta_K bold(v)_K bold(v)_K^top$.
+Here, $bold(v)_K$ is the local velocity, obtained by averaging over the vertices, and
+$delta_K > 0$ some controlling parameter.
+
+$ integral_Omega eps bold(I) + delta_K bold(v)_K bold(v)_K^top) grad u dot.op grad w dif bx + integral_Omega (bold(v) dot.op grad u) w dif bx = integral_Omega f (bx) w dif bx $
 However this affects the solution $u$, such that it will not be the same
 as the one from Eq. @eq:convection-diffusion-weak. To get rid of this
 inconsistency, the anisotropic diffusion can be introduced via a
 residual term
-$ integral_Omega epsilon.alt grad u dot.op grad v dif bx + integral_Omega (bold(v) dot.op grad u) v dif bx\
-+ sum_(K in cal(M)) delta_K integral_K (- epsilon.alt Delta + bold(v) dot.op grad u - f) bold(v) dot.op grad v = integral_Omega f (bx) v dif bx $
+
+$ integral_Omega eps grad u dot.op grad w dif bx + integral_Omega (bold(v) dot.op grad u) w dif bx\
++ sum_(K in cal(M)) delta_K integral_K (- eps Delta u + bold(v) dot.op grad u - f) (bold(v) dot.op grad w) = integral_Omega f (bx) w dif bx $
 the added term will be zero for the exact solution (strong PDE) and the
 anisotropic diffusion is still here. The control parameter is usually
 chosen according to
-$ delta_K = cases(delim: "{", epsilon.alt^(- 1) h_K^2 & quad upright("if ") norm(bold(v))_(K , oo) h_K lt.eq  2 epsilon.alt, h_K & quad upright("if ") norm(bold(v))_(K , oo) h_K >  2 epsilon.alt) $
+$ delta_K = cases(delim: "{", eps^(- 1) h_K^2 & quad upright("if ") norm(bold(v))_(K , oo) h_K lt.eq  2 eps, h_K & quad upright("if ") norm(bold(v))_(K , oo) h_K >  2 eps) $
 With this, the $Order(h_(cal(M))^2)$ convergence of
 $norm(u-u_h)_(L^2 (Omega))$ for $h$-refinement is preserved, while upwind
 quadrature only achieves $Order(h_(cal(M)))$ convergence.
@@ -146,11 +146,11 @@ quadrature only achieves $Order(h_(cal(M)))$ convergence.
 Now we will take a look at how time-dependent convection-diffusion can
 be modeled. Assuming the incompressibility condition and
 non-dimensionalizing, @eq:time-dependent-heat becomes
-#neq($ frac(partial, partial t) med u - epsilon.alt Delta u + bold(v \( x ,) t \) dot.op grad u = f quad upright("in ") Omega $) <eq:transient_conv_diff>
+#neq($ frac(partial, partial t) med u - eps Delta u + bold(v \( x ,) t \) dot.op grad u = f quad upright("in ") Omega $) <eq:transient_conv_diff>
 If we solve this with the method of lines without upwind quadrature, oscillations occur. But with upwinding, damping is observed, which is  also wrong. 
 Therefore, we need a different method. Of course the limit of
-$epsilon.alt arrow.r 0$ again poses a problem. So let's first look at the
-pure transport problem, which we get by setting $epsilon.alt = 0$:
+$eps arrow.r 0$ again poses a problem. So let's first look at the
+pure transport problem, which we get by setting $eps = 0$:
 $ frac(partial, partial t) med u + bold(v \( x ,) t \) dot.op grad u = f quad upright("in ") Omega $
 Its solution is given by the #emph[Method of Characteristics]
 #neq($ u (bx , t) = cases(delim: "{", u_0 (bold(x_0)) + integral_0^t f (bold(y) (s) , s) dif s & upright("if ") bold(y) (s) in Omega quad &forall 0 < s < t, g (bold(y) (s_0) , s_0) + integral_(s_0)^t f (bold(y) (s) , s) dif s quad& upright("if ") bold(y) (s_0) in partial Omega and bold(y) (s) in Omega quad &forall s_0 < s < t) $) <eq:moc>
@@ -158,7 +158,7 @@ where $bold(y) (t)$ is defined as the solution of
 $dot(bold(y)) (t) = bold(v \( y) (t) , t \), $ $u_0$ the initial
 condition and $g$ the Dirichlet boundary conditions on the inflow
 boundary. Unfortunately, this only works for the pure transport problem.
-For $epsilon.alt > 0$ we need an other method.
+For $eps > 0$ we need an other method.
 
 #strong[Splitting Methods]
 
@@ -180,11 +180,11 @@ Strang Splitting single step method provides a method to solve this.
   If the IVP in each sub-step is solved exactly or with a 2nd-order time stepping method, the Strang splitting method is of second order.
 ]
 We can now apply this to Eq. @eq:transient_conv_diff.
-$ frac(partial, partial t) &u &= quad& epsilon.alt  Delta u & quad f - bold(v) & dot.op grad u\
+$ frac(partial, partial t) &u &= quad& eps  Delta u & quad f - bold(v) & dot.op grad u\
   &arrow.t.b & quad & med med arrow.t.b & quad & med med arrow.t.b\
   & dot(bold(y)) &= quad bold(&g (y)) & &bold(r(y)) $ This amounts to once
 solving pure diffusion
-$ frac(partial t, partial z) - epsilon.alt Delta z = 0 $ and once pure
+$ frac(partial t, partial z) - eps Delta z = 0 $ and once pure
 transport
 $ frac(partial t, partial w) + bold(v) dot.op grad u = f $ To
 solve the pure transport problem, we have seen the method of
@@ -226,13 +226,13 @@ $ frac(D f, D bold(v)) (bx , t) = grad f (bx , t) dot.op bold(v \( x) , t \) + f
 
 Hence the transient convection-diffusion equation
 @eq:transient_conv_diff can be rewritten as
-$ frac(D u, D bold(v)) - epsilon.alt Delta u = f quad upright(" in ") Omega $
+$ frac(D u, D bold(v)) - eps Delta u = f quad upright(" in ") Omega $
 By using a backwards difference of the material derivative, we get a
 semi-discretization
-$ frac(u^((j)) (bx) - u^((j - 1)) (Phi^(t_j , t_j - tau) bx), tau) - epsilon.alt Delta u^((j)) = f (bx , t_j) quad upright(" in ") Omega $
+$ frac(u^((j)) (bx) - u^((j - 1)) (Phi^(t_j , t_j - tau) bx), tau) - eps Delta u^((j)) = f (bx , t_j) quad upright(" in ") Omega $
 with additional initial conditions for $t = t_j$. On this
 semi-discretization the standard Galerkin method can be applied.
-$ integral_Omega frac(u^((j)) (bx) - u^((j - 1)) (Phi^(t_j , t_j - tau) bx), tau) w(bx) dif bx + epsilon.alt integral_Omega grad u^((j)) dot.op grad w dif bx = integral_Omega f (bx , t_j) w(bx) dif bx $
+$ integral_Omega frac(u^((j)) (bx) - u^((j - 1)) (Phi^(t_j , t_j - tau) bx), tau) w(bx) dif bx + eps integral_Omega grad u^((j)) dot.op grad w dif bx = integral_Omega f (bx , t_j) w(bx) dif bx $
 Unfortunately this cannot be implemented as is, because the function
 $u^((j - 1)) (Phi^(t_j , t_j - tau) bx)$ is not smooth in $cal(M)$
 and is hence not a finite element function on $cal(M)$. To get around
@@ -240,5 +240,5 @@ this, simply replace it by its linear interpolant
 $I_1 (u^((j - 1)) circle.stroked.tiny Phi^(t_j , t_j - tau))$ and
 replace $Phi^(t_j , t_j - tau) bx$ by
 $bx - tau bold(v)(bx, t_j \)$ (explicit Euler).
-$ integral_Omega frac(u^((j)) (bx) - I_1 lr({u^((j - 1)) (bold(s) - tau bold(v)(bold(s) , t_j))}, size: #110%) (bx), tau) w(bx) dif bx + epsilon.alt integral_Omega grad u^((j)) dot.op grad w dif bx = integral_Omega f (bx , t_j) w(bx) dif bx $
+$ integral_Omega frac(u^((j)) (bx) - I_1 lr({u^((j - 1)) (bold(s) - tau bold(v)(bold(s) , t_j))}, size: #110%) (bx), tau) w(bx) dif bx + eps integral_Omega grad u^((j)) dot.op grad w dif bx = integral_Omega f (bx , t_j) w(bx) dif bx $
 Here, $bold(s)$ is the variable on which the interpolation operator $I_1$ acts (in the lecture notes, this variable is written as a dot "$med dot.op med$"). The above equation still looks quite complicated, but can be implemented.
