@@ -141,24 +141,32 @@ With this, the $Order(h_(cal(M))^2)$ convergence of
 $norm(u-u_h)_(L^2 (Omega))$ for $h$-refinement is preserved, while upwind
 quadrature only achieves $Order(h_(cal(M)))$ convergence.
 
-== Discretization of Time-Dependent (Transient) Convection-Diffusion IBVPs
+#pagebreak(weak: true)
+== Discretization of Time-Dependent Convection-Diffusion IBVPs
 <sub:discrete-time-dependent-convection-diffusion>
-Now we will take a look at how time-dependent convection-diffusion can
-be modeled. Assuming the incompressibility condition and
+Now we will take a look at how time-dependent (also called _transient_) convection-diffusion can be modeled. 
+Assuming the incompressibility condition and
 non-dimensionalizing, @eq:time-dependent-heat becomes
-#neq($ frac(partial, partial t) med u - eps Delta u + bold(v \( x ,) t \) dot.op grad u = f quad upright("in ") Omega $) <eq:transient_conv_diff>
+#neq($ frac(partial, partial t) med u - eps Delta u + bold(v)(bx, t) dot.op grad u = f quad upright("in ") Omega $) <eq:transient_conv_diff>
 If we solve this with the method of lines without upwind quadrature, oscillations occur. But with upwinding, damping is observed, which is  also wrong. 
 Therefore, we need a different method. Of course the limit of
 $eps arrow.r 0$ again poses a problem. So let's first look at the
 pure transport problem, which we get by setting $eps = 0$:
-$ frac(partial, partial t) med u + bold(v \( x ,) t \) dot.op grad u = f quad upright("in ") Omega $
+$ frac(partial u, partial t) + bold(v)(bx, t) dot.op grad u = f quad upright("in ") Omega $
+
 Its solution is given by the #emph[Method of Characteristics]
 #neq($ u (bx , t) = cases(delim: "{", u_0 (bold(x_0)) + integral_0^t f (bold(y) (s) , s) dif s & upright("if ") bold(y) (s) in Omega quad &forall 0 < s < t, g (bold(y) (s_0) , s_0) + integral_(s_0)^t f (bold(y) (s) , s) dif s quad& upright("if ") bold(y) (s_0) in partial Omega and bold(y) (s) in Omega quad &forall s_0 < s < t) $) <eq:moc>
+
 where $bold(y) (t)$ is defined as the solution of
-$dot(bold(y)) (t) = bold(v \( y) (t) , t \), $ $u_0$ the initial
-condition and $g$ the Dirichlet boundary conditions on the inflow
-boundary. Unfortunately, this only works for the pure transport problem.
-For $eps > 0$ we need an other method.
+$dot(bold(y)) (t) = bold(v \( y) (t) , t \)$ and describes a streamline.
+
+We have the initial condition $u_0$ on $Omega$ and the Dirichlet boundary condition $g$ on the inflow
+boundary (see @eq:heat-bc-ic for definitions).
+This method works as follows: We follow a streamline backwards in time starting at $bx$.
+
+Then, the solution consists of two parts: The inital value of $u$ at $t=0$ and the integral of the source function $f$ from 0 to $t$ along the streamline. This is described by the first case for a streamline that stays inside the domain. The second case is for a streamline that leaves the domain. Here, $s_0$ is the time at which the streamline intersects the boundary, and we use the boundary value $g$ as the initial value at time $s_0$.
+
+
 
 #strong[Splitting Methods]
 
