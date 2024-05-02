@@ -37,6 +37,7 @@
 #let openint(a,b) = $lr(\] #a, #b \[)$
 #let fvH = $bold(cal(H))$
 
+#let recop = $upright("R")_M arrow(bmu)$
 // #let eps = $ #h(0cm)text(epsilon, font: "Asana Math")med$
 #let eps = $epsilon.alt$
 

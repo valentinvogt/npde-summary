@@ -7,8 +7,8 @@
 #counter(heading).step(level: 2)
 == Galerkin Discretization
 <sub:galerkin-discretization>
-The idea of Galerkin discretization is to replace the infinite-dimensional function space $V_0$ by a
-finite-dimensional subspace $V_(0 , h) subset V_0$.
+The idea of Galerkin discretization is to replace the infinite-dimensional
+function space $V_0$ by a finite-dimensional subspace $V_(0 , h) subset V_0$.
 
 #theorem(
   number: "2.2.1.5", title: "Theorem", "Unique solution of discrete variational problems",
@@ -17,7 +17,9 @@ finite-dimensional subspace $V_(0 , h) subset V_0$.
   definite and the linear form \
   $ell : V_0 arrow.r bb(R)$ is continuous @eq:continuity-linear-form w.r.t. $norm("")_a$,
   then the discrete variational problem
-  #neq($ u_h in V_(0 , h) : a (u_h , v_h) = ell (v_h) , quad forall v_h in V_(0 , h) $) <eq:disc-var-prob>
+  #neq(
+    $ u_h in V_(0 , h) : a (u_h , v_h) = ell (v_h) , quad forall v_h in V_(0 , h) $,
+  ) <eq:disc-var-prob>
   has a unique #emph[Galerkin] solution $u_h in V_(0 , h)$ satisfying the energy
   estimate
   $ norm(u)_a lt.eq sup_(v_h in V_(0 , h)) frac(lr(|ell (v_h)|), norm(v_h)_a) $
@@ -79,18 +81,20 @@ In FEM, the goal is to approximate $u$ by piecewise polynomial functions.
 
 A simple space for continuous, $cal(M)$-piecewise polynomial functions in $H_0^1 (openint(a, b))$ consists
 of linear functions on each cell:
-#neq($ V_(0 , h) = S_(1 , 0)^0 (cal(M)) = {v in C^0 ([a , b]) : eval(v)_[x_(i - 1),x_i ] upright("is linear") , i = 1 , dots.h , M , v (a) = v (b) = 0} $)<eq:linfem1d-space>
-$ arrow.r N = dim S_(1 , 0)^0 (cal(M)) = M - 1 $ 
-The 0-superscript stands for $C^0$: functions are globally continuous. 
-The 1-subscript denotes local degree 1 polynomial and the 0-subscript 
-denotes value 0 on the boundary. The $cal(S)$ stands for $cal(S)$calar functions.
+#neq(
+  $ V_(0 , h) = S_(1 , 0)^0 (cal(M)) = {v in C^0 ([a , b]) : eval(v)_[x_(i - 1),x_i ] upright("is linear") , i = 1 , dots.h , M , v (a) = v (b) = 0} $,
+)<eq:linfem1d-space>
+$ arrow.r N = dim S_(1 , 0)^0 (cal(M)) = M - 1 $
+The 0-superscript stands for $C^0$: functions are globally continuous. The
+1-subscript denotes local degree 1 polynomial and the 0-subscript denotes value
+0 on the boundary. The $cal(S)$ stands for $cal(S)$calar functions.
 
 Common basis functions are the 1D tent functions:
 #neq(
   $ b_h^j (x) = cases(
     delim: "{", (x - x_(j - 1)) \/ h_j & upright("if ") x_(j - 1) lt.eq x lt.eq x_j, (x_j - x) \/ h_(j + 1) & upright("if ") x_j lt.eq x lt.eq x_(j + 1), 0 & "else",
 
-  ) $
+  ) $,
 )
 #neq($ arrow.r b_h^j (x_i) = delta_(i j) $) <eq:cardinal-property>
 A basis satisfying condition @eq:cardinal-property is called a #strong[cardinal] basis.
@@ -132,7 +136,8 @@ integrate, computing (bi)linear forms $a$ and $ell$ for them is quite easy.
 We define a space of piecewise-linear functions analogously to
 @eq:linfem1d-space:
 #neq(
-  $ V_(0 , h) = S_1^0 (cal(M)) = {v in C^0 (overline(Omega)) : v_K (bx) = alpha_K + bold(beta)_K dot.op bx , alpha_K in bb(R) , bold(beta)_K in bb(R)^2 , bx in K} $) <eq:linfem2d-space>
+  $ V_(0 , h) = S_1^0 (cal(M)) = {v in C^0 (overline(Omega)) : v_K (bx) = alpha_K + bold(beta)_K dot.op bx , alpha_K in bb(R) , bold(beta)_K in bb(R)^2 , bx in K} $,
+) <eq:linfem2d-space>
 $ arrow.r dim S_1^0 (cal(M)) = \# cal(V (M)) $ And
 $S_(1 , 0)^0 (cal(M))$ additionally requires functions to be zero on $partial Omega$,
 with
@@ -236,7 +241,8 @@ triangles (2D) or tetrahedra (3D).
   )<eq:simp_lfes>
 ]
 This space is well suited for triangular meshes, as the local dimension
-$binom(d + p, p) = binom(2 + p, p)$ (in 2D) is the same as the number of interpolation nodes of a triangle. The local basis functions of $cal(S)_1^0$ are
+$binom(d + p, p) = binom(2 + p, p)$ (in 2D) is the same as the number of
+interpolation nodes of a triangle. The local basis functions of $cal(S)_1^0$ are
 the barycentric coordinate functions. In
 $cal(S)_2^0$, the local basis functions are combinations of barycentric
 coordinate functions:
@@ -249,7 +255,7 @@ coordinate functions:
   ], [
     #v(-0.7cm)
     #image("../images/triangle_nodes.png", width: 80%)
-  ]
+  ],
 )
 where the local basis functions 1-3 are associated with vertices and 4-6 with
 edges.
@@ -268,7 +274,8 @@ points on quads.
 
 Note that the choice of local polynomial space is the only difference,
 $cal(Q)_p (K)$ instead of $cal(P)_p (K)$. Of course these spaces can be mixed:
-on mixed (so-called hybrid) meshes, we use @eq:simp_lfes on triangles and @eq:tens_lfes on quadrilaterals.
+on mixed (so-called hybrid) meshes, we use @eq:simp_lfes on triangles and
+@eq:tens_lfes on quadrilaterals.
 
 #pagebreak(weak: true)
 == Implementation of Finite Element Methods
@@ -276,17 +283,20 @@ on mixed (so-called hybrid) meshes, we use @eq:simp_lfes on triangles and @eq:te
 Remember the principle of cell-oriented assembly. The goal is to rely mostly on
 local computations. To perform cell-oriented assembly, a map from local to
 global indices is needed. In LehrFEM++ this is the job of the dofhandler (#weblink(
-"https://craffael.github.io/lehrfempp/classlf_1_1assemble_1_1_dof_handler.html",
+  "https://craffael.github.io/lehrfempp/classlf_1_1assemble_1_1_dof_handler.html",
 )[`lf::assemble::DofHandler`];). It provides the following main methods:
 
 - `NumDofs()`, returns the total number of global basis functions, the dimension
   of the FE space.
 
 - `NumLocalDofs(const lf::mesh::Entity &)`, returns the number of global basis
-  functions *covering* any geometric entity, so counts those associated with the entity and with its sub-entities.
+  functions *covering* any geometric entity, so counts those associated with the
+  entity and with its sub-entities.
 
-- `GlobalDofIndices(const lf::mesh::Entity &)`, returns an array of   indices of the
-  global basis function *covering* the given entity. The order is with decreasing co-dimension of the functions's associated entity, so vertex, edge, cell. Within each co-dimension, the order is according to the local numbering of the entity.
+- `GlobalDofIndices(const lf::mesh::Entity &)`, returns an array of indices of the
+  global basis function *covering* the given entity. The order is with decreasing
+  co-dimension of the functions's associated entity, so vertex, edge, cell. Within
+  each co-dimension, the order is according to the local numbering of the entity.
 
 - `NumInteriorDofs(const lf::mesh::Entity &)`, returns the number of global basis
   functions *associated with* the given entity (so for a triangle, the number of
@@ -297,7 +307,8 @@ global indices is needed. In LehrFEM++ this is the job of the dofhandler (#webli
   `GlobalDofIndices` but returns only the indices of the global basis functions
   *associated with* the given entity.
 
-- `Entity(unsigned int dofum)`, returning the entity associated with the global index `dofnum`.
+- `Entity(unsigned int dofum)`, returning the entity associated with the global
+  index `dofnum`.
 
 Instead of dimension, in LehrFEM++ the concept of #strong[co-dimension]
 is used. Instead of going from a point with dimension 0 to a triangle with
@@ -308,8 +319,9 @@ To assemble the Galerkin matrix,
 #weblink(
   "https://craffael.github.io/lehrfempp/group__assemble__matrix__locally.html#ga39b4197203dd4e896bd7073fc033aca3",
 )[`lf::assemble::AssembleMatrixLocally`];
-can be used. To use it, we need element matrix providers, constructs which provide the _local_ element matrix for given
-bilinear forms. Some common bilinear forms are already implemented.
+can be used. To use it, we need element matrix providers, constructs which
+provide the _local_ element matrix for given bilinear forms. Some common
+bilinear forms are already implemented.
 
 - $integral_K alpha (bx) med grad u dot.op grad v dif bx$
   is implemented in
@@ -328,7 +340,7 @@ bilinear forms. Some common bilinear forms are already implemented.
   )[`lf::fe::MassEdgeMatrixProvider`];. Note the integration over an edge and not
   a cell.
 
-- $integral_K alpha (bx) med grad u dot.op grad  v dif bx med med + integral_K gamma (bx) med u med v dif bx$
+- $integral_K alpha (bx) med grad u dot.op grad v dif bx med med + integral_K gamma (bx) med u med v dif bx$
   combined is implemented in\
   #weblink(
     "https://craffael.github.io/lehrfempp/classlf_1_1uscalfe_1_1_reaction_diffusion_element_matrix_provider.html",
@@ -377,15 +389,15 @@ $ integral_K f (x) dif x approx sum_(l = 1)^(P_K) w_l^K f (zeta_l^K) , quad w_l^
 
 #strong[Essential Boundary Conditions]
 
-Remember from @sub:boundary-conditions
-that essential boundary conditions are Dirichlet boundary conditions, i.e., $u = g$ on
+Remember from @sub:boundary-conditions that essential boundary conditions are
+Dirichlet boundary conditions, i.e., $u = g$ on
 $partial Omega$, and can be solved with the offset function trick. This trick
 can also be used in FEM.\
 Assume that the basis functions are sorted such that all interior ones come
 first, followed by the ones on the boundary (we are free to choose the order of
 basis functions). Then, it is possible to write $bA$ as follows:
 $ bA = mat(
-  delim: "[", bA_0, bA_(0 partial);bA_(0 partial)^top, bA_(partial partial),
+  delim: "[", bA_0, bA_(0 partial);bA_(0 partial)^top, bA_(partial partial), , ,
 
 ) $
 where $bA_0$ is the Galerkin matrix for $cal(S)_(p , 0)^0 (cal(M))$, containing
@@ -396,11 +408,11 @@ interactions of interior with boundary functions. Similarly,
 $bA_(partial partial)$ consists only of entries calculated from basis functions
 of the boundary. Then we want to solve:
 $ mat(
-  delim: "[", bA_0, bA_(0 partial);bA_(0 partial)^top, bA_(partial partial),
+  delim: "[", bA_0, bA_(0 partial);bA_(0 partial)^top, bA_(partial partial), , ,
 
 ) mat(delim: "[", bold(arrow(mu))_0;bold(arrow(mu))_partial) = mat(delim: "[", bold(arrow(phi));bold(arrow(phi))_partial) $
-where $bold(arrow(mu))_partial$ are the coefficients of the basis expansion of $g$ on the
-boundary, which are known since $g$ is given. We only need to solve for $bold(arrow(mu))_0$ which
+where $bold(arrow(mu))_partial$ are the coefficients of the basis expansion of $g$ on
+the boundary, which are known since $g$ is given. We only need to solve for $bold(arrow(mu))_0$ which
 results in
 $ bA_0 bold(arrow(mu))_0 = bold(arrow(phi)) - bA_(0 partial) bold(arrow(mu))_partial $
 
@@ -599,7 +611,7 @@ which will return $J^(- top)$ or $J (J^top J)^(- 1)$, respectively.
   Then
   $ Phi_K (hat(x)) & = (1 - hat(x)_1) (1 - hat(x)_2) bold(a^1) + hat(x)_1 (1 - hat(x)_2) bold(a^2) + (1 - hat(x)_1) hat(x)_2 bold(a^3) + (1 - hat(x)_1) hat(x)_2 bold(a^4)\
                  & = mat(
-    delim: "[", alpha_1 + beta_1 hat(x)_1 + gamma_1 hat(x)_2 + delta_1 hat(x)_1 hat(x)_2;alpha_2 + beta_2 hat(x)_1 + gamma_2 hat(x)_2 + delta_2 hat(x)_1 hat(x)_2,
+    delim: "[", alpha_1 + beta_1 hat(x)_1 + gamma_1 hat(x)_2 + delta_1 hat(x)_1 hat(x)_2;alpha_2 + beta_2 hat(x)_1 + gamma_2 hat(x)_2 + delta_2 hat(x)_1 hat(x)_2, , ,
 
   ) $
   with
