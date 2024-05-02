@@ -6,6 +6,7 @@
 <ch:convergence-and-accuracy>
 == Abstract Galerkin Error Estimates
 <sub:abstract-galerkin-error-estimates>
+
 The main takeaway here is that the solution given by the Galerkin method is the
 best one (with respect to the energy norm) in the chosen discrete subspace. This
 is formalized by the following lemma:
@@ -48,6 +49,7 @@ quadratic, etc.). The h in h-refinement refers to the mesh width:
 
 == Empirical (Asymptotic) Convergence of Lagrangian FEM
 <sub:empirical-asymptotic-convergence>
+
 As in NumCSE, there are two types of convergence, algebraic and exponential. We
 refer to the number of basis functions (dimension of the trial space) as $N$ and
 we study the behavior of errors as
@@ -92,6 +94,7 @@ basis functions, we get $h_(cal(M))^(- 2) approx N$.
 
 == A Priori (Asymptotic) Finite Element Error Estimates
 <sub:a-priori-asymptotic-error>
+
 Since FEM is similar to polynomial interpolation, we can use interpolation error
 estimates to get error bounds. Here are some results for linear interpolation:
 #mybox(
@@ -194,8 +197,10 @@ So we gain one order of convergence in the $L^2$ norm compared to the $H^1$ norm
     norm(u - u_h)_(L^2 (Omega)) &= Order(h^(p + 1)) $
   ],
 )
+
 == Elliptic regularity
 <sub:elliptic-regularity>
+
 #theorem(
   number: "3.4.0.2", "Smooth elliptic lifting theorem",
 )[
@@ -257,9 +262,11 @@ So how to not temper with the convergence?
   - if $V_(0 , h) = cal(S)_p^0 (cal(M))$ then approximate the boundary with
     polynomials of degree $p$
 ]
+
 #pagebreak()
 == FEM: Duality Techniques for Error Estimation
 <sub:duality>
+
 #theorem(
   number: "3.6.1.7", "Duality estimate for linear functional output",
 )[

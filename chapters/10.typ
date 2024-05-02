@@ -6,6 +6,7 @@
 <ch:convection-diffusion>
 == Heat conduction in a Fluid
 <sub:heat-conduction>
+
 Consider a flowing fluid. Then there is the key quantity, the #emph[flow field] $bold(v) : Omega subset bb(R)^d arrow.r bb(R)^d$,
 where $d$ is the dimension we consider. The flow field can be understood as
 $bold(v) (bx) =$ fluid velocity at point $bx in Omega$.
@@ -61,6 +62,7 @@ We will see later on how to solve this.
 #pagebreak()
 == Stationary Convection-Diffusion Problems
 <sub:stationary-convection-diffusion>
+
 Here we will focus on the convection diffusion equation
 @eq:convection-diffusion-strong with constant $kappa$, $rho$, incompressible
 flow
@@ -149,6 +151,7 @@ quadrature only achieves $Order(h_(cal(M)))$ convergence.
 #pagebreak(weak: true)
 == Discretization of Time-Dependent Convection-Diffusion IBVPs
 <sub:discrete-time-dependent-convection-diffusion>
+
 Now we will take a look at how time-dependent (also called _transient_)
 convection-diffusion can be modeled. Assuming the incompressibility condition
 and non-dimensionalizing, @eq:time-dependent-heat becomes

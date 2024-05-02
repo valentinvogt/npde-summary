@@ -3,9 +3,11 @@
 
 = Numerical Methods for Conservation Laws
 <ch:conservation-laws>
+
 #counter(heading).update((11, 1))
 == Scalar Conservation Laws in 1D
 <sub:scalar-conservation-laws-in-1d>
+
 The goal of this chapter is to solve general conservation laws which are of the
 form
 #neq(
@@ -37,6 +39,7 @@ problem*:
 #counter(heading).step(level: 3)
 === Characteristics
 <sub:characteristics>
+
 We consider the Cauchy problem @eq:cauchy-problem. Then a characteristic curve
 is defined as
 #definition(
@@ -72,6 +75,7 @@ this approach breaks down.
 #counter(heading).step(level: 3)
 === Jump conditions and Riemann Problem
 <sub:jump-conditions-and-riemann-problem>
+
 The method of characteristics usually only works up to a certain point in time.
 To get the solution for times after that, we first note that the solution will
 usually have a discontinuity after the time where the method of characteristics
@@ -152,6 +156,7 @@ solution. Otherwise we pick the rarefaction solution.
 #counter(heading).update((11, 2, 6))
 === Properties of Entropy Solutions
 <sub:properties-of-entropy-solutions>
+
 The essential properties here are that with the propagation speed
 $f prime (u)$, we find the #strong[domain of dependence] and the
 #strong[domain of influence];, which is best illustrated by a picture and hence
@@ -165,6 +170,7 @@ non-increasing in time.
 <sub:conservative-finite-volume>
 === Finite Difference Methods
 <sub:finite-difference-methods>
+
 Finite difference methods are probably the simplest methods for solving PDEs. We
 just replace the spacial derivatives by some finite difference quotient for
 example one of the following
@@ -191,6 +197,7 @@ quotient will not contain the information of the flow direction.// TODO
 
 === Spatially Semi-Discrete Conservation Form
 <sub:spatially-semi-discrete-conservation-form>
+
 The method we will use in this section of the course is the Finite Volume
 Method: we build a mesh by taking intervals around the spatial points in which
 we approximate the solution $u$. And then we use the problem definition
@@ -232,6 +239,7 @@ very handy to solve these Cauchy problems.
 #counter(heading).step(level: 3)
 === Numerical Flux Functions
 <sub:numerical-flux-functions>
+
 This section now treats how to find suitable flux functions. There are several
 options introduced starting with the simplest which basically corresponds to a
 average of the two inputs in $F (u , w)$. But then it turns out that this flux
@@ -264,6 +272,7 @@ The final flux we look at, which solves these problems, is the Godunov Flux.
 #pagebreak(weak: true)
 === Monotone Schemes
 <sub:monotone-schemes>
+
 First, we define what it means for a flux to be monotone:
 #definition(
   number: "11.3.5.5", "Monotonicity of flux functions",
@@ -296,6 +305,7 @@ lemmas:
 
 == Timestepping for Finite-Volume Methods
 <sub:timestepping-for-fv>
+
 As explained before, once we have chosen the numerical Flux, we just need to
 apply Runge--Kutta integration. This subsection studies some conditions that
 have to be considered when applying Runge--Kutta -- in particular, constraints
@@ -351,6 +361,7 @@ Applied to our problem, this means
 #counter(heading).update((11, 4, 3))
 === Convergence of Fully Discrete FV Method
 <sub:convergence-of-fully-discrete-fv>
+
 The *consistency error* is defined as follows:
 $ eps := max_j {F(u(x_j, t), u(x_(j+1), t)) - f(u(x_(j+1/2), t))}, $
 if we assume $u$ to be an exact solution of If $eps = Order(h^q)$, the flux is
@@ -406,6 +417,7 @@ we always assume $recop (x_j) = mu_j$, i.e., the linear reconstruction has the
 same values as the piecewise constant function at the cell centers.
 
 Given slopes $sigma_j$, we can now define the linear reconstruction operator:
+#v(0.2cm)
 #subtle-box(
   width: 70%,
 )[

@@ -7,6 +7,7 @@
 == Quadratic Minimization Problems
 <sub:quadratic-minimization-problems>
 #v(0.2cm)
+
 In the following, let $V$ be a vector space over $bb(R)$.\
 #mybox(
   "Linear forms",
@@ -62,6 +63,7 @@ In the following, let $V$ be a vector space over $bb(R)$.\
 
 == Sobolev Spaces
 <sub:sobolev-spaces>
+
 When we solve a minimization problem, we first need to define the space of
 functions in which we look for the solution. For example, in Physics, we
 generally want the solution to be continuous. E.g, a function describing the
@@ -116,6 +118,7 @@ For checking boundedness we can often use Cauchy--Schwarz
 #pagebreak(weak: true)
 == Linear Variational Problem
 <sub:linear-variational-problem>
+
 #definition(
   number: "1.4.1.6", "Linear Variational Problem",
 )[
@@ -140,7 +143,7 @@ numerically. To do this transformation, we use the following equivalence:
 
 #theorem(
   number: "1.4.1.8", "Equivalence of quadratic
-        minimization problem and linear variational problem",
+            minimization problem and linear variational problem",
 )[
   For a (generalized) quadratic functional $J (v) = 1 / 2 a (v , v) - ell (v) + c$ on
   a vector space $V$ and with a symmetric positive definite bilinear form $a : V times V arrow.r bb(R)$ the
@@ -159,6 +162,7 @@ see @sub:boundary-conditions.
 #pagebreak(weak: true)
 == Boundary Value Problems
 <sub:boundary-value-problems>
+
 #lemma(
   number: "1.5.2.1", "General product rule", ..unimportant,
 )[
@@ -211,10 +215,12 @@ BVP (PDE with boundary conditions).
     rid of boundary terms
   + Use @thm:fund-lemma to remove the integrals and test functions
 ]
-#counter(heading).step(level: 2)
+
 #pagebreak(weak: true)
+#counter(heading).step(level: 2)
 == Boundary Conditions
 <sub:boundary-conditions>
+
 For 2nd-order elliptic BVPs we need boundary conditions to get a unique
 solution. To be more precise, we need #strong[exactly one] of the following
 boundary conditions on every part of $partial Omega$
@@ -264,9 +270,11 @@ boundary:
     $ exists C = C (Omega) > 0 : norm(u)_(L^2(partial Omega)) lt.eq C norm(u)_(L^2(Omega)) dot.op norm(u)_(H^1(Omega)) quad forall u in H^1 (Omega) $,
   )
 ] <thm:mult-trace-inequality>
+
 #pagebreak(weak: true)
 == Second-Order Elliptic Variational Problems
 <sub:second-order-elliptic-variational-problems>
+
 We have seen how we can get from a minimization problem via a variational
 problem to a BVP. Now we want to move in the opposite direction: from a PDE with
 boundary conditions to a variational problem.

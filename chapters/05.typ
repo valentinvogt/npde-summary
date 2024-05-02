@@ -5,6 +5,7 @@
 <ch:non-linear-elliptic-bvp>
 == Elastic String Model
 <sub:elastic-string-model>
+
 We want to derive the general variational equation for an elastic string. For
 this, one approximates the string as $n$ point masses affected by gravity
 connected with springs, whose energy behaves according to Hooke’s law. Then, one
@@ -56,6 +57,7 @@ earlier chapters:
 
 == Calculus of Variations
 <sub:calculus-of-variations>
+
 The difference between the equations seen in @eq:taut-limit, which hold in the
 limit of a very stretched string/membrane, and the general equations given
 above, is that the former are #strong[quadratic] minimization problems, while
@@ -94,6 +96,7 @@ This can be formulated more generally as a #strong[general variational equation]
 
 == Nonlinear Boundary Value Problems
 <sub:nonlinear-bvp>
+
 Similarly to the linear case, nonlinear PDEs can be derived from the variational
 equations by "stripping" of the derivatives of $v$ by partial integration and
 employing the fundamental lemma of calculus of variations. As an example, for
@@ -104,6 +107,7 @@ $ frac(dif, dif x) (frac(sigma (x), c) (sqrt(1 + lr(|u '(x)|)^2) - c) frac(u' (x
 
 == Galerkin Discretization of Non-Linear BVPs
 <sub:galerkin-non-linear-bvps>
+
 The idea of Galerkin discretization for non-linear variational equations is
 exactly the same as for linear equations, but they yield nonlinear systems of
 equations instead of linear systems of equations: One restricts $u$ and $v$ to a

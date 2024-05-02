@@ -7,6 +7,7 @@
 #counter(heading).step(level: 2)
 == Galerkin Discretization
 <sub:galerkin-discretization>
+
 The idea of Galerkin discretization is to replace the infinite-dimensional
 function space $V_0$ by a finite-dimensional subspace $V_(0 , h) subset V_0$.
 
@@ -65,6 +66,7 @@ So it can be computed as `sqrt(mu.transpose() * A * mu)`.
 #pagebreak()
 == Linear FEM in 1D
 <sub:linfem1d>
+
 In FEM, the goal is to approximate $u$ by piecewise polynomial functions.
 
 #mybox(
@@ -108,6 +110,7 @@ integrate, computing (bi)linear forms $a$ and $ell$ for them is quite easy.
 #pagebreak()
 == Linear FEM in 2D
 <sub:linfem2d>
+
 #mybox(
   "Mesh in two dimension",
 )[
@@ -176,6 +179,7 @@ functional.
 
 == Building Blocks of General Finite Element Methods
 <sub:fem-building-blocks>
+
 The first building block are meshes, see @sub:linfem1d and @sub:linfem2d. Next
 we need to choose a space of functions.
 
@@ -228,6 +232,7 @@ $frak(B)_h = b_h^1 , dots.h.c , b_h^N$ should satisfy the following constraints:
 
 == Lagrangian Finite Element Methods
 <sub:lagrangian-fem>
+
 Remember Eqs. @eq:linfem1d-space and @eq:linfem2d-space as two examples of
 finite element spaces. They are examples of the general Lagrangian FE spaces.
 First we introduce them for #emph[simplicial] meshes, i.e., those consisting of
@@ -280,6 +285,7 @@ on mixed (so-called hybrid) meshes, we use @eq:simp_lfes on triangles and
 #pagebreak(weak: true)
 == Implementation of Finite Element Methods
 <sub:implementation-of-fem>
+
 Remember the principle of cell-oriented assembly. The goal is to rely mostly on
 local computations. To perform cell-oriented assembly, a map from local to
 global indices is needed. In LehrFEM++ this is the job of the dofhandler (#weblink(
@@ -358,7 +364,9 @@ bilinear forms are already implemented.
   edge.
 
 Note that the last two are actually element vector providers.
+
 #pagebreak(weak: true)
+
 The following formula is usually used when computing element matrices by hand:
 #lemma(
   number: "2.7.5.5", "Integration of powers of barycentric coordinate functions",
@@ -397,7 +405,7 @@ Assume that the basis functions are sorted such that all interior ones come
 first, followed by the ones on the boundary (we are free to choose the order of
 basis functions). Then, it is possible to write $bA$ as follows:
 $ bA = mat(
-  delim: "[", bA_0, bA_(0 partial);bA_(0 partial)^top, bA_(partial partial), , ,
+  delim: "[", bA_0, bA_(0 partial);bA_(0 partial)^top, bA_(partial partial), , , ,
 
 ) $
 where $bA_0$ is the Galerkin matrix for $cal(S)_(p , 0)^0 (cal(M))$, containing
@@ -408,7 +416,7 @@ interactions of interior with boundary functions. Similarly,
 $bA_(partial partial)$ consists only of entries calculated from basis functions
 of the boundary. Then we want to solve:
 $ mat(
-  delim: "[", bA_0, bA_(0 partial);bA_(0 partial)^top, bA_(partial partial), , ,
+  delim: "[", bA_0, bA_(0 partial);bA_(0 partial)^top, bA_(partial partial), , , ,
 
 ) mat(delim: "[", bold(arrow(mu))_0;bold(arrow(mu))_partial) = mat(delim: "[", bold(arrow(phi));bold(arrow(phi))_partial) $
 where $bold(arrow(mu))_partial$ are the coefficients of the basis expansion of $g$ on
@@ -495,6 +503,7 @@ nodes/edges where the BC should be applied.
 
 == Parametric Finite Element Methods
 <sub:parametric-fem>
+
 #lemma(
   number: "2.7.5.14", "Affine transformation of triangles",
 )[
@@ -611,7 +620,7 @@ which will return $J^(- top)$ or $J (J^top J)^(- 1)$, respectively.
   Then
   $ Phi_K (hat(x)) & = (1 - hat(x)_1) (1 - hat(x)_2) bold(a^1) + hat(x)_1 (1 - hat(x)_2) bold(a^2) + (1 - hat(x)_1) hat(x)_2 bold(a^3) + (1 - hat(x)_1) hat(x)_2 bold(a^4)\
                  & = mat(
-    delim: "[", alpha_1 + beta_1 hat(x)_1 + gamma_1 hat(x)_2 + delta_1 hat(x)_1 hat(x)_2;alpha_2 + beta_2 hat(x)_1 + gamma_2 hat(x)_2 + delta_2 hat(x)_1 hat(x)_2, , ,
+    delim: "[", alpha_1 + beta_1 hat(x)_1 + gamma_1 hat(x)_2 + delta_1 hat(x)_1 hat(x)_2;alpha_2 + beta_2 hat(x)_1 + gamma_2 hat(x)_2 + delta_2 hat(x)_1 hat(x)_2, , , ,
 
   ) $
   with

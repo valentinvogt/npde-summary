@@ -177,16 +177,19 @@ To study the stiffness of the method of lines, we first diagonalize it. For
 @eq:heat-galerkin let $arrow(psi)_1 , dots.h , arrow(psi)_N$ denote the $N$ linearly
 independent generalized eigenvectors satisfying
 $ bA arrow(psi)_i = lambda_i bold(M) arrow(psi)_i , quad (arrow(psi)_j)^top bold(M) arrow(psi)_i = delta_(i j) $
+
 with positive eigenvalues $lambda_i$. With
 $bold(T) = [arrow(psi)_1 , dots.h , arrow(psi)_N]$ and
-$bold(D) = upright("diag") (lambda_1 , dots.h , lambda_N)$, this can be
-rewritten as $ bold(A T = M T D \, quad T^top M T = I) $ The existence of
-eigenvectors with positive eigenvalues is guaranteed, as $bold(A \, M)$
+$bold(D) = upright("diag") (lambda_1 , dots.h , lambda_N)$,
+this can be rewritten as $ bold(A T = M T D \, quad T^top M T = I) $
+
+The existence of eigenvectors with positive eigenvalues is guaranteed, as $bold(A \, M)$
 are positive (semi)definite. Thus with a change of basis to the eigenvector
 basis, one can diagonalize @eq:heat-galerkin.
 $ arrow(mu) (t) = sum_k eta_k (t) arrow(psi)_k arrow.l.r.double arrow(mu) (t) = bold(T) arrow(eta) (t) arrow.l.r.double bold(T^top M) arrow(mu) (t) = arrow(eta) (t)\
 arrow.r bold(M T) frac(dif, dif t) arrow(eta) (t) + bold(M T D) arrow(eta) (t) = arrow(phi) (t)\
 arrow.r frac(dif, dif t) arrow(eta) (t) + bold(D) arrow(eta) (t) = bold(T)^top arrow(phi) (t) $
+
 As $bold(D)$ is diagonal, this amounts to $N$ decoupled scalar ODEs. On those,
 we can perform our analysis more easily. In NumCSE you have seen that both Euler
 and Crank-Nicolson can be rewritten as a RK-SSM with appropriate coefficients,
@@ -251,7 +254,7 @@ $ dot(u)     & = v\
 rho dot(v) & = div (sigma (bx) grad u) $ Remember from Analysis that the
 particular wave equation
 $frac(partial^2, partial t^2) u - c^2 frac(partial^2, partial x^2) u = 0$
-in 1D results in the d’Alembert solution:
+in 1D results in the d'Alembert solution:
 $ u (x , t) = 1 / 2 (u_0 (x + c t) + u_0 (x - c t)) + frac(1, 2 c) integral_(x - c t)^(x + c t) v_0 (s) dif s $
 with $u_0$ and $v_0$ the initial conditions. Hence there is again the concept of
 domain of dependence and domain of influence. This will be important later.
@@ -276,30 +279,41 @@ We can formulate the variational problem:
 #counter(heading).update((9, 3, 2))
 === Method of Lines
 <sub:method-of-lines>
+
 The method of lines gives rise to
 $ bold(M) {frac(d^2, d t^2) arrow(mu) (t)} + bA arrow(mu) (t)  & = arrow(phi) (t)\
 arrow(mu) (0) = arrow(mu)_0 , frac(dif, dif t) arrow(mu) (0) & = arrow(nu)_0 $
 Using $arrow(nu) = dot(arrow(mu))$, we can rewrite it to be a first order ODE.
+
 $ frac(dif, dif t) arrow(mu)         & = arrow(nu)\
 bold(M) frac(dif, dif t) arrow(nu) & = arrow(phi) (t) - bA arrow(mu)\
-arrow(mu) (0)                      & = arrow(mu)_0 , arrow(nu) (0) = arrow(nu)_0 $ Remember
-that in the case of $arrow(phi) equiv 0$, energy is conserved:
+arrow(mu) (0)                      & = arrow(mu)_0 , arrow(nu) (0) = arrow(nu)_0 $
+
+Remember that in the case of $arrow(phi) equiv 0$, energy is conserved:
 $ E_h (t) = 1 / 2 frac(dif, dif t) arrow(mu)^top bold(M) frac(dif, dif t) arrow(mu) + 1 / 2 arrow(mu)^top bA arrow(mu) equiv upright("const") $
+
 So we would like a time stepping that preserves this. Such time stepping schemes
 are called #emph[structure preserving];. One such timestepping scheme is the #strong[Crank–Nicolson] one:
+
 $ bold(M) frac(arrow(mu)^((j + 1)) - 2 arrow(mu)^((j)) + arrow(mu)^((j - 1)), tau^2) = - 1 / 2 bA (arrow(mu)^((j - 1)) + arrow(mu)^((j + 1))) + 1 / 2 (arrow(phi) (t_j - 1 / 2 tau) + arrow(phi) (t_j + 1 / 2 tau)) $
+
 Another one would be the #strong[Störmer scheme];:
 $ bold(M) frac(arrow(mu)^((j + 1)) - 2 arrow(mu)^((j)) + arrow(mu)^((j - 1)), tau^2) = - bA arrow(mu)^((j)) + arrow(phi) (t_j) $
+
 For both of these #emph[second order] time stepping schemes, we need
 $arrow(mu)^((- 1))$ to get $arrow(mu)^((1))$. Now the question is, where do we
 get this from? It can be obtained with a special initial step, using a symmetric
 (first order) difference quotient:
+
 $ frac(dif, dif t) arrow(mu) (0) = arrow(nu)_0 arrow.r frac(mu^(\(1\)) - mu^((- 1)), 2 tau) = arrow(nu)_0 $
+
 And finally there is the #strong[Leapfrog] timestepping. Using the auxiliary
 variable
 $arrow(nu)^((j + 1 \/ 2)) = frac(arrow(mu)^((j + 1)) - arrow(mu)^((j)), tau)$
+
 and inserting this into the Störmer scheme results in
 $ bold(M) frac(arrow(nu)^((j + 1)) - arrow(nu)^((j)), tau) & = - bA arrow(mu)^((j)) + arrow(phi) (t_j)\
 frac(arrow(mu)^((j + 1)) - arrow(mu)^((j)), tau)         & = arrow(nu)^((j + 1 \/ 2)) $
+
 with the initial step
 $arrow(nu)^((- 1 \/ 2)) + arrow(nu)^((1 \/ 2)) = 2 arrow(nu)_0$.
