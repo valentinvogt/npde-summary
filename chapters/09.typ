@@ -235,7 +235,7 @@ We can formulate the variational problem:
 ]
 #counter(heading).update((9,3,2))
 === Method of Lines
-
+<sub:method-of-lines>
 The method of lines gives rise to
 $ bold(M) {frac(d^2, d t^2) arrow(mu) (t)} + bA arrow(mu) (t) & = arrow(phi) (t)\
 arrow(mu) (0) = arrow(mu)_0 , frac(dif, dif t) arrow(mu) (0) & = arrow(nu)_0 $

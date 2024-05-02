@@ -147,11 +147,10 @@ quadrature only achieves $Order(h_(cal(M)))$ convergence.
 Now we will take a look at how time-dependent (also called _transient_) convection-diffusion can be modeled. 
 Assuming the incompressibility condition and
 non-dimensionalizing, @eq:time-dependent-heat becomes
-#neq($ frac(partial, partial t) med u - eps Delta u + bold(v)(bx, t) dot.op grad u = f quad upright("in ") Omega $) <eq:transient_conv_diff>
-If we solve this with the method of lines without upwind quadrature, oscillations occur. But with upwinding, damping is observed, which is  also wrong. 
-Therefore, we need a different method. Of course the limit of
-$eps arrow.r 0$ again poses a problem. So let's first look at the
-pure transport problem, which we get by setting $eps = 0$:
+#neq($ frac(partial u, partial t) - eps Delta u + bold(v)(bx, t) dot.op grad u = f quad upright("in ") Omega $) <eq:transient_conv_diff>
+If we solve this with the method of lines (@sub:method-of-lines) without upwind quadrature, oscillations occur. But with upwinding, we get damping, which is also wrong. 
+Therefore, we need a different method. Again, we need to take care of the limit $eps arrow.r 0$. So let's first look at the
+pure transport problem ($eps = 0$):
 $ frac(partial u, partial t) + bold(v)(bx, t) dot.op grad u = f quad upright("in ") Omega $
 
 Its solution is given by the #emph[Method of Characteristics]
@@ -199,21 +198,21 @@ solve the pure transport problem, we have seen the method of
 characteristics @eq:moc. However, it requires integration along
 streamlines. We can approximate these integrals by "following" particles along their path defined by the velocity field. This *particle method* works as follows:
 
-+ Pick suitable interpolation nodes $bold(p)_i$, the initial particle
-  positions
++ Pick suitable interpolation nodes $bold(p)_i$, the initial particle positions.
 
 + Solve initial value problems
   $ bold(dot(y)) (t) = bold(y)(bold(v)(t), t) quad , quad bold(y) (0) = bold(p)_i $
-  with suitable single step methods
+  with suitable single step methods.
 
-+ Reconstruct the approximation. With the composite midpoint rule
++ Reconstruct the approximation. E.g., with the composite midpoint rule,
   $ u_h^((j)) (bold(p)_i^((j))) = u_0 (bold(p)_i) + tau sum_(l = 1)^(j - 1) f (1 / 2 (bold(p)_i^l + bold(p)_i^(l - 1)) , 1 / 2 (t_l + t_(l - 1))) $
 
 Basically, we have an interpolation problem with nodes that change over time.
 At each step, we need to add particles at the inflow boundary and remove
 ones that leave the domain. This means we need to re-mesh in each step,
- i.e., create a new triangular mesh with the advected nodes/particles.
+i.e., create a new triangular mesh with the advected nodes/particles.
 
+#pagebreak(weak: true)
 #counter(heading).update((10,3,3))
 === Semi-Lagrangian Method
 <sub:semi-lagrangian>
@@ -226,27 +225,23 @@ A method which relies on a _fixed_ mesh is the Semi-Lagrangian method.
 #definition(number: "10.3.4.2", "Material derivative", ..unimportant)[
   Given a velocity field $bold(v)$, the material derivative of a function
   $f$ is given by
-  $ frac(D f, D bold(v)) (bx , t_0) = lim_(tau arrow.r 0) frac(f (bx , t_0) - f (Phi^(t_0 , t_0 - tau) bx , t_0 - tau), tau) $
+  $ frac(D u, D bold(v)) (bx , t_0) = lim_(tau arrow.r 0) frac(u (bx , t_0) - u (Phi^(t_0 , t_0 - tau) bx , t_0 - tau), tau) $
 ]
 
 By the chain rule we find
-$ frac(D f, D bold(v)) (bx , t) = grad f (bx , t) dot.op bold(v \( x) , t \) + frac(partial t, partial f) (bx , t) $
+$ frac(D u, D bold(v)) (bx , t) = grad u (bx , t) dot.op bold(v \( x) , t \) + frac(partial, partial t) u(bx , t) $
 
 Hence the transient convection-diffusion equation
 @eq:transient_conv_diff can be rewritten as
 $ frac(D u, D bold(v)) - eps Delta u = f quad upright(" in ") Omega $
-By using a backwards difference of the material derivative, we get a
-semi-discretization
+We will now approximate the material derivative by a backwards difference. It is easy to interpret that expression: the total change of $u$ in a timestep for a particle is the difference of the current $u^((j))$ at the particle's current position $bx$ minus the value of the previous function $u^((j - 1))$ at the particle's old position $Phi^(t_j , t_j - tau) bx$. We get a semi-discretization
 $ frac(u^((j)) (bx) - u^((j - 1)) (Phi^(t_j , t_j - tau) bx), tau) - eps Delta u^((j)) = f (bx , t_j) quad upright(" in ") Omega $
-with additional initial conditions for $t = t_j$. On this
-semi-discretization the standard Galerkin method can be applied.
+with additional initial conditions for $t = t_j$. We can apply the standard Galerkin method to this
+semi-discretization.
 $ integral_Omega frac(u^((j)) (bx) - u^((j - 1)) (Phi^(t_j , t_j - tau) bx), tau) w(bx) dif bx + eps integral_Omega grad u^((j)) dot.op grad w dif bx = integral_Omega f (bx , t_j) w(bx) dif bx $
-Unfortunately this cannot be implemented as is, because the function
-$u^((j - 1)) (Phi^(t_j , t_j - tau) bx)$ is not smooth in $cal(M)$
-and is hence not a finite element function on $cal(M)$. To get around
-this, simply replace it by its linear interpolant
-$I_1 (u^((j - 1)) circle.stroked.tiny Phi^(t_j , t_j - tau))$ and
-replace $Phi^(t_j , t_j - tau) bx$ by
-$bx - tau bold(v)(bx, t_j \)$ (explicit Euler).
+Unfortunately this cannot be implemented as is because the function
+$u^((j - 1)) (Phi^(t_j , t_j - tau) bx)$ is not a finite element function on $cal(M)$. 
+
+To get around this, we do two things: Replace $Phi^(t_j , t_j - tau) bx$ by $bx - tau bold(v)(bx, t_j)$ (an explicit Euler step) and replace $u^((j - 1)) (Phi^(t_j , t_j - tau) bx)$ by its linear interpolant $I_1 (u^((j - 1)) (Phi^(t_j , t_j - tau) bx))$.
 $ integral_Omega frac(u^((j)) (bx) - I_1 lr({u^((j - 1)) (bold(s) - tau bold(v)(bold(s) , t_j))}, size: #110%) (bx), tau) w(bx) dif bx + eps integral_Omega grad u^((j)) dot.op grad w dif bx = integral_Omega f (bx , t_j) w(bx) dif bx $
 Here, $bold(s)$ is the variable on which the interpolation operator $I_1$ acts (in the lecture notes, this variable is written as a dot "$med dot.op med$"). The above equation still looks quite complicated, but can be implemented.

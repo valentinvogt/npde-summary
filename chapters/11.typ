@@ -38,8 +38,7 @@ characteristic curve is defined as
 Generally, characteristic curves are lines along which information
 propagates. This means $u (x , t)$ will only depend on the initial
 condition at $x_0$, namely $u_0 (x_0)$, if there is a characteristic curve that
-starts in the point $x_0$ and travels to the point in space time
-$(x , t)$. One property of characteristic curves is the following:
+starts in the point $x_0$ and travels to the spacetime point $(x , t)$. One property of characteristic curves is the following:
 
 #lemma(number: "11.2.2.6", "Classical solution and characteristic curves")[
   Smooth solutions of @eq:cauchy-problem are constant along
@@ -97,8 +96,8 @@ if $f$ is concave and $u_r > u_l$.
 If the jump only exists in the beginning we have a different solution
 #lemma(number: "11.2.5.4", "Rarefaction solution for Riemann problem")[
   If $f in C^2 (bb(R))$ is strictly $cases(delim: "{", upright("convex and ") u_l < u_r, upright("concave and ") u_r < u_l )$, then
-  $ u (x , t) := cases(delim: "{", u_l & upright("for ") x < min { f prime (u_l) , f prime (u_r) } dot.op t, g (x / t) & upright("for ") min { f prime (u_l) , f prime (u_r) } < x / t < max { f prime (u_l) , f prime (u_r) }, u_l & upright("for ") x > max { f prime (u_l) , f prime (u_r) } dot.op t) $
-  $g := (f prime)^(- 1)$, is a weak solution to the Riemann problem.
+  $ u (x , t) := cases(delim: "{", u_l & upright("for ") x < min { f prime (u_l) , f prime (u_r) } dot.op t, g (x / t) & upright("for ") min { f prime (u_l) , f prime (u_r) } < x / t < max { f prime (u_l) , f prime (u_r) }, u_r & upright("for ") x > max { f prime (u_l) , f prime (u_r) } dot.op t) $
+  is a weak solution to the Riemann problem with $g := (f prime)^(- 1)$.
 ]
 
 The question when to choose which of the two solution is answered by
@@ -128,7 +127,7 @@ is non-increasing in time.
 
 == Conservative Finite Volume (FV) Discretization
 <sub:conservative-finite-volume>
-=== Finite-Difference Methods
+=== Finite Difference Methods
 <sub:finite-difference-methods>
 Finite difference methods are probably the simplest methods for solving
 PDEs. We just replace the spacial derivatives by some finite difference
@@ -159,7 +158,7 @@ contain the information of the flow direction. // TODO
 <sub:spatially-semi-discrete-conservation-form>
 The method we will use in this section of the course is the Finite
 Volume Method: we build a mesh by taking intervals around the
-spacial points in which we approximate the solution $u$. And then we use
+spatial points in which we approximate the solution $u$. And then we use
 the problem definition
 $ frac(partial u, partial t) = - frac(partial, partial x) f (u) $ to
 derive in the simplest case
@@ -209,45 +208,40 @@ crucial, so an important idea to choose the right flux is to respect
 that. Moreover the flux has to reproduce physical solution in the sense explained above when studying two possible solutions for the Riemann
 problem.
 
- which solves these problems, is the Godunov Flux.
+The final flux we look at, which solves these problems, is the Godunov Flux.
 
 #definition(number: "11.3.4.33", "Godunov Flux")[
   $ F_(G D) (v , w) = cases(delim: "{", min_(v lt.eq u lt.eq w) f (u) quad  upright("if ") v < w, max_(w lt.eq u lt.eq v) f (u) quad upright("if ") v gt.eq w ,) $
 ]
-
+#pagebreak(weak: true)
 === Monotone Schemes
 <sub:monotone-schemes>
-In @sub:properties-of-entropy-solutions
- it was mentioned that the number of
-extrema must not increase over time. This section shows that the two
-useful fluxes we derived in the previous chapter both have this
-property. This is established by the following two lemmas:
-
-#lemma(number: "11.3.5.8", [Monotonicity of Lax--Friedrichs and Godunov flux])[
-  For any continuously differentiable flux function $f$ the associated
-  Lax--Friedrichs flux and Godunov flux are monotone.
-]
-#lemma(number: "11.3.5.13", "Non-oscillatory monotone semi-discrete evolutions")[
-  If $bmu = bmu (t)$ solves the two-point flux equation @eq:two-points-flux-discrete
-  with a monotone numerical flux and $bmu (0)$ has finitely many local
-  extrema, then the number of local extrema of $bmu (t)$ cannot be larger
-  than that of $bmu (0)$.
-]
-Note that monotonicity is defined as follows
+First, we define what it means for a flux to be monotone:
 #definition(number: "11.3.5.5", "Monotonicity of flux functions")[
   A 2-point numerical flux function $F = F(v, w)$ is #emph[monotone] if
 
   $ - thick F "is increasing in its first argument, i.e." &F(v, w) <= F(v+Delta v, w) quad &forall w &in bb(R) \
   - thick F "is decreasing in its second argument, i.e." &F(v, w) <= F(v, w+Delta w) quad &forall v &in bb(R)$
 ]<def:monotone-flux>
+In @sub:properties-of-entropy-solutions, we mentioned that the number of
+extrema of an analytical solution does not increase over time.  Here, we show that the two
+main fluxes (LF and Godunov) we derived in the previous chapter are monotone and therefore both have this property. This is established by the following two lemmas:
+#lemma(number: "11.3.5.8", [Monotonicity of Lax--Friedrichs and Godunov flux])[
+  For any continuously differentiable flux function $f$ the associated
+  Lax--Friedrichs flux and Godunov flux are monotone.
+]
+#v(-1cm)
+#lemma(number: "11.3.5.13", "Non-oscillatory monotone semi-discrete evolutions")[
+  If $bmu = bmu (t)$ solves the two-point flux equation @eq:two-points-flux-discrete
+  with a monotone numerical flux and $bmu (0)$ has finitely many local
+  extrema, then the number of local extrema of $bmu (t)$ cannot be larger
+  than that of $bmu (0)$.
+]
+
 == Timestepping for Finite-Volume Methods
 <sub:timestepping-for-fv>
-As already introduced earlier, to solve the the equations, once we chose
-the numerical Flux, we use Runge--Kutta numerical Integration.
-
-This subsection then studies the some conditions that have to be
-considered, when applying these Runge--Kutta methods. In particular, what
-constraints we have, when choosing the timestep size $tau$.
+As explained before, once we have chosen the numerical Flux, we just need to apply Runge--Kutta integration. This subsection studies some conditions that have to be
+considered when applying Runge--Kutta -- in particular, constraints on choosing the timestep size $tau$.
 
 #definition(number: "11.4.2.5", "Numerical domain of dependence")[
   Consider the explicit fully discrete evolution
@@ -257,7 +251,7 @@ constraints we have, when choosing the timestep size $tau$.
   Then the *numerical domain of dependence* is given by
   $ D_h^(-) (x_j , t_k) := { (x_n , t_l) in bb(R) times [0 , t_k] : j - m (k - l) lt.eq n lt.eq j + m (k - l) } $
 ]
-$fvH$ is an operator which produces $bmu$ at the next timestep. It incorporates both the numerical flux and the Runge--Kutta method.
+$fvH$ is an operator which gives $bmu$ at the next timestep. It incorporates both the numerical flux and the Runge--Kutta method. If we have a first-order time integrator and the numerical flux function is $F(mu_(j-m), dots.h, mu_(j+m))$, then $fvH = fvH(mu_(j-m), dots.h, mu_(j+m))$.
 
 #subtle-box[
 *Example:* Let's say we are solving @eq:two-points-flux-discrete and call the RHS $R(mu_j)$
@@ -265,21 +259,12 @@ $ frac(dif mu_j, dif t) (t) = - 1 / h (F (mu_j, mu_(j+1)) - F (mu_(j-1), mu_j)) 
 and we apply explicit Euler:
 $ (fvH (bmu))_j &= mu_j + tau R(mu_j)\ 
 &= mu_j - tau / h (F (mu_j, mu_(j+1)) - F (mu_(j-1), mu_j)) $
-If we compare this to @eq:fv-stencil-width, we see that $m = 1$.
-Then the numerical domain of dependence is the set of all points $(x_n, t_l)$ that are needed to compute $bmu_j$.
+If we compare this to @eq:fv-stencil-width, we see that $m = 1$ in this case.
 ]
-
-// TODO illustrate
-When this definition is applied to the current problem with flux
-function $F (u_(j - m) , dots.h , u_(j + m))$, we point out that
-$fvH$ is the symbol for all the operations done in one timestep of
-Runge--Kutta, and $m$ corresponds to the number of neighbors we need to
-compute the numerical flux in one point.
+// TODO Elaborate
 
 The following kind of condition appears over and over in numerical
-integration and gives an upper bound for the timestep size $tau$ that can
-be used to construct the numerical solution, such that the solution is
-stable.
+integration and gives an upper bound for the timestep size $tau$: If this upper bound is respected, the numerical solution is stable.
 #definition(number: "11.4.2.11", [Courant--Friedrichs--Lewy (CFL) condition])[
   An explicit local fully discrete evolution
   $bmu^((t + 1)) := fvH (bmu)$ on uniform spatio-temporal mesh
