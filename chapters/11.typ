@@ -199,31 +199,37 @@ quotient will not contain the information of the flow direction.// TODO
 <sub:spatially-semi-discrete-conservation-form>
 
 The method we will use in this section of the course is the Finite Volume
-Method: we build a mesh by taking intervals around the spatial points in which
-we approximate the solution $u$. And then we use the problem definition
-$ frac(partial u, partial t) = - frac(partial, partial x) f (u) $ to derive in
-the simplest case
+Method. We use a uniform 1D mesh with $N$ cells and search a piecewise constant
+solution. The coefficients are the values of $u$ at the cell centers:
+
+$ mu_i approx u(x_i, t) $
+we build a mesh by taking intervals around the spatial points in which we
+approximate the solution $u$. Now we derive an ODE for $bmu$ by starting from
+the problem definition and integrating over cell $j$:
+$ frac(partial u, partial t) = - frac(partial, partial x) f (u) $
 #neq(
-  $ frac(partial u (x_i , t_k), partial t)& approx frac(partial, partial t) 1 / h integral_(x_(j - 1 \/ 2))^(x_(j + 1 \/ 2)) u (x , t_k) dif x \
-                                        & approx - 1 / h lr(
-    ( F (u (x_j , t_k) , u (x_(j + 1) , t_k)) - F (u (x_(j - 1) , t_k) , u (x_j , t_k))), size: #150%,
+  $ frac(partial, partial t) underbrace(
+    integral_(x_(j - 1 \/ 2))^(x_(j + 1 \/ 2)) u (x , t) dif x, approx med h dot.op mu_j,
 
-  ) $,
-) <eq:two-points-flux>
+  )= -(f(u(x_(j + 1 \/ 2), t)) - f(u(x_(j - 1 \/ 2), t)) ) $,
+)<eq:fv-derivation>
+Because $u$ is piecewise constant, $u(x_(j + 1/2), t)$ is undefined.
 
-where $F (dot,dot)$ is an approximation of the flux function $f (u)$. Note that
-in the above example $F$ only depends on two neighboring nodes, but this can
-also be extended to use more nodes. Now we discretize this similarly to @ch:9,
-where we let the coefficients $mu_i$ of the basis expansion of $u$ vary in time.
-Here, we define
-$ mu_j (t) &= u(x_j, t) \
-bmu      &= (mu_1, dots, mu_N) $
-With this, @eq:two-points-flux becomes (we omit the time argument of the $mu_i$)
+An approximation for $f_(j+1/2) :=f(u(x_(j + 1/2), t))$ is given by the
+*numerical flux function* $F$:
+#mybox("General Numerical Flux Function")[
+  $ f_(j+1/2) approx F(mu_(j-m_l + 1), dots, mu_(j+m_r)) $
+  $F$ is called a $(m_l + m_r)$--point numerical flux function.
+]
+A *2-point flux*, which is all we need in this section, is defined as $f_(j+1/2) approx F(mu_j, mu_(j+1))$.
+
+With this, @eq:fv-derivation becomes (omitting the time argument of $mu_j$)
 #neq(
   $ frac(dif mu_j, dif t) (t) = - 1 / h (F (mu_j, mu_(j+1)) - F (mu_(j-1), mu_j)) $,
 )<eq:two-points-flux-discrete>
 We can simply plug the RHS of @eq:two-points-flux-discrete into a Runge--Kutta
-method, so the only thing left to do is to find a suitable flux function $F$.
+method, so the only thing left to do is to find a suitable flux function $F$,
+which should satisfy the following condition:
 
 #definition(number: "11.3.3.5", "Consistent numerical flux function")[
   A numerical function $F : bb(R)^(m_l + m_r) arrow.r bb(R)$ is
@@ -231,19 +237,16 @@ method, so the only thing left to do is to find a suitable flux function $F$.
   $ F (u , u , dots.h , u) = f (u) , #h(2em) forall u in bb(R) $
 ]
 
-Then we have the result that consistent numerical flux functions will
-reconstruct the correct \"discrete shock speed\" when applied as explained
-above. As this is such an important property, the finite volume method comes in
-very handy to solve these Cauchy problems.
+Theory tells us that a consistent numerical flux will produce a solution with
+the correct shock speed.
 
 #counter(heading).step(level: 3)
 === Numerical Flux Functions
 <sub:numerical-flux-functions>
 
 This section now treats how to find suitable flux functions. There are several
-options introduced starting with the simplest which basically corresponds to a
-average of the two inputs in $F (u , w)$. But then it turns out that this flux
-suffers from similar problems as the finite difference methods did.
+options: the simplest one just averages the inputs of $F (u , w)$, but suffers
+from the same problem as finite difference methods.
 
 One remedy for this is the #emph[Lax--Friedrichs / Rusanov] Flux which is useful
 but flattens the edges of jumps (which is due to its construction with
@@ -450,4 +453,113 @@ Finally, we present a reconstruction operator which is monotonicity-preserving:
     0 \,      & upright("otherwise"),
 
   ) $
+]
+
+== Systems of Conservation Laws
+<sub:systems-of-conservation-laws>
+
+#definition(
+  number: "11.6.1.1", "Linear system of conservation laws",
+)[
+  Let $bold(A)(x) : RR -> RR^m times RR^m$ be a matrix-valued function and $D subset RR times RR^+$.
+  Then
+  #neq(
+    $ frac(partial bu, partial t) (x,t)+ frac(partial, partial x) lr((bold(A)(x) med bu(x, t)), size: #17pt) = 0 quad upright("on") D $,
+  )<eq:linear-system-cons-laws>
+  is a linear system of conservation laws for $bu : D arrow.r RR^m$.
+]
+By diagonalizing $bold(A)$, we can get a general solution formula. Let $bold(r)_i$ be
+an eigenvector of $bold(A)$ with eigenvalue $lambda_i$: $bold(A) bold(r)_i = lambda_i bold(r)_i$.
+We collect the eigenvectors in a matrix $bold(R)$. Note that both $lambda_i$ and $bold(r)_i$ depend
+on $x$.
+#mybox(
+  [Solution of @eq:linear-system-cons-laws],
+)[
+  $ bu (x,t) = sum_(i=1)^(m) (bold(R)^(-1) bu_0)_i (x - lambda_i t) bold(r)_i $
+  We have a superposition of states $bold(r)_i$ propagating with speed $lambda_i$ scaled
+  by $w_i := (bold(R)^(-1) bu_0)_i$
+]
+We want to solve the Riemann problem
+#neq(
+  $ bu (x,0) = cases(delim: "{", bu_l & upright("if ") x < 0, bu_r & upright("if ") x > 0) $,
+) <eq:riemann-problem-system>
+for which we can find an explicit solution. Let's illustrate it for the case $m=4$:
+$ bu(x, t) =
+bu_l                                                            & upright("if ") x < lambda_1 t \
+sum_(i=1)^(k) w^r_i bold(r)_i + sum_(i=k+1)^(m) w^l_i bold(r)_i & upright("if ") lambda_k t < x < lambda_(k+1) t $
+// TODO
+
+For the jumps we get a formula similar to the Rankine--Hugoniot condition:
+$ bold(A) (x) (bu_k - bu_(k-1)) = lambda_k (bu_k - bu_(k-1)), $
+where $lambda_k$ takes the role of $dot(s)$ in the scalar case.
+#definition(
+  number: "11.6.2.2", "Non-linear system of conservation laws",
+)[
+  Given $U subset RR^m$, $D subset RR times RR^+$ and a continuously
+  differentiable flux function $bold(F) : U arrow.r RR^m$,
+  #neq(
+    $ frac(partial bu, partial t) + frac(partial bold(F) (bu), partial x) (x, t) = 0 quad upright("on") D $,
+  ) <eq:non-linear-system-cons-laws>
+  is a system of conservation laws for $bu : D arrow.r U$.
+]
+This system is called _constant-coefficient_ because $bold(F)$ does not depend
+on time and _translation-invariant_ because it does not take $x$ as an argument.
+
+We apply diagonalization again, this time to the Jacobian $D bold(F) (bu)$. Note
+that here, eigenvectors and eigenvalues do not depend on $x$ anymore, but
+instead on $bu$:
+#neq(
+  $ D bold(F) (bu) med bold(r)_i #h(-0.8pt) (bu) = lambda_i #h(-1pt) (bu) med bold(r)_i $,
+)<eq:jacobian-eigenvalues>
+
+Here, we also get a Rankine--Hugoniot condition:
+#theorem(
+  number: "11.6.2.19", "Rankine--Hugoniot condition for systems",
+)[
+  If a curve $Gamma = (gamma(t), t)$ separates two domains
+  $ Omega_l = { (x,t) in D : x < gamma(t)} quad upright("and") quad Omega_r = { (x,t) in D : x > gamma(t) } $
+  and $bu_l, bu_r = eval(bu)_Omega_l, eval(bu)_Omega_r in C^1$ are strong
+  solutions of @eq:non-linear-system-cons-laws, then $bu$ is a weak solution of
+  @eq:non-linear-system-cons-laws if and only if
+  $ frac(d gamma, d t) (t) dot.op (bu_l (gamma(t),t) - bu_r (gamma(t),t)) = bold(F) (bu_l (gamma(t),t)) - bold(F) (bu_r (gamma(t),t)) $
+]
+
+For the Riemann problem @eq:riemann-problem-system, this simplifies to
+$ dot(s) (bu_l - bu_r) = bold(F) (bu_l) - bold(F) (bu_r), quad dot(s) = frac(d gamma, d t) $
+
+There is also an entropy condition for systems:
+#definition(
+  number: "11.6.2.29", "Lax entropy condition for systems",
+)[
+  + $ exists k in {1, dots, m} : lambda_k #h(-0.5pt) (bu_l) > dot(s) > lambda_k #h(-0.5pt) (bu_r) $
+  + $ forall j > k: quad lambda_j (bu_l), lambda_j (bu_r) < dot(s) $
+  + $ forall j < k: quad lambda_j (bu_l), lambda_j (bu_r) > dot(s) $
+]
+
+#pagebreak(weak: true)
+#counter(heading).update((11, 6, 2))
+=== FV Methods for Systems of Conservation Laws
+
+The FV semi-discrete evolution equation for systems of conservation laws is
+completely analogous to the scalar case. For example, with a 2-point flux
+#neq(
+  $ frac(d bmu_j, d t) = - 1 / h (bold(F) (bmu_j, bmu_(j+1)) - bold(F) (bmu_(j-1), bmu_j)) $,
+) <eq:two-points-flux-discrete-systems>
+where $bold(F): RR^m times RR^m -> RR^m$ is the vector-valued numerical flux.
+#counter(heading).update((11, 6, 3, 2))
+==== Fluxes for linear systems
+As before, we use the eigenvalues of $bA$:
+
+$ bA bold(R) &= bold(D) bold(R) \ 
+ bold(D) &= "diag"(lambda_1,...,lambda_m) $
+
+where $bold(R)$ contains the eigenvectors $bold(r)_i$ of $bA$ and $bold(D)$ contains the eigenvalues. We split $bold(D)$ into positive and negative parts:
+$ bold(D)^+ &= "diag"(max { 0, lambda_i })\ bold(D)^- &= "diag"(min { 0, lambda_i }) $
+and define $bold(A)^(plus.minus) = bold(R) bold(D)^(plus.minus) bold(R)^(-1)$.
+
+#mybox(
+  [Numerical fluxes for linear systems],
+)[
+  $ "Upwind flux:" quad &bold(F)_"uw" (bv, bw) = bold(A)^+ bv + bold(A)^- bw \
+  "Lax--Friedrichs: " quad &bold(F)_"LF" (bv, bw) = 1 / 2 bold(A) (bv + bw) - 1 / 2 abs(bold(A)) (bw - bv) $, where $ abs(bold(A)) = bold(A)^+ - bold(A)^- $
 ]

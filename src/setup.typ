@@ -21,6 +21,7 @@
 // Bold math for vectors
 #let bx = $ bold(x) $
 #let bu = $ bold(u) $
+#let bv = $ bold(v) $
 #let bw = $ bold(w) $
 #let bA = $ bold(A) $
 #let balpha = $ bold(alpha) $
