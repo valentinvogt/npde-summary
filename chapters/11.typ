@@ -546,7 +546,7 @@ completely analogous to the scalar case. For example, with a 2-point flux
   $ frac(d bmu_j, d t) = - 1 / h (bold(F) (bmu_j, bmu_(j+1)) - bold(F) (bmu_(j-1), bmu_j)) $,
 ) <eq:two-points-flux-discrete-systems>
 where $bold(F): RR^m times RR^m -> RR^m$ is the vector-valued numerical flux.
-#counter(heading).update((11, 6, 3, 2))
+#counter(heading).update((11, 6, 3, 1))
 ==== Fluxes for linear systems
 As before, we use the eigenvalues of $bA$:
 
@@ -556,10 +556,22 @@ $ bA bold(R) &= bold(D) bold(R) \
 where $bold(R)$ contains the eigenvectors $bold(r)_i$ of $bA$ and $bold(D)$ contains the eigenvalues. We split $bold(D)$ into positive and negative parts:
 $ bold(D)^+ &= "diag"(max { 0, lambda_i })\ bold(D)^- &= "diag"(min { 0, lambda_i }) $
 and define $bold(A)^(plus.minus) = bold(R) bold(D)^(plus.minus) bold(R)^(-1)$.
-
 #mybox(
   [Numerical fluxes for linear systems],
 )[
   $ "Upwind flux:" quad &bold(F)_"uw" (bv, bw) = bold(A)^+ bv + bold(A)^- bw \
-  "Lax--Friedrichs: " quad &bold(F)_"LF" (bv, bw) = 1 / 2 bold(A) (bv + bw) - 1 / 2 abs(bold(A)) (bw - bv) $, where $ abs(bold(A)) = bold(A)^+ - bold(A)^- $
+  "Lax--Friedrichs: " quad &bold(F)_"LF" (bv, bw) = 1 / 2 bold(A) (bv + bw) - 1 / 2 abs(bold(A)) (bw - bv) $ where $ abs(bold(A)) = bold(A)^+ - bold(A)^- $
+]
+
+==== Fluxes for non-linear systems
+We want to reuse the fluxes we just found for the linear case. To do this, we approximate the nonlinear equation @eq:non-linear-system-cons-laws:
+$ &frac(partial bu, partial t) + &&frac(partial bold(F) (bu), partial x) (x, t) &= 0 \
+approx & frac(partial bu, partial t) + &&bA_R med frac(partial bu, partial x) (x, t) $
+$&bA_R (bu,bw)$ is the _Roe matrix_, an approximation of the Jacobian $D bold(F) (bu)$, and must satisfy the following properties:
+#definition(
+  number: "11.6.3.30", "Roe matrix",
+)[
+  + $ bA_R (bu,bu) = D bold(F)(bu)$ for all $bu in U$
+  + $ bA_R (bu,bw) (bu - bw) = bold(F) (bu) - bold(F) (bw)$ for all $bu, bw in U$
+  + $ bA_R (bu,bw)$ has $m$ distinct real eigenvalues
 ]

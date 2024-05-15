@@ -101,3 +101,6 @@
 
 #pagebreak()
 #include "chapters/11.typ"
+
+#pagebreak()
+#include "chapters/12.typ"

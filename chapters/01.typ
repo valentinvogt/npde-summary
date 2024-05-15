@@ -2,7 +2,7 @@
 #show: thmrules
 
 = Second-Order Scalar Elliptic Boundary Value Problems
-<ch:second-order-scalar-elliptic-boundary-value-problems>
+<ch:01>
 #counter(heading).step(level: 2)
 == Quadratic Minimization Problems
 <sub:quadratic-minimization-problems>

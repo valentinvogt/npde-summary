@@ -26,7 +26,8 @@
 #let bA = $ bold(A) $
 #let balpha = $ bold(alpha) $
 #let bmu = $ bold(mu) $
-
+#let bH = $ bold(H) $
+#let jac = $ upright("D") $
 // Wider hat
 #let mhat = content => $ hat(content, size: #140%)$
 #let Khat = $ hat(K, size: #120%)$
@@ -37,10 +38,12 @@
 #let div = $"div"thin $
 #let openint(a,b) = $lr(\] #a, #b \[)$
 #let fvH = $bold(cal(H))$
+#let curl = $bold("curl")thin $
 
 #let recop = $upright("R")_M arrow(bmu)$
-// #let eps = $ #h(0cm)text(epsilon, font: "Asana Math")med$
 #let eps = $epsilon.alt$
+#let argmin = math.op("arg min", limits: true)
+#let argmax = math.op("arg max", limits: true)
 
 #let this-template(doc) = [
   #show: thmrules
