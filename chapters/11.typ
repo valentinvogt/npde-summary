@@ -367,12 +367,11 @@ Applied to our problem, this means
 
 The *consistency error* is defined as follows:
 $ eps := max_j {F(u(x_j, t), u(x_(j+1), t)) - f(u(x_(j+1/2), t))}, $
-if we assume $u$ to be an exact solution of If $eps = Order(h^q)$, the flux is
+if we assume $u$ to be an exact solution of the Cauchy Problem @eq:cauchy-problem. If $eps = Order(h^q)$, the flux is
 called _q-th order consistent_. $q$ is then the order of convergence of the FV
 method.
 
-We get at most order one convergence in the maximum and the
-$L^1$ norm. This can be seen by the following fact:
+We get at most order one convergence in both $L^1$ and maximum norm due to the following fact:
 #mybox("Order barrier for monotone numerical fluxes")[
   Monotone numerical fluxes (@def:monotone-flux) are at most first order
   consistent.
@@ -514,7 +513,7 @@ instead on $bu$:
 
 Here, we also get a Rankine--Hugoniot condition:
 #theorem(
-  number: "11.6.2.19", "Rankine--Hugoniot condition for systems",
+  number: "11.6.2.19", [Rankine--Hugoniot condition for systems],
 )[
   If a curve $Gamma = (gamma(t), t)$ separates two domains
   $ Omega_l = { (x,t) in D : x < gamma(t)} quad upright("and") quad Omega_r = { (x,t) in D : x > gamma(t) } $
@@ -560,7 +559,7 @@ and define $bold(A)^(plus.minus) = bold(R) bold(D)^(plus.minus) bold(R)^(-1)$.
   [Numerical fluxes for linear systems],
 )[
   $ "Upwind flux:" quad &bold(F)_"uw" (bv, bw) = bold(A)^+ bv + bold(A)^- bw \
-  "Lax--Friedrichs: " quad &bold(F)_"LF" (bv, bw) = 1 / 2 bold(A) (bv + bw) - 1 / 2 abs(bold(A)) (bw - bv) $ where $ abs(bold(A)) = bold(A)^+ - bold(A)^- $
+  "Lax-Friedrichs: " quad &bold(F)_"LF" (bv, bw) = 1 / 2 bold(A) (bv + bw) - 1 / 2 abs(bold(A)) (bw - bv) $ where $ abs(bold(A)) = bold(A)^+ - bold(A)^- $
 ]
 
 ==== Fluxes for non-linear systems
