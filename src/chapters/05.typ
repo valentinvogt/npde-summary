@@ -1,4 +1,4 @@
-#import "../src/setup.typ": *
+#import "../setup.typ": *
 #show: thmrules
 
 = Non-Linear Elliptic Boundary Value Problems

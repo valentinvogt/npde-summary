@@ -6,20 +6,24 @@
 #align(
   center,
 )[
-  = Numerical Methods for PDEs — TA Summary
+  = Numerical Methods for PDEs --- TA Summary
 
   #v(0.5cm)
 
-  Created by #weblink("mailto:jbachmann@student.ethz.ch")[Jonas Bachmann];,
-  #weblink("mailto:pfischill@student.ethz.ch")[Paul Fischill];,
-  #weblink("mailto:samrusso@student.ethz.ch")[Samuel Russo] and
-  #weblink("mailto:grafn@student.ethz.ch")[Nico Graf] \
+  2023 version created by
+  #link("mailto:jbachmann@student.ethz.ch")[Jonas Bachmann],
+  #link("mailto:pfischill@student.ethz.ch")[Paul Fischill],
+  #link("mailto:samrusso@student.ethz.ch")[Samuel Russo] and
+  #link("mailto:grafn@student.ethz.ch")[Nico Graf]. \
 
-  Ported to Typst by #weblink("mailto:vogtva@student.ethz.ch")[Valentin Vogt] \
+  2024 version updated by
+  #link("mailto:vogtva@student.ethz.ch")[Valentin Vogt],
+  #link("mailto:luwirth@student.ethz.ch")[Luis Wirth].
+
   #v(0.5cm)
   #let date = datetime.today()
 
-  Last updated on #date.display("[month repr:long] [day], [year]")
+  Last updated on #date.display("[year]-[month]-[day]").
 ]
 
 = About
@@ -80,27 +84,27 @@
 #set heading(numbering: "1.1")
 
 #pagebreak()
-#include "chapters/01.typ"
+#include "src/chapters/01.typ"
 
 #pagebreak()
-#include "chapters/02.typ"
+#include "src/chapters/02.typ"
 
 #pagebreak()
-#include "chapters/03.typ"
+#include "src/chapters/03.typ"
 
 #pagebreak()
 #counter(heading).update(4)
-#include "chapters/05.typ"
+#include "src/chapters/05.typ"
 
 #pagebreak()
 #counter(heading).update(8)
-#include "chapters/09.typ"
+#include "src/chapters/09.typ"
 
 #pagebreak()
-#include "chapters/10.typ"
+#include "src/chapters/10.typ"
 
 #pagebreak()
-#include "chapters/11.typ"
+#include "src/chapters/11.typ"
 
 #pagebreak()
-#include "chapters/12.typ"
+#include "src/chapters/12.typ"

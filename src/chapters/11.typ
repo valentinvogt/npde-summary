@@ -1,4 +1,4 @@
-#import "../src/setup.typ": *
+#import "../setup.typ": *
 #show: thmrules
 
 = Numerical Methods for Conservation Laws
@@ -396,7 +396,7 @@ we use $F(nu^+_(j),nu^-_(j+1))$.
       $ frac(d mu_j, d t) (t) = - 1 / h (F (nu_j^+ (t), nu_(j+1)^- (t)) - F (nu_(j-1)^+ (t), nu_j^- (t)) ) $,
     )<eq:linear-reconstruction-evolution>
   ], [
-    #image("../images/linear_reconstruction.png", width: 80%)
+    #image("../../images/linear_reconstruction.png", width: 80%)
   ],
 )
 where $nu_j^+,nu_j^-$ are the values of the linear approximation of $u$ at the

@@ -1,4 +1,4 @@
-#import "../src/setup.typ": *
+#import "../setup.typ": *
 
 #show: thmrules
 
@@ -244,7 +244,7 @@ triangular mesh with the advected nodes/particles.
 #tip-box(
   "",
 )[
-  Check out this #weblink("https://youtu.be/kvBRFxRIJuY", "video") for an
+  Check out this #link("https://youtu.be/kvBRFxRIJuY", "video") for an
   intuitive explanation of the method in 1D.
 ]
 

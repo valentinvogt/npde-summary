@@ -1,4 +1,4 @@
-#import "../src/setup.typ": *
+#import "../setup.typ": *
 #show: thmrules
 
 = Finite Elements for the Stokes Equation

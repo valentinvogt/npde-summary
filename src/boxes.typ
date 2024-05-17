@@ -125,7 +125,6 @@
 #let tip-box = (title, content) => {
   colorbox(
     title: title,
-    color: "blue",
     radius: 2pt,
   )[
     #v(-0.2cm)

@@ -1,4 +1,4 @@
-#import "../src/setup.typ": *
+#import "../setup.typ": *
 #import "@preview/xarrow:0.3.1": xarrow
 #show: thmrules
 
@@ -133,7 +133,7 @@ integrate, computing (bi)linear forms $a$ and $ell$ for them is quite easy.
   columns: (0.75fr, 0.2fr), [
     This definition does not allow for hanging nodes because of point 4. Hanging
     nodes are those which lie on the edge of a triangle:
-  ], image("../images/hanging_node.png", width: 80%),
+  ], image("../../images/hanging_node.png", width: 80%),
 )
 #v(-0.9cm)
 We define a space of piecewise-linear functions analogously to
@@ -259,7 +259,7 @@ coordinate functions:
     b_K^3 & = (2 lambda_3 - 1) lambda_3 , quad b_K^6 = 4 lambda_1 lambda_3 $
   ], [
     #v(-0.7cm)
-    #image("../images/triangle_nodes.png", width: 80%)
+    #image("../../images/triangle_nodes.png", width: 80%)
   ],
 )
 where the local basis functions 1-3 are associated with vertices and 4-6 with
@@ -288,7 +288,7 @@ on mixed (so-called hybrid) meshes, we use @eq:simp_lfes on triangles and
 
 Remember the principle of cell-oriented assembly. The goal is to rely mostly on
 local computations. To perform cell-oriented assembly, a map from local to
-global indices is needed. In LehrFEM++ this is the job of the dofhandler (#weblink(
+global indices is needed. In LehrFEM++ this is the job of the dofhandler (#link(
   "https://craffael.github.io/lehrfempp/classlf_1_1assemble_1_1_dof_handler.html",
 )[`lf::assemble::DofHandler`];). It provides the following main methods:
 
@@ -322,7 +322,7 @@ dimension 2, the co-dimension is the other way around. The highest-dimensional
 entity has co-dimension 0. This ensures that cells are always of co-dimension 0.
 
 To assemble the Galerkin matrix,
-#weblink(
+#link(
   "https://craffael.github.io/lehrfempp/group__assemble__matrix__locally.html#ga39b4197203dd4e896bd7073fc033aca3",
 )[`lf::assemble::AssembleMatrixLocally`];
 can be used. To use it, we need element matrix providers, constructs which
@@ -331,34 +331,34 @@ bilinear forms are already implemented.
 
 - $integral_K alpha (bx) med grad u dot.op grad v dif bx$
   is implemented in
-  #weblink(
+  #link(
     "https://craffael.github.io/lehrfempp/classlf_1_1fe_1_1_diffusion_element_matrix_provider.html",
   )[`lf::fe::DiffusionElementMatrixProvider`]
 
 - $integral_K gamma (bx) med u med v dif bx$ is implemented in
-  #weblink(
+  #link(
     "https://craffael.github.io/lehrfempp/classlf_1_1fe_1_1_mass_element_matrix_provider.html",
   )[`lf::fe::MassElementMatrixProvider`]
 
 - $integral_e gamma (bx) med u med v dif S$ is implemented in
-  #weblink(
+  #link(
     "https://craffael.github.io/lehrfempp/classlf_1_1fe_1_1_mass_edge_matrix_provider.html",
   )[`lf::fe::MassEdgeMatrixProvider`];. Note the integration over an edge and not
   a cell.
 
 - $integral_K alpha (bx) med grad u dot.op grad v dif bx med med + integral_K gamma (bx) med u med v dif bx$
   combined is implemented in\
-  #weblink(
+  #link(
     "https://craffael.github.io/lehrfempp/classlf_1_1uscalfe_1_1_reaction_diffusion_element_matrix_provider.html",
   )[`lf::uscalfe::ReactionDiffusionElementMatrixProvider`]
 
 - $integral_K f (bx) v dif bx$ is implemented by
-  #weblink(
+  #link(
     "https://craffael.github.io/lehrfempp/classlf_1_1fe_1_1_scalar_load_element_vector_provider.html",
   )[`lf::fe::ScalarLoadElementVectorProvider`]
 
 - $integral_e f (bx) v dif S$ is implemented by
-  #weblink(
+  #link(
     "https://craffael.github.io/lehrfempp/classlf_1_1fe_1_1_scalar_load_edge_vector_provider.html",
   )[`lf::fe::ScalarLoadEdgeVectorProvider`];. Note again the integration over an
   edge.
@@ -425,11 +425,11 @@ results in
 $ bA_0 bold(arrow(mu))_0 = bold(arrow(phi)) - bA_(0 partial) bold(arrow(mu))_partial $
 
 This can be done in LehrFEM++ with
-#weblink(
+#link(
   "https://craffael.github.io/lehrfempp/namespacelf_1_1assemble.html#a4fba0f99e10227530fcb990ddda7b305",
 )[lf::assemble::FixFlaggedSolutionComponents]
 or\
-#weblink(
+#link(
   "https://craffael.github.io/lehrfempp/namespacelf_1_1assemble.html#ad8de42b7c7e79eeba5704e43a5b4d67f",
 )[lf::assemble::FixFlaggedSolutionCompAlt];. Both modify the matrix $bA$ and RHS
 vector $bold(arrow(b))$ such that $bold(A arrow(mu) = arrow(b))$ has the same
@@ -573,7 +573,7 @@ $mhat(Omega) subset bb(R)^2$, we will have
 $D Phi_K in bb(R)^(3 times 2)$ and hence $det (Phi_K)$ is not defined, so the
 full term is used. In the simpler case of square $Phi$, this simplifies to $det (Phi_K)$.
 For both cases, the term is provided by
-#weblink(
+#link(
   "https://craffael.github.io/lehrfempp/classlf_1_1geometry_1_1_geometry.html#a80112cf5cfa9314cb44e61756299607d",
 )[`lf::geometry::IntegrationElement`];.
 
@@ -609,7 +609,7 @@ Note that in the script, the case of square $J$ is assumed, such that this
 simplifies to $J^(- top) (gradsub(bxhat) hat(b)_Khat^i)$. The long term only
 matters when we have (as above) $Omega$ and $mhat(Omega)$ not living in the same
 space. The same remedy applies here, you can in any case use
-#weblink(
+#link(
   "https://craffael.github.io/lehrfempp/classlf_1_1geometry_1_1_geometry.html#a7cb2b572966d7492522acb1b127cbbd0",
 )[`lf::geometry::JacobianverseGramian`]
 which will return $J^(- top)$ or $J (J^top J)^(- 1)$, respectively.

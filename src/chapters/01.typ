@@ -1,4 +1,4 @@
-#import "../src/setup.typ": *
+#import "../setup.typ": *
 #show: thmrules
 
 = Second-Order Scalar Elliptic Boundary Value Problems

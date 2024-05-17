@@ -1,5 +1,5 @@
-#import "../src/setup.typ": *
-#import "../src/theorems.typ": *
+#import "../setup.typ": *
+#import "../theorems.typ": *
 #show: thmrules
 
 = FEM: Convergence and Accuracy

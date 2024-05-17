@@ -1,4 +1,5 @@
 *.pdf
-!main.pdf
+out/
 test/
 .DS_Store
+.direnv
