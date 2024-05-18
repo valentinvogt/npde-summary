@@ -453,7 +453,7 @@ Finally, we present a reconstruction operator which is monotonicity-preserving:
 
   ) $
 ]
-
+The argument to minmod are simply the slopes of lines connecting $mu_j$ with its left and right neighbors. If they have the same sign, we take the smaller one (in absolute value). If they have different signs ($=> mu_j$ extremum) or one is zero (plateau), we return zero.
 == Systems of Conservation Laws
 <sub:systems-of-conservation-laws>
 
@@ -508,7 +508,7 @@ We apply diagonalization again, this time to the Jacobian $D bold(F) (bu)$. Note
 that here, eigenvectors and eigenvalues do not depend on $x$ anymore, but
 instead on $bu$:
 #neq(
-  $ D bold(F) (bu) med bold(r)_i #h(-0.8pt) (bu) = lambda_i #h(-1pt) (bu) med bold(r)_i $,
+  $ D bold(F) (bu) med bold(r)_i (bu) = lambda_i (bu) med bold(r)_i $,
 )<eq:jacobian-eigenvalues>
 
 Here, we also get a Rankine--Hugoniot condition:
@@ -561,7 +561,8 @@ and define $bold(A)^(plus.minus) = bold(R) bold(D)^(plus.minus) bold(R)^(-1)$.
   $ "Upwind flux:" quad &bold(F)_"uw" (bv, bw) = bold(A)^+ bv + bold(A)^- bw \
   "Lax-Friedrichs: " quad &bold(F)_"LF" (bv, bw) = 1 / 2 bold(A) (bv + bw) - 1 / 2 abs(bold(A)) (bw - bv) $ where $ abs(bold(A)) = bold(A)^+ - bold(A)^- $
 ]
-
+Intuition for the upwind flux: Information from the left ($bv$) is carried by the
+eigenvectors with positive eigenvalues, which propagate to the right.
 ==== Fluxes for non-linear systems
 We want to reuse the fluxes we just found for the linear case. To do this, we approximate the nonlinear equation @eq:non-linear-system-cons-laws:
 $ &frac(partial bu, partial t) + &&frac(partial bold(F) (bu), partial x) (x, t) &= 0 \
@@ -574,3 +575,5 @@ $&bA_R (bu,bw)$ is the _Roe matrix_, an approximation of the Jacobian $D bold(F)
   + $ bA_R (bu,bw) (bu - bw) = bold(F) (bu) - bold(F) (bw)$ for all $bu, bw in U$
   + $ bA_R (bu,bw)$ has $m$ distinct real eigenvalues
 ]
+
+There is no general formula for the Roe matrix, but once we have it, we can plug it into e.g. the Lax-Friedrichs flux.
