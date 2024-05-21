@@ -69,7 +69,9 @@ flow
 $bold(v)$ and zero Dirichlet boundary conditions. Hence
 $ - kappa Delta u + rho bold(v (x)) dot.op grad u = f quad upright("in ") Omega , #h(2em) u = 0 quad upright("on ") partial Omega $
 Non-dimensionalizing the problem results in
-$ - eps Delta u + bold(v (x)) dot.op grad u = f quad upright("in ") Omega , #h(2em) u = 0 quad upright("on ") partial Omega $
+#neq(
+  $ - eps Delta u + bold(v (x)) dot.op grad u = f quad upright("in ") Omega , #h(2em) u = 0 quad upright("on ") partial Omega $,
+) <eq:convection-diffusion-basic-strong>
 with $norm(bold(v))_(L^oo (Omega)) = 1$. This results in the following
 variational form
 #neq(
@@ -93,11 +95,11 @@ Gamma_(upright("in"))  &= bx in partial Omega : bold(v (x)) dot.op bold(n (x)) <
 
 === Upwinding
 
-When trying to solve Eq. @eq:convection-diffusion-weak with the Galerkin
-approach, when $eps$ is very close to 0, one can observe huge oscillations in
-the solution, which is not correct. It comes from the fact that the Galerkin
-matrix becomes close to singular. So our goal is to get a robust method that can
-solve Eq. @eq:convection-diffusion-weak no matter the $eps$.
+When we solve Convection-Diffusion for $eps approx 0$ with the Galerkin method, we get
+large (non-physical) oscillations in the solution. This is due to the fact that
+the Galerkin matrix becomes close to singular. 
+So our goal is to get a robust method that can
+solve @eq:convection-diffusion-weak for any $eps >= 0$.
 
 Consider again Eq. @eq:convection-diffusion-weak but in $d = 1$ and with zero
 boundary conditions
@@ -119,26 +121,27 @@ $ bold(v (p)) dot.op grad u_h (bold(p)) = lim_(delta arrow.r 0) bold(v (p)) dot.
 #counter(heading).update((10, 2, 2, 1))
 ==== Streamline Diffusion
 
-A totally different idea for fixing the problem of $eps arrow.r 0$ is to add
-some $h$-dependent diffusion. I.e., replace $eps arrow.l eps + c (h)$ with
-$c (h) > 0$. However, there is smearing in the internal layers.// TODO: Unclear
-But the solution is smooth along the direction of $bold(v)$, so adding diffusion
-along the velocity should not do any harm.
+A different appproach to fix the problem of $eps arrow.r 0$ is to add artificial diffusion.
+In 1D, this can be done by replacing $eps arrow.l eps + c (h)$ with $c (h) > 0$. 
 
-The method of #emph[Anisotropic diffusion] is born. On cell $K$, replace
+For $d>1$, this is generalized to adding an $h$-dependent multiple of $Delta u$. With this artificial diffusion, we get
+a different solution: there is "smearing in the internal layers", sharp jumps are smoothed out.
+
+The remedy for this problem is to add diffusion only in the direction of streamlines. This results in the method of #emph[Anisotropic diffusion]:
+
+On cell $K$, replace
 $eps arrow.l eps bold(I) + delta_K bold(v)_K bold(v)_K^top$. Here, $bold(v)_K$ is
 the local velocity, obtained by averaging over the vertices, and
 $delta_K > 0$ some controlling parameter.
 
-$ integral_Omega eps bold(I) + delta_K bold(v)_K bold(v)_K^top) grad u dot.op grad w dif bx + integral_Omega (bold(v) dot.op grad u) w dif bx = integral_Omega f (bx) w dif bx $
+$ integral_Omega (eps bold(I) + delta_K bold(v)_K bold(v)_K^top) grad u dot.op grad w dif bx + integral_Omega (bold(v) dot.op grad u) w dif bx = integral_Omega f (bx) w dif bx $
 However this affects the solution $u$, such that it will not be the same as the
 one from Eq. @eq:convection-diffusion-weak. To get rid of this inconsistency,
 the anisotropic diffusion can be introduced via a residual term
 
 $ integral_Omega eps grad u dot.op grad w dif bx + integral_Omega (bold(v) dot.op grad u) w dif bx\
 + sum_(K in cal(M)) delta_K integral_K (- eps Delta u + bold(v) dot.op grad u - f) (bold(v) dot.op grad w) = integral_Omega f (bx) w dif bx $
-the added term will be zero for the exact solution (strong PDE) and the
-anisotropic diffusion is still here. The control parameter is usually chosen
+The added term will be zero for the exact solution and we still have a diffusion term. The control parameter is usually chosen
 according to
 $ delta_K = cases(
   delim: "{", eps^(- 1) h_K^2 & quad upright("if ") norm(bold(v))_(K , oo) h_K lt.eq 2 eps, h_K & quad upright("if ") norm(bold(v))_(K , oo) h_K > 2 eps,
@@ -218,8 +221,7 @@ amounts to once solving pure diffusion
 $ frac(partial t, partial z) - eps Delta z = 0 $ and once pure transport
 $ frac(partial t, partial w) + bold(v) dot.op grad u = f $ To solve the pure
 transport problem, we have seen the method of characteristics @eq:moc. However,
-it requires integration along streamlines. We can approximate these integrals by "following"
-particles along their path defined by the velocity field. This *particle method*
+it requires integration along streamlines. We can approximate these integrals by imagining particles being carried by the velocity field and "following" them along their pathlines. This *particle method*
 works as follows:
 
 + Pick suitable interpolation nodes $bold(p)_i$, the initial particle positions.
@@ -248,7 +250,7 @@ triangular mesh with the advected nodes/particles.
   intuitive explanation of the method in 1D.
 ]
 
-A method which relies on a _fixed_ mesh is the Semi-Lagrangian method.
+The Semi-Lagrangian method, contrary to the particle method, uses a _fixed_ mesh.
 #definition(
   number: "10.3.4.2", "Material derivative", ..unimportant,
 )[

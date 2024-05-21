@@ -7,6 +7,7 @@
 == Parabolic Initial-Boundary Value Problems
 <sub:parabolic-ivps>
 === Heat Equation
+<sub:heat-equation>
 
 In local form the heat equation is given by
 #neq(

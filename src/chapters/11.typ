@@ -478,18 +478,30 @@ on $x$.
   We have a superposition of states $bold(r)_i$ propagating with speed $lambda_i$ scaled
   by $w_i := (bold(R)^(-1) bu_0)_i$
 ]
+
+#counter(heading).update((11, 6, 1,2))
+==== Riemann problem
 We want to solve the Riemann problem
 #neq(
   $ bu (x,0) = cases(delim: "{", bu_l & upright("if ") x < 0, bu_r & upright("if ") x > 0) $,
 ) <eq:riemann-problem-system>
-for which we can find an explicit solution. Let's illustrate it for the case $m=4$:
-$ bu(x, t) =
-bu_l                                                            & upright("if ") x < lambda_1 t \
-sum_(i=1)^(k) w^r_i bold(r)_i + sum_(i=k+1)^(m) w^l_i bold(r)_i & upright("if ") lambda_k t < x < lambda_(k+1) t $
-// TODO
+for which we can find an explicit solution. Let's illustrate it for the case $m=3$:
+#let gr(x) = colMath(x, rgb(255,150,0))
+#let bl(x) = colMath(x, rgb(0,0,200))
+$ bu (x,t) = cases(
+  delim: "{", 
+  gr(w^l_1) bold(r)_1 + gr(w^l_2) bold(r)_2 + gr(w^l_3) bold(r)_3 = gr(bu_l) & wide upright("if ") x < lambda_1 t,
 
+  bl(w^r_1) bold(r)_1 + gr(w^r_2) bold(r)_2 + gr(w^r_3) bold(r)_3 & wide upright("if ") lambda_1 t < x < lambda_2 t,
+  bl(w^r_1) bold(r)_1 + bl(w^r_2) bold(r)_2 + gr(w^r_3) bold(r)_3 & wide upright("if ") lambda_2 t < x < lambda_3 t,
+  bl(w^r_1) bold(r)_1 + bl(w^r_2) bold(r)_2 + bl(w^r_3) bold(r)_3 = bl(bu_r) & wide upright("if ") x > lambda_3 t,
+)
+$
+where $w^l_i = (bold(R)^(-1) bu_l)_i$ and $w^r_i = (bold(R)^(-1) bu_r)_i$ as defined above.
+
+We define $bu_0=bu_l$, $bu_m = bu_r$ and $bu_k = u upright(" where ") lambda_k t < x < lambda_(k+1) t$. 
 For the jumps we get a formula similar to the Rankine--Hugoniot condition:
-$ bold(A) (x) (bu_k - bu_(k-1)) = lambda_k (bu_k - bu_(k-1)), $
+$ bold(A) (x) (bu_k - bu_(k-1)) = lambda_k (bu_k - bu_(k-1)), quad k in {1, dots, m} $
 where $lambda_k$ takes the role of $dot(s)$ in the scalar case.
 #definition(
   number: "11.6.2.2", "Non-linear system of conservation laws",
@@ -535,7 +547,6 @@ There is also an entropy condition for systems:
   + $ forall j < k: quad lambda_j (bu_l), lambda_j (bu_r) > dot(s) $
 ]
 
-#pagebreak(weak: true)
 #counter(heading).update((11, 6, 2))
 === FV Methods for Systems of Conservation Laws
 

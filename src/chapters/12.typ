@@ -37,12 +37,19 @@ Now it is hard to solve this directly because of the constraint $div bv = 0$. Th
   $ &integral_Omega mu jac bv : jac bw dif bx + integral_Omega div bw med p dif bx &&= integral bold(f) dot bw dif bx quad &&forall bw &&in (H_0^1(Omega))^d\
   &integral_Omega div bv med q dif bx &&= 0 quad &&forall q &&in L^2(Omega) $
 ]
+We can interpret the Lagrange multiplier $p$ as the pressure.
 
+#pagebreak()
 This problem has the following strong form:
-#subtle-box()[
-  $ -mu Delta bv + grad p &= bold(f) \
-  div bv &= 0 upright("on ") Omega \
-  integral_Omega p dif bx &= 0 \
-  bv &= 0 upright("on ") partial Omega $
+#align(center)[
+  #subtle-box(width: 50%)[
+    #v(-0.2cm)
+    $ -mu bold(Delta) bv + grad p &= bold(f) \
+    div bv &= 0 upright("on ") Omega \
+    integral_Omega p dif bx &= 0 \
+    bv &= 0 upright("on ") partial Omega $
+    #v(-0.2cm)
+  ]
 ]
-Here, $Delta$ is the component-wise Laplacian.
+
+Here, $bold(Delta)$ is the component-wise Laplacian.
