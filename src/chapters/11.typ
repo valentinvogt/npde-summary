@@ -183,7 +183,7 @@ example one of the following
   "Forward difference quotient" quad frac(partial f, partial x)   &approx frac(f (x_0 + h) - f (x_0), h) $
 ]
 
-Then we construct a solution by time stepping: given
+Then we construct a solution by time-stepping: given
 $u (x , t_k)$ we compute $u (x , t_(k + 1))$ by using some Runge--Kutta
 integrator.
 
@@ -306,13 +306,13 @@ lemmas:
   be larger than that of $bmu (0)$.
 ]
 
-== Timestepping for Finite-Volume Methods
-<sub:timestepping-for-fv>
+== Time-stepping for Finite-Volume Methods
+<sub:time-stepping-for-fv>
 
 As explained before, once we have chosen the numerical Flux, we just need to
 apply Runge--Kutta integration. This subsection studies some conditions that
 have to be considered when applying Runge--Kutta -- in particular, constraints
-on choosing the timestep size $tau$.
+on choosing the time-step size $tau$.
 
 #definition(
   number: "11.4.2.5", "Numerical domain of dependence",
@@ -326,7 +326,7 @@ on choosing the timestep size $tau$.
   Then the *numerical domain of dependence* is given by
   $ D_h^(-) (x_j , t_k) := { (x_n , t_l) in bb(R) times [0 , t_k] : j - m (k - l) lt.eq n lt.eq j + m (k - l) } $
 ]
-$fvH$ is an operator which gives $bmu$ at the next timestep. It incorporates
+$fvH$ is an operator which gives $bmu$ at the next time-step. It incorporates
 both the numerical flux and the Runge--Kutta method. If we have a first-order
 time integrator and the numerical flux function is $F=F(mu_(j-m), dots.h, mu_(j+m))$,
 then $fvH = fvH(mu_(j-m), dots.h, mu_(j+m))$.
@@ -343,7 +343,7 @@ then $fvH = fvH(mu_(j-m), dots.h, mu_(j+m))$.
 // TODO Elaborate
 
 The following kind of condition appears over and over in numerical integration
-and gives an upper bound for the timestep size $tau$: If this upper bound is
+and gives an upper bound for the time-step size $tau$: If this upper bound is
 respected, the numerical solution is stable.
 #definition(
   number: "11.4.2.11", [Courant--Friedrichs--Lewy (CFL) condition],

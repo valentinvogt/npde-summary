@@ -27,8 +27,7 @@ needs initial conditions over the whole domain at time 0.
   u (bx , 0) & = u_0 (bx) quad upright("for all ") bx in Omega $,
 ) <eq:heat-bc-ic>
 
-Testing with time-independent test functions $v$ and assuming $rho$ to be time
-independent as well, we get to
+Testing with time-independent test functions $v$ and assuming $rho$ to be time-independent as well, we get to
 #neq(
   $ integral_Omega rho (bx) dot(u) v dif bx + integral_Omega kappa (bx) med grad u dot.op grad v dif bx = integral_Omega f (bx , t) thin v dif bx quad forall v in H_0^1 (Omega)\
   u (bx , 0) = u_0 (bx) in H_0^1 (Omega) $,
@@ -39,7 +38,7 @@ $ m (dot(u) , v) & = integral_Omega rho (bx) med dot(u) med v dif bx\
 a (u , v)      & = integral_Omega kappa (bx) med grad u dot.op grad v dif bx\
 ell (v)        & = integral_Omega f (bx , t) med v dif bx $
 and the realization that $m (dot(u) , v) = frac(dif, dif t) m (u , v)$
-as only $u$ depends on time (note that importantly, the domain $Omega$ also
+because only $u$ depends on time (note that importantly, the domain $Omega$ also
 stays constant) we can rewrite @eq:heat-integral-form as
 #neq($ frac(dif, dif t) m (u , v) + a (u , v) = ell (v) $) <eq:heat-short>
 
@@ -64,7 +63,7 @@ $m (dot.op , dot.op)$ part).
 
 === Method of Lines
 
-Now let's look into how we can solve @eq:heat-short. Let's apply the Galerkin
+Now let's look into how we can solve @eq:heat-short. First, we apply the Galerkin
 discretization. As $u$ is now also time-dependent, we let the coefficients of $u$ (and
 not the basis) depend on time. $ u_h (t) = sum_(i = 1)^N mu_i (t) b_h^i $ Combining
 this with @eq:heat-short, we get
@@ -75,7 +74,7 @@ this with @eq:heat-short, we get
 
 where $bold(M)_(i , j) = m (b_h^j , b_h^i)$, $bA_(i , j) = a (b_h^j , b_h^i)$ and $[arrow(phi) (t)]_i = ell (b_h^i)$.
 
-This is now an ODE with respect to time and can be solved by time stepping,
+This is now an ODE with respect to time and can be solved by time-stepping,
 learned in NumCSE.
 
 #strong[Recall ODEs]
@@ -109,7 +108,7 @@ immediate. One usually considers
 #theorem(
   number: "9.2.6.14", "Convergence of single-step methods",
 )[
-  Given the above sequence of solutions, obtained by a single step method of order $q in bb(N)$,
+  Given the above sequence of solutions, obtained by a single-step method of order $q in bb(N)$,
   then
   $ eps_oo = max_j norm(bold(u)^((j)) - bold(u) (t_j)) lt.eq C tau^q $
   with $tau = max_j lr(|t_j - t_(j - 1)|)$.
@@ -120,7 +119,7 @@ immediate. One usually considers
   number: "7.3.3.1", [General Runge--Kutta single-step method],
 )[
   For coefficients $b_i , a_(i , j) in bb(R) , c_i = sum_(j = 1)^s a_(i , j)$, the
-  discrete evolution operator $Psi^(s , t)$ of an #strong[s-stage Runge--Kutta single step method] (RK-SSM)
+  discrete evolution operator $Psi^(s , t)$ of an #strong[s-stage Runge--Kutta single-step method] (RK-SSM)
   for the ODE $bold(dot(u)) = bold(f \() t , bold(u) \)$ is defined by
   $ bold(k)_i = bold(f) (t + c_i tau , bold(u) + tau sum_(j = 1)^s a_(i , j) bold(k)_j) , quad i = 1 , dots.h , s , quad Psi^(t , t + tau) bold(u) = bold(u) + tau sum_(j = 1)^s b_j bold(k)_j $
   with $bold(k)_j$ the increments.
@@ -137,7 +136,7 @@ The RK-SSM methods can be written down in compact form (the butcher scheme) as
 where $bold(c)$ is a vector containing the coefficients $c_i$, $bold(b)$ the
 coefficients $b_i$ and $bold(frak(A))$ a matrix containing the coefficients $a_(i , j)$.
 
-So continuing from @eq:heat-galerkin with different time stepping schemes, we
+So continuing from @eq:heat-galerkin with different time-stepping schemes, we
 get
 
 - explicit Euler:
@@ -149,11 +148,10 @@ get
 - implicit midpoint (Crank-Nicolson)
   $ arrow(mu)^((j)) = (bold(M) + 1 / 2 bA)^(- 1) tau_j ((bold(M) - 1 / 2 bA) arrow(mu)^((j - 1)) + 1 / 2 (arrow(phi) (t_j) + arrow(phi) (t_(j - 1)))) $
 
-These all involve solving a linear system of equations each time step. However
-note, that the matrices to invert stay constant with respect to time, so we can
-calculate the decomposition only once to save a lot of time.
+These all involve solving a linear system of equations each time-step. However,
+note that the matrices to invert stay constant with respect to time, so need to calculate the decomposition just once.
 
-Using a general RK-SSM method as the time step, we get the following system of
+Using a general RK-SSM method for time-stepping, we get the following system of
 equations
 $ bold(M) arrow(kappa)_i + sum_(m = 1)^s tau a_(i , m) bA arrow(kappa)_m & = arrow(phi) (t_j + c_i tau) - bA arrow(mu)^((j))\
 arrow(mu)^((j + 1))                                                    & = arrow(mu)^((j)) + tau sum_(m = 1)^s b_m arrow(kappa)_m $
@@ -170,7 +168,7 @@ Recall stiff initial value problems:
   "Stiffness",
 )[
   An initial value problem is called stiff if stability imposes much tighter
-  timestep constraints on explicit single step methods than the accuracy
+  time-step constraints on explicit single-step methods than the accuracy
   requirements.
 ]
 
@@ -202,8 +200,8 @@ $ S (z) = 1 + z bold(b)^top (I - z bold(frak(A)))^(- 1) bold(1) = frac(
 
 ) $
 
-#strong[Unconditional stability of single step methods] A necessary condition
-for unconditional stability of a single step method, is that the discrete
+#strong[Unconditional stability of single-step methods] A necessary condition
+for unconditional stability of a single-step method, is that the discrete
 evolution operator $Psi_lambda^t$ applied to the scalar ODE
 $dot(u) = - lambda u$ satisfies $ lambda > 0 arrow.r lim_(j arrow.r oo) (Psi_lambda^tau)^j u_0 = 0 , quad forall u_0 , forall tau > 0 $
 #definition(
@@ -225,7 +223,7 @@ if $bold(b)$ is equal to the last row of $bold(frak(A))$.
   - the solution of the parabolic IBVP is "sufficiently smooth"
   - its spatial Galerkin finite element discretization relies on degree $p$ Lagrangian
     finite elements on uniformly shape-regular families of meshes
-  - time stepping is based on an L-stable single step method of order $q$,
+  - time-stepping is based on an L-stable single-step method of order $q$,
 
   then we can expect an asymptotic behavior of the total discretization error
   according to
@@ -249,10 +247,10 @@ initial velocity
 $ frac(partial, partial t) u (bx , 0) = v_0 (bx) quad upright("for all ") bx in Omega $
 is also needed.
 
-We want to use the time stepping schemes we already know. To apply them, the
+We want to use the time-stepping schemes we already know. To apply them, the
 wave function can be converted into a first order ODE:
 $ dot(u)     & = v\
-rho dot(v) & = div (sigma (bx) grad u) $ Remember from Analysis that the
+rho dot(v) & = div (sigma (bx) grad u) $ Remember from calculus that the
 particular wave equation
 $frac(partial^2, partial t^2) u - c^2 frac(partial^2, partial x^2) u = 0$
 in 1D results in the d'Alembert solution:
@@ -293,22 +291,23 @@ arrow(mu) (0)                      & = arrow(mu)_0 , arrow(nu) (0) = arrow(nu)_0
 Remember that in the case of $arrow(phi) equiv 0$, energy is conserved:
 $ E_h (t) = 1 / 2 frac(dif, dif t) arrow(mu)^top bold(M) frac(dif, dif t) arrow(mu) + 1 / 2 arrow(mu)^top bA arrow(mu) equiv upright("const") $
 
-So we would like a time stepping that preserves this. Such time stepping schemes
-are called #emph[structure preserving];. One such timestepping scheme is the #strong[Crank–Nicolson] one:
+So we would like a time-stepping that preserves this. Such time-stepping schemes
+are called #emph[structure preserving];. One such time-stepping scheme is the #strong[Crank–Nicolson] one:
 
 $ bold(M) frac(arrow(mu)^((j + 1)) - 2 arrow(mu)^((j)) + arrow(mu)^((j - 1)), tau^2) = - 1 / 2 bA (arrow(mu)^((j - 1)) + arrow(mu)^((j + 1))) + 1 / 2 (arrow(phi) (t_j - 1 / 2 tau) + arrow(phi) (t_j + 1 / 2 tau)) $
 
+#pagebreak()
 Another one would be the #strong[Störmer scheme];:
 $ bold(M) frac(arrow(mu)^((j + 1)) - 2 arrow(mu)^((j)) + arrow(mu)^((j - 1)), tau^2) = - bA arrow(mu)^((j)) + arrow(phi) (t_j) $
 
-For both of these #emph[second order] time stepping schemes, we need
+For both of these #emph[second order] time-stepping schemes, we need
 $arrow(mu)^((- 1))$ to get $arrow(mu)^((1))$. Now the question is, where do we
 get this from? It can be obtained with a special initial step, using a symmetric
 (first order) difference quotient:
 
 $ frac(dif, dif t) arrow(mu) (0) = arrow(nu)_0 arrow.r frac(mu^(\(1\)) - mu^((- 1)), 2 tau) = arrow(nu)_0 $
 
-And finally there is the #strong[Leapfrog] timestepping. Using the auxiliary
+And finally there is the #strong[Leapfrog] time-stepping. Using the auxiliary
 variable
 $arrow(nu)^((j + 1 \/ 2)) = frac(arrow(mu)^((j + 1)) - arrow(mu)^((j)), tau)$
 

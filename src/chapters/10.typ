@@ -194,7 +194,7 @@ value $g$ as the initial value at time $s_0$.
 
 Given a general ODE whose right-hand side is the sum of two functions
 $ dot(bold(y)) = bold(g) (t , bold(y)) + bold(r) (t , bold(y)) $ The Strang
-Splitting single step method provides a method to solve this.
+Splitting single-step method provides a method to solve this.
 
 #mybox(
   "Strang Splitting",
@@ -208,9 +208,9 @@ Splitting single step method provides a method to solve this.
 ]
 #v(-1cm)
 #theorem(
-  number: "10.3.3.5", "Order of Strang splitting single step method",
+  number: "10.3.3.5", "Order of Strang splitting single-step method",
 )[
-  If the IVP in each sub-step is solved exactly or with a 2nd-order time stepping
+  If the IVP in each sub-step is solved exactly or with a 2nd-order time-stepping
   method, the Strang splitting method is of second order.
 ]
 We can now apply this to Eq. @eq:transient_conv_diff.
@@ -228,7 +228,7 @@ works as follows:
 
 + Solve initial value problems
   $ bold(dot(y)) (t) = bold(y)(bold(v)(t), t) quad , quad bold(y) (0) = bold(p)_i $
-  with suitable single step methods.
+  with suitable single-step methods.
 
 + Reconstruct the approximation. E.g., with the composite midpoint rule,
   $ u_h^((j)) (bold(p)_i^((j))) = u_0 (bold(p)_i) + tau sum_(l = 1)^(j - 1) f (1 / 2 (bold(p)_i^l + bold(p)_i^(l - 1)) , 1 / 2 (t_l + t_(l - 1))) $
@@ -266,7 +266,7 @@ Hence the transient convection-diffusion equation @eq:transient_conv_diff can be
 rewritten as
 $ frac(D u, D bold(v)) - eps Delta u = f quad upright(" in ") Omega $
 We will now approximate the material derivative by a backwards difference. It is
-easy to interpret that expression: the total change of $u$ in a timestep for a
+easy to interpret that expression: the total change of $u$ in a time-step for a
 particle is the difference of the current $u^((j))$ at the particle's current
 position $bx$ minus the value of the previous function $u^((j - 1))$ at the
 particle's old position $Phi^(t_j , t_j - tau) bx$. We get a semi-discretization

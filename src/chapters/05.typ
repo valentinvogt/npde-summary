@@ -157,6 +157,7 @@ Here, the directional derivative is defined as
   So a more convenient method is to do Taylor expansion and to keep only the
   first-order term.
 ]
+
 Now, the advantage of this equation for $w$ is that the functional derivative is
 linear, i.e. $(v , w) arrow.r.bar D_u a (u^((k)) ; v) w$
 is a #strong[bilinear form];. Now, one can employ Galerkin discretization for
