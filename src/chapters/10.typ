@@ -87,12 +87,16 @@ A boundary value problem depending on a parameter $eps$ is called singularly
 perturbed, if the limit problem for $eps arrow.r eps_0$ is not compatible with
 the boundary conditions.
 
-For $eps = 0$, the above PDE is singular perturbed. It cannot satisfy Dirichlet
+For $eps = 0$, the above PDE is singularly perturbed. It cannot satisfy Dirichlet
 boundary conditions on the _outflow_ part of the boundary.
-// TODO: give a clear example
 $ Gamma_(upright("out")) &= bx in partial Omega : bold(v (x)) dot.op bold(n (x)) > 0 \
 Gamma_(upright("in"))  &= bx in partial Omega : bold(v (x)) dot.op bold(n (x)) < 0 $
 
+// TODO: give a clear example
+// *Example*: In 1D, assume $Omega = (0, 1)$, $bold(v) = 1$, $f = 0$ and $u = 0$ on $partial Omega$, so for $eps = 0$ we have
+// $ frac(dif u, dif x) = 0 \
+// u (0) = 0, thick u (1) = 0 $
+// The equation has the solution $u(x)=x$, but this is incompatible with the boundary conditions.
 === Upwinding
 
 When we solve Convection-Diffusion for $eps approx 0$ with the Galerkin method, we get
