@@ -1,5 +1,6 @@
 #import "@preview/physica:0.9.3": eval, Order, Set
 #import "boxes.typ": *
+#import "@preview/natrix:0.1.0": *
 
 #let neq(content) = math.equation(
     block: true,
