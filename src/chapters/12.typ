@@ -114,10 +114,10 @@ $ bv_h = sum_(i=1)^N nu_i bold(phi)_h^i wide bold(arrow(nu))=[nu_i]_(i=1)^N \
 
 and Galerkin matrices
 $ bold(A) = [a(bold(phi)_h^j, bold(phi)_h^i)]_(i, j=1)^N wide
-  bold(B) = [b(bold(phi)_h^j, beta_h^i)]_(i, j) wide
+  bold(B) = [b(bold(phi)_h^j, beta_h^i)]_(i, j=1)^(M, N) wide
   bold(arrow(gamma)) = [ell(bold(phi)_h^i)]_(i=1)^N $
 
-we get the discrete system
+we get following linear system:
 $ upright("Saddle point LSE: ") quad 
 bnat(
   bold(A), bold(B)^T;

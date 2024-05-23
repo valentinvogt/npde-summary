@@ -404,9 +404,8 @@ can also be used in FEM.\
 Assume that the basis functions are sorted such that all interior ones come
 first, followed by the ones on the boundary (we are free to choose the order of
 basis functions). Then, it is possible to write $bA$ as follows:
-$ bA = mat(
-  delim: "[", bA_0, bA_(0 partial);bA_(0 partial)^top, bA_(partial partial), , , ,
-
+$ bA = nat(
+  delim: "[", bA_0, bA_(0 partial);bA_(0 partial)^top, bA_(partial partial)
 ) $
 where $bA_0$ is the Galerkin matrix for $cal(S)_(p , 0)^0 (cal(M))$, containing
 the interactions among interior basis functions.
@@ -415,10 +414,10 @@ boundary and $b_h^i$ to the interior, so $bA_(0 partial)$ contains the
 interactions of interior with boundary functions. Similarly,
 $bA_(partial partial)$ consists only of entries calculated from basis functions
 of the boundary. Then we want to solve:
-$ mat(
-  delim: "[", bA_0, bA_(0 partial);bA_(0 partial)^top, bA_(partial partial), , , ,
+$ nat(
+  delim: "[", bA_0, bA_(0 partial);bA_(0 partial)^top, bA_(partial partial),
 
-) mat(delim: "[", bold(arrow(mu))_0;bold(arrow(mu))_partial) = mat(delim: "[", bold(arrow(phi));bold(arrow(phi))_partial) $
+) nat(delim: "[", bold(arrow(mu))_0;bold(arrow(mu))_partial) = nat(delim: "[", bold(arrow(phi));bold(arrow(phi))_partial) $
 where $bold(arrow(mu))_partial$ are the coefficients of the basis expansion of $g$ on
 the boundary, which are known since $g$ is given. We only need to solve for $bold(arrow(mu))_0$ which
 results in
