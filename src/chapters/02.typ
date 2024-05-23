@@ -59,8 +59,8 @@ numerical solution is.
 )[
 Sometimes, problems ask you to compute $norm(u_h)_a$, i.e., the energy norm of a
 discrete solution.
-$ norm(u_h)_a = sqrt(a(u_h,u_h)) = a(sum_(i=0)^N mu_i b_i^h, sum_(j=0)^N mu_j b_j^h) = sum_(i=0)^N sum_(j=0)^N mu_i mu_j a(b_i^h,b_j^h) = arrow(mu)^top bA arrow(mu) $
-So it can be computed as `sqrt(mu.transpose() * A * mu)`.
+$ norm(u_h)_a^2 = a(u_h,u_h) = a(sum_(i=0)^N mu_i b_i^h, sum_(j=0)^N mu_j b_j^h) = sum_(i=0)^N sum_(j=0)^N mu_i mu_j a(b_i^h,b_j^h) = arrow(mu)^top bA arrow(mu) $
+So $norm(u_h)_a$ can be computed as `sqrt(mu.transpose() * A * mu)`.
 ]
 
 #pagebreak()
