@@ -86,8 +86,8 @@ space for your problem, follow the guideline ...
   Note that $|dot|_(H^1)$ is not a norm on the space $H^1 (Omega)$, but a
   seminorm.
 
-  Both spaces contain all functions for which the norm is finite (and, in the case
-  of $H^1_0 (Omega)$, which are 0 on $partial Omega$).
+  Both spaces contain all functions for which the respective norm is finite (and, in the case
+  of $H^1_0 (Omega)$, which satisfy the boundary condition 0 on $partial Omega$).
 ]
 *Alternative notation* for norms includes $norm(dot)_0$ for $norm(dot)_(L^2)$ and $|dot|_1$ for $|dot|_(H^1)$.
 
@@ -143,7 +143,7 @@ numerically. To do this transformation, we use the following equivalence:
 
 #theorem(
   number: "1.4.1.8", "Equivalence of quadratic
-            minimization problem and linear variational problem",
+        minimization and linear variational problem",
 )[
   For a (generalized) quadratic functional $J (v) = 1 / 2 a (v , v) - ell (v) + c$ on
   a vector space $V$ and with a symmetric positive definite bilinear form $a : V times V arrow.r bb(R)$ the
@@ -176,7 +176,7 @@ see @sub:boundary-conditions.
   number: "1.5.2.4", "Gauss' Theorem",
 )[
   Let $bold(n) : partial Omega arrow.r bb(R)^d$ denote the exterior unit normal
-  vector field on $partial Omega$ and $d S$ denote integration over a surface. We
+  vector field on $partial Omega$ and $dif S$ denote integration over a surface. We
   have
   #neq(
     $ integral_Omega div bold(j (x)) dif bx = integral_(partial Omega) bold(j (x) dot.op n (x)) dif S (bx) quad forall bold(j) in (C_(upright(p w))^1 (overline(Omega)))^d $,
@@ -195,7 +195,7 @@ see @sub:boundary-conditions.
 #lemma(
   number: "1.5.3.4", "Fundamental lemma of the calculus of variations",
 )[
-  Let $f in L^2 (Omega)$ satisfy
+  If $f in L^2 (Omega)$ satisfies
   #neq(
     $ integral_Omega f (bx) v (bx) dif bx = 0 quad forall v in C_0^oo (Omega), $,
   )
@@ -223,7 +223,7 @@ BVP (PDE with boundary conditions).
 
 For 2nd-order elliptic BVPs we need boundary conditions to get a unique
 solution. To be more precise, we need #strong[exactly one] of the following
-boundary conditions on every part of $partial Omega$
+boundary conditions on every part of $partial Omega$.
 
 #mybox("Main boundary conditions for 2nd-order elliptic BVPs")[
   - #strong[Dirichlet]: $u$ is fixed to be

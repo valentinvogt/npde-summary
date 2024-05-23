@@ -80,7 +80,7 @@
 // Modified from colorful-boxes:1.2.0
 #let colorbox(title: none, color: none, radius: 2pt, width: auto, body) = {
 
-  let strokeColor = luma(70)
+  let strokeColor = rgb(170, 170, 200)
   let backgroundColor = white
 
   if color == "red" {

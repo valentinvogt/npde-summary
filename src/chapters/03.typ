@@ -25,15 +25,15 @@ increase the accuracy of our method.
 #mybox(
   "h-Refinement",
 )[
-  Replace the mesh $cal(M)$ (underlying $V_(0 , h)$) with a finer mesh $cal(M) prime$ (underlying
+  Replace the mesh $msh$ (underlying $V_(0 , h)$) with a finer mesh $msh prime$ (underlying
   larger discrete trial space $V prime_(0 , N prime)$).
 ] <concept:refinement>
 #v(-1cm)
 #mybox(
   "p-Refinement",
 )[
-  Replace $V_(0 , h) := S_p^0 (cal(M)) , p in bb(N)$, with
-  $V'_(0 , h) := S_(p + 1)^0 (cal(M))$, yielding a larger space: $V_(0 , h) subset V'_(0 , h)$
+  Replace $V_(0 , h) := S_p^0 (msh) , p in bb(N)$, with
+  $V'_(0 , h) := S_(p + 1)^0 (msh)$, yielding a larger space: $V_(0 , h) subset V'_(0 , h)$
 
 ]
 So h-refinement refines the mesh (smaller and smaller triangles) and
@@ -42,8 +42,8 @@ quadratic, etc.). The h in h-refinement refers to the mesh width:
 #definition(
   number: "3.2.1.4", "Mesh width",
 )[
-  Given a mesh $cal(M) = { K }$, the *mesh width* $h_(cal(M))$ is defined as
-  $ h_(cal(M))        & := max { upright("diam") K : K in cal(M) }\
+  Given a mesh $msh = { K }$, the *mesh width* $h_(msh)$ is defined as
+  $ h_(msh)        & := max { upright("diam") K : K in msh }\
   upright("diam") K & := max { lr(|p - q|) : p , q in K } $
 ]
 
@@ -54,7 +54,7 @@ As in NumCSE, there are two types of convergence, algebraic and exponential. We
 refer to the number of basis functions (dimension of the trial space) as $N$ and
 we study the behavior of errors as
 $N arrow.r oo$. Note that both exercises and theorems are often posed in terms
-of $h_(cal(M))$ as $h arrow.r 0$, which is equivalent if we have a fixed
+of $h_(msh)$ as $h arrow.r 0$, which is equivalent if we have a fixed
 polynomial degree $p$ and only do h-refinement.
 
 #definition(
@@ -83,14 +83,14 @@ and $h$ given by
   number: "3.2.2.1",
 )[
   #neq(
-    $ N = dim S_p^0 (cal(M)) approx p^d h_(cal(M))^(- d) thick arrow.r.double.long h_(cal(M)) / p approx N^(- 1 / d) $,
+    $ N = dim S_p^0 (msh) approx p^d h_(msh)^(- d) thick arrow.r.double.long h_(msh) / p approx N^(- 1 / d) $,
   ) <eq:h-n-relation>
   where $p$ are the dimensions of the local basis functions, e.g., $p = 1$
   for linear basis functions, and $d$ is the dimension of the underlying space $Omega$.
 ]
 
 E.g., in the case where we have $Omega subset bb(R)^2$ and piecewise linear
-basis functions, we get $h_(cal(M))^(- 2) approx N$.
+basis functions, we get $h_(msh)^(- 2) approx N$.
 
 == A Priori (Asymptotic) Finite Element Error Estimates
 <sub:a-priori-asymptotic-error>
@@ -104,26 +104,26 @@ estimates to get error bounds. Here are some results for linear interpolation:
   The following interpolation error estimates can be used for sufficiently smooth
   functions $u$:
   #neq(
-    $ norm(u - I_1 u)_(L^oo (openint(a, b))) <= 1 / 4 h_(cal(M))^2 norm(u'')_(L^oo (openint(a, b))) $,
+    $ norm(u - I_1 u)_(L^oo (openint(a, b))) <= 1 / 4 h_(msh)^2 norm(u'')_(L^oo (openint(a, b))) $,
   )
   #neq(
-    $ norm(u - I_1 u)_(L^2 (openint(a, b))) <= h_(cal(M))^2 norm(u'')_(L^2 (openint(a, b))) $,
+    $ norm(u - I_1 u)_(L^2 (openint(a, b))) <= h_(msh)^2 norm(u'')_(L^2 (openint(a, b))) $,
   )
   #neq(
-    $ lr(|u - I_1 u|)_(H^1 (openint(a, b))) <= h_(cal(M)) norm(u'')_(L^2 (openint(a, b))) $,
+    $ lr(|u - I_1 u|)_(H^1 (openint(a, b))) <= h_(msh) norm(u'')_(L^2 (openint(a, b))) $,
   )
 ]
 #mybox(
   "Linear interpolation error 2D",
 )[
-  In 2D, linear interpolation corresponds to using tent functions: $I_1 u = sum_(p in cal(V) (cal(M))) u (p) b^p$,
+  In 2D, linear interpolation corresponds to using tent functions: $I_1 u = sum_(p in cal(V) (msh)) u (p) b^p$,
   where $b^p$ is the tent function associated with point $p$.
   #neq(
-    $ norm(u - I_1 u)_(L^2 (Omega))        &<= C h_(cal(M))^2 norm(norm(D^2 u)_F)_(L^2 (Omega)) \
-    norm(grad (u - I_1 u))_(L^2 (Omega)) &<= C rho_(cal(M)) h_(cal(M)) norm(norm(D^2 u)_F)_(L^2 (Omega)) $,
+    $ norm(u - I_1 u)_(L^2 (Omega))        &<= C h_(msh)^2 norm(norm(D^2 u)_F)_(L^2 (Omega)) \
+    norm(grad (u - I_1 u))_(L^2 (Omega)) &<= C rho_(msh) h_(msh) norm(norm(D^2 u)_F)_(L^2 (Omega)) $,
   ) <eq:lin_interpolate_2d>
-  Here, $D^2 u$ is the Hessian of $u$, $norm(dot)_F$ is the Frobenius norm, and $rho_(cal(M))$ is
-  the shape regularity measure of the mesh $cal(M)$, defined as $rho_(cal(M)) = max_(K in cal(M)) h_(cal(M))^2 / lr(|K|)$ for
+  Here, $D^2 u$ is the Hessian of $u$, $norm(dot)_F$ is the Frobenius norm, and $rho_(msh)$ is
+  the shape regularity measure of the mesh $msh$, defined as $rho_(msh) = max_(K in msh) h_(msh)^2 / lr(|K|)$ for
   a triangular mesh.
 ]
 
@@ -156,24 +156,24 @@ To get rid of this cumbersome notation, we can introduce more Sobolev spaces.
 Remember the multi-index $balpha$ already seen in @concept:multi-index. Using
 this new notation, we can rewrite the error bounds from @eq:lin_interpolate_2d
 as
-$ norm(u - I_1 u)_(L^2 (Omega))        &<= C h_(cal(M))^2 lr(|u|)_(H^2 (Omega)) \
-norm(grad (u - I_1 u))_(L^2 (Omega)) &<= C rho_(cal(M)) h_(cal(M)) lr(|u|)_(H^2 (Omega)) $
+$ norm(u - I_1 u)_(L^2 (Omega))        &<= C h_(msh)^2 lr(|u|)_(H^2 (Omega)) \
+norm(grad (u - I_1 u))_(L^2 (Omega)) &<= C rho_(msh) h_(msh) lr(|u|)_(H^2 (Omega)) $
 It turns out that these bounds are not sharp. There is a very useful result for
 Lagrangian finite elements:
 #theorem(
   number: "3.3.5.6", "Best approximation error estimates for Lagrangian finite elements",
 )[
-  Given a triangular mesh $cal(M)$, if the true solution $u$ is in $H^k (Omega)$,
+  Given a triangular mesh $msh$, if the true solution $u$ is in $H^k (Omega)$,
   the best approximation error is bounded by
   #neq(
-    $ inf_(v_h in cal(S)_p^0 (cal(M))) norm(u - v_h)_(H^1 (Omega)) <= C (h_(cal(M)) / p)^(min { p , k - 1 }) norm(u)_(H^k (Omega)) $,
+    $ inf_(v_h in cal(S)_p^0 (msh)) norm(u - v_h)_(H^1 (Omega)) <= C (h_(msh) / p)^(min { p , k - 1 }) norm(u)_(H^k (Omega)) $,
   )
 ] <thm:best-approximation-error>
 
-We might not know the constant $C$ and/or $norm(u)_(H^k (Omega))$, but we know $p$ and $h_(cal(M))$ as
+We might not know the constant $C$ and/or $norm(u)_(H^k (Omega))$, but we know $p$ and $h_(msh)$ as
 they are imposed by the choice of function space and mesh. Remember the concept
 of refinement: we can adjust these values. And from Eq. @eq:h-n-relation we know
-that $h_(cal(M)) \/ p approx N^(- 1 / d)$. Hence the error displays *algebraic*
+that $h_(msh) \/ p approx N^(- 1 / d)$. Hence the error displays *algebraic*
 convergence with rate
 $min{ p , k - 1 }\/ d$. What still remains a question is $k$, the smoothness of
 the solution $u$.
@@ -184,13 +184,13 @@ Another useful result hidden in the lecture notes is
 )[
   Under some assumptions (convex domain, smooth coefficient functions), we have
   #neq(
-    $ norm(u - u_h)_(L^2 (Omega)) <= C h_(cal(M)) / p norm(u - u_h)_(H^1 (Omega)) $,
+    $ norm(u - u_h)_(L^2 (Omega)) <= C h_(msh) / p norm(u - u_h)_(H^1 (Omega)) $,
   )
 ]
 So we gain one order of convergence in the $L^2$ norm compared to the $H^1$ norm.
 #tip-box(
   [Rules of thumb for converge], [
-    If we are using $cal(S)_p^0 (cal(M))$ and $u$ is sufficiently smooth (e.g., $u in C^oo (Omega)$),
+    If we are using $cal(S)_p^0 (msh)$ and $u$ is sufficiently smooth (e.g., $u in C^oo (Omega)$),
     we have
     $ norm(u - u_h)_(H^1 (Omega)) &= Order(h^p) \
     |u - u_h|_(H^1 (Omega))     &= Order(h^p) \
@@ -256,10 +256,10 @@ Crimes which do not affect the type and rate of convergence are acceptable.
 So how to not temper with the convergence?
 
 #subtle-box[
-  - if $norm(u - u_h)_1 in Order(h_(cal(M))^p)$, use a quadrature rule of order at
+  - if $norm(u - u_h)_1 in Order(h_(msh)^p)$, use a quadrature rule of order at
     least $2 p - 1$
 
-  - if $V_(0 , h) = cal(S)_p^0 (cal(M))$ then approximate the boundary with
+  - if $V_(0 , h) = cal(S)_p^0 (msh)$ then approximate the boundary with
     polynomials of degree $p$
 ]
 

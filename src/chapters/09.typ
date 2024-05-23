@@ -227,7 +227,7 @@ if $bold(b)$ is equal to the last row of $bold(frak(A))$.
 
   then we can expect an asymptotic behavior of the total discretization error
   according to
-  $ (tau sum_(j = 1)^M lr(|u (tau j) - u_h^((j))|)_(H^1 (Omega))^2)^(1 / 2) lt.eq C (h_(cal(M))^p + tau^q) $
+  $ (tau sum_(j = 1)^M lr(|u (tau j) - u_h^((j))|)_(H^1 (Omega))^2)^(1 / 2) lt.eq C (h_(msh)^p + tau^q) $
 
 ]
 Hence the total error is the spatial error plus the temporal error.

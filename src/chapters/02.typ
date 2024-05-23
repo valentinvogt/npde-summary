@@ -76,17 +76,17 @@ In FEM, the goal is to approximate $u$ by piecewise polynomial functions.
   set of nodes:
   $ cal(V (M)) = { a = x_0 < x 1 < dots.h.c < x_M = b } $
   The nodes define intervals, which build up the mesh:
-  $ cal(M) = { openint(x_(j - 1), x_j) : 1 lt.eq j lt.eq M } $
+  $ msh = { openint(x_(j - 1), x_j) : 1 lt.eq j lt.eq M } $
   The intervals $[x_(j - 1) , x_j]$ are the #strong[cells] of the mesh. We define
-  local cell size $h_j = lr(|x_j - x_(j - 1)|)$ and global mesh width $h_(cal(M)) = max_j h_j$.
+  local cell size $h_j = lr(|x_j - x_(j - 1)|)$ and global mesh width $h_(msh) = max_j h_j$.
 ]
 
-A simple space for continuous, $cal(M)$-piecewise polynomial functions in $H_0^1 (openint(a, b))$ consists
+A simple space for continuous, $msh$-piecewise polynomial functions in $H_0^1 (openint(a, b))$ consists
 of linear functions on each cell:
 #neq(
-  $ V_(0 , h) = S_(1 , 0)^0 (cal(M)) = {v in C^0 ([a , b]) : eval(v)_[x_(i - 1),x_i ] upright("is linear") , i = 1 , dots.h , M , v (a) = v (b) = 0} $,
+  $ V_(0 , h) = S_(1 , 0)^0 (msh) = {v in C^0 ([a , b]) : eval(v)_[x_(i - 1),x_i ] upright("is linear") , i = 1 , dots.h , M , v (a) = v (b) = 0} $,
 )<eq:linfem1d-space>
-$ arrow.r N = dim S_(1 , 0)^0 (cal(M)) = M - 1 $
+$ arrow.r N = dim S_(1 , 0)^0 (msh) = M - 1 $
 The 0-superscript stands for $C^0$: functions are globally continuous. The
 1-subscript denotes local degree 1 polynomial and the 0-subscript denotes value
 0 on the boundary. The $cal(S)$ stands for $cal(S)$calar functions.
@@ -114,9 +114,9 @@ integrate, computing (bi)linear forms $a$ and $ell$ for them is quite easy.
 #mybox(
   "Mesh in two dimension",
 )[
-  Meshes in 2D rely on #strong[triangulations];. A #strong[triangulation] $cal(M)$ of $Omega$ satisfies:
+  Meshes in 2D rely on #strong[triangulations];. A #strong[triangulation] $msh$ of $Omega$ satisfies:
 
-  - $cal(M) = { K_i }$, where $K_i$ are open triangles
+  - $msh = { K_i }$, where $K_i$ are open triangles
 
   - $i eq.not j arrow.r K_i sect K_j = diameter$
 
@@ -139,12 +139,12 @@ integrate, computing (bi)linear forms $a$ and $ell$ for them is quite easy.
 We define a space of piecewise-linear functions analogously to
 @eq:linfem1d-space:
 #neq(
-  $ V_(0 , h) = S_1^0 (cal(M)) = {v in C^0 (overline(Omega)) : v_K (bx) = alpha_K + bold(beta)_K dot.op bx , alpha_K in bb(R) , bold(beta)_K in bb(R)^2 , bx in K} $,
+  $ V_(0 , h) = S_1^0 (msh) = {v in C^0 (overline(Omega)) : v_K (bx) = alpha_K + bold(beta)_K dot.op bx , alpha_K in bb(R) , bold(beta)_K in bb(R)^2 , bx in K} $,
 ) <eq:linfem2d-space>
-$ arrow.r dim S_1^0 (cal(M)) = \# cal(V (M)) $ And
-$S_(1 , 0)^0 (cal(M))$ additionally requires functions to be zero on $partial Omega$,
+$ arrow.r dim S_1^0 (msh) = \# cal(V (M)) $ And
+$S_(1 , 0)^0 (msh)$ additionally requires functions to be zero on $partial Omega$,
 with
-$ dim S_(1 , 0)^0 (cal(M)) = \# lr({ bx in cal(V (M)) : bx in.not partial Omega }) $
+$ dim S_(1 , 0)^0 (msh) = \# lr({ bx in cal(V (M)) : bx in.not partial Omega }) $
 Similarly, the 1D tent functions can be extended to 2D by requiring the cardinal
 property. This property is already enough since three points fully define a
 plane — in other words, knowing the values in three points (the vertices of a
@@ -242,7 +242,7 @@ triangles (2D) or tetrahedra (3D).
   number: "2.6.1.1", "Simplicial Lagrangian finite element spaces",
 )[
   #neq(
-    $ cal(S)_p^0 (cal(M)) = {v in C^0 (overline(Omega)) : v_K in cal(P)_p (K) , forall K in cal(M)} $,
+    $ cal(S)_p^0 (msh) = {v in C^0 (overline(Omega)) : v_K in cal(P)_p (K) , forall K in msh} $,
   )<eq:simp_lfes>
 ]
 This space is well suited for triangular meshes, as the local dimension
@@ -273,7 +273,7 @@ points on quads.
   number: "2.6.2.5", "Tensor product Lagrangian finite element spaces",
 )[
   #neq(
-    $ cal(S)_p^0 (cal(M)) = {v in C^0 (overline(Omega)) : eval(v)_K in cal(Q)_p (K) , forall K in cal(M)} $,
+    $ cal(S)_p^0 (msh) = {v in C^0 (overline(Omega)) : eval(v)_K in cal(Q)_p (K) , forall K in msh} $,
   ) <eq:tens_lfes>
 ]
 
@@ -407,7 +407,7 @@ basis functions). Then, it is possible to write $bA$ as follows:
 $ bA = nat(
   delim: "[", bA_0, bA_(0 partial);bA_(0 partial)^top, bA_(partial partial)
 ) $
-where $bA_0$ is the Galerkin matrix for $cal(S)_(p , 0)^0 (cal(M))$, containing
+where $bA_0$ is the Galerkin matrix for $cal(S)_(p , 0)^0 (msh)$, containing
 the interactions among interior basis functions.
 $(bA_(0 partial))_(i j) = a (b_h^j , b_h^i)$, where $b_h^j$ belongs to the
 boundary and $b_h^i$ to the interior, so $bA_(0 partial)$ contains the

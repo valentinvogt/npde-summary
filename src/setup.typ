@@ -29,6 +29,7 @@
 #let mhat = content => $ hat(content, size: #140%)$
 #let Khat = $ hat(K, size: #120%)$
 #let bxhat = $ hat(bx) $
+#let msh = $ cal(M) $
 
 #let grad = $bold("grad")thin $
 #let gradsub = content => $bold("grad"_(#content)) $

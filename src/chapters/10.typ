@@ -144,16 +144,16 @@ one from Eq. @eq:convection-diffusion-weak. To get rid of this inconsistency,
 the anisotropic diffusion can be introduced via a residual term
 
 $ integral_Omega eps grad u dot.op grad w dif bx + integral_Omega (bold(v) dot.op grad u) w dif bx\
-+ sum_(K in cal(M)) delta_K integral_K (- eps Delta u + bold(v) dot.op grad u - f) (bold(v) dot.op grad w) = integral_Omega f (bx) w dif bx $
++ sum_(K in msh) delta_K integral_K (- eps Delta u + bold(v) dot.op grad u - f) (bold(v) dot.op grad w) = integral_Omega f (bx) w dif bx $
 The added term will be zero for the exact solution and we still have a diffusion term. The control parameter is usually chosen
 according to
 $ delta_K = cases(
   delim: "{", eps^(- 1) h_K^2 & quad upright("if ") norm(bold(v))_(K , oo) h_K lt.eq 2 eps, h_K & quad upright("if ") norm(bold(v))_(K , oo) h_K > 2 eps,
 
 ) $
-With this, the $Order(h_(cal(M))^2)$ convergence of
+With this, the $Order(h_(msh)^2)$ convergence of
 $norm(u-u_h)_(L^2 (Omega))$ for $h$-refinement is preserved, while upwind
-quadrature only achieves $Order(h_(cal(M)))$ convergence.
+quadrature only achieves $Order(h_(msh))$ convergence.
 
 #pagebreak(weak: true)
 == Discretization of Time-Dependent Convection-Diffusion IBVPs
@@ -279,7 +279,7 @@ with additional initial conditions for $t = t_j$. We can apply the standard
 Galerkin method to this semi-discretization.
 $ integral_Omega frac(u^((j)) (bx) - u^((j - 1)) (Phi^(t_j , t_j - tau) bx), tau) w(bx) dif bx + eps integral_Omega grad u^((j)) dot.op grad w dif bx = integral_Omega f (bx , t_j) w(bx) dif bx $
 Unfortunately this cannot be implemented as is because the function
-$u^((j - 1)) (Phi^(t_j , t_j - tau) bx)$ is not a finite element function on $cal(M)$.
+$u^((j - 1)) (Phi^(t_j , t_j - tau) bx)$ is not a finite element function on $msh$.
 
 To get around this, we do two things: Replace $Phi^(t_j , t_j - tau) bx$ by $bx - tau bold(v)(bx, t_j)$ (an
 explicit Euler step) and replace $u^((j - 1)) (Phi^(t_j , t_j - tau) bx)$ by its
