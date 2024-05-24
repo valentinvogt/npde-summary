@@ -186,7 +186,7 @@ Another useful result hidden in the lecture notes is
   #neq(
     $ norm(u - u_h)_(L^2 (Omega)) <= C h_(msh) / p norm(u - u_h)_(H^1 (Omega)) $,
   )
-]
+]<eq:l2-estimate>
 So we gain one order of convergence in the $L^2$ norm compared to the $H^1$ norm.
 #tip-box(
   [Rules of thumb for converge], [
