@@ -179,7 +179,7 @@ Some methods for the Stokes problem are:
   [*CR-P0*], [$(cal(C R)_0(msh))^d$], [$S^(-1)_(0,*)(msh)$], [Stable], [$Order(h)$], [$checkmark$], 
 )
 
-The $cal(C R)$ space will be introduced in the next subsection. By "efficient" we mean that both error terms convergence with the same rate. If that is not the case -- as for the *P2-P0* method, where the pressure converges slower -- the computational cost for having 2nd degree polynomials for the velocity does not pay off.
+The $cal(C R)$ space will be introduced in the next subsection. By "efficient" we mean that both error terms converge with the same rate. If that is not the case -- as for the *P2-P0* method, where the pressure converges slower -- the computational cost for having 2nd degree polynomials for the velocity does not pay off.
 
 === Non-conforming Crouzeix--Raviart FEM
 <sub:stokes-cr>
