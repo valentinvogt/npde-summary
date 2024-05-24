@@ -51,8 +51,6 @@
   #neq($ lr(|a (u , v)|) lt.eq a (u , u)^(1 / 2) a (v , v)^(1 / 2) $)
 ] <thm:cauchy-schwarz>
 
-#v(-0.5cm)
-
 #equation(
   number: "1.3.4.15", [Cauchy--Schwarz for Integrals],
 )[
@@ -61,8 +59,6 @@
   )
 ] <eq:cauchy-schwarz-integrals>
 
-#v(-0.5cm)
-
 #mybox(
   "Norms",
 )[
@@ -70,8 +66,24 @@
   - $bold(L^2) bold("norm: ") norm(bold(u))_2 = norm(bold(u))_(L^2 (Omega)) := (integral_Omega norm(bold(u (x)))^2 dif x)^(1 / 2) $
 ]
 
-#v(-0.5cm)
-
+#mybox(
+  [Barycentric coordinate functions],
+)[
+  The barycentric coordinate functions $lambda_i$ on a triangle with vertices $ba_1, ba_2, ba_3$ are linear functions satisfying the *cardinal property*
+  #neq(
+    $ lambda_i (ba_j) = delta_(i j) = cases(
+      1 & quad upright("if") i = j,
+      0 & quad upright("else")
+    ) $
+  )<eq:barycentric-cardinal-property>
+  
+  On the unit triangle, whose vertices are $ba_1 = (0, 0), ba_2 = (1, 0), ba_3 = (0, 1)$, the barycentric coordinate functions are 
+  #neq(
+    $ lambda_1 (bx) &= 1 - x_1 - x_2 \
+      lambda_2 (bx) &= x_1 \
+      lambda_3 (bx) &= x_2 $
+  )
+]
 #theorem(
   number: "0.3.2.31", "Transformation rule for Integration",
 )[

@@ -250,7 +250,7 @@ $binom(d + p, p) = binom(2 + p, p)$ (in 2D) is the same as the number of
 interpolation nodes of a triangle. The local basis functions of $cal(S)_1^0$ are
 the barycentric coordinate functions. In
 $cal(S)_2^0$, the local basis functions are combinations of barycentric
-coordinate functions:
+coordinate functions, see @eq:barycentric-cardinal-property.
 #grid(
   columns: (0.5fr, 0.5fr), [
     #h(1cm)
@@ -373,7 +373,7 @@ The following formula is usually used when computing element matrices by hand:
 )[
   For a $d$-simplex $K$ (line in 1D, triangle in 2D, tetrahedron in 3D) with
   barycentric coordinate functions
-  $lambda_1 , dots.h , lambda_(d + 1)$
+  $lambda_1 , dots.h , lambda_(d + 1)$ as defined in @eq:barycentric-cardinal-property,
   #neq(
     $ integral_K lambda_1^(alpha_1) dot.op dots.h.c dot.op lambda_(d + 1)^(alpha_(d + 1)) dif bx = d ! lr(|K|) frac(
       alpha_1 ! dot.op dots.h.c dot.op alpha_(d + 1) !, (alpha_1 + dots.h.c + alpha_(d + 1) + d) !,
