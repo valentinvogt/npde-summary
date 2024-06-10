@@ -1,7 +1,8 @@
 #import "theorems.typ": *
+#import "colors.typ": *
 
 #let theorem = thmbox(
-  "theorem", "Theorem", fill: rgb("#ffecd9"),
+  "theorem", "Theorem", fill: brown-box,
   // bodyfmt: body => [
   //   #body 2
   // ]
@@ -20,7 +21,7 @@
 )
 
 #let lemma = thmbox(
-  "lemma", "Lemma", fill: rgb("#ffecd9"),
+  "lemma", "Lemma", fill: brown-box,
   titlefmt: title => [
     #text(weight: "bold")[
       #title:
@@ -36,7 +37,7 @@
 )
 
 #let definition = thmbox(
-  "definition", "Definition", fill: rgb("#ffecd9"),
+  "definition", "Definition", fill: brown-box,
   titlefmt: title => [
     #text(weight: "bold")[
       #title:
@@ -52,7 +53,7 @@
 )
 
 #let equation = thmbox(
-  "equation", "Equation", fill: rgb("#ffecd9"),
+  "equation", "Equation", fill: brown-box,
   titlefmt: title => [
     #text(weight: "bold")[
       #title
@@ -68,7 +69,7 @@
 )
 
 #let mybox = thmbox(
-  "", "", fill: rgb("#ffecd9"),
+  "", "", fill: brown-box,
   namefmt: name => [
     #text(weight: "bold")[
       #h(-3pt) #name
@@ -80,19 +81,8 @@
 // Modified from colorful-boxes:1.2.0
 #let colorbox(title: none, color: none, radius: 2pt, width: auto, body) = {
 
-  let strokeColor = rgb(170, 170, 200)
-  let backgroundColor = white
-
-  if color == "red" {
-    strokeColor = rgb(237, 32, 84)
-    backgroundColor = rgb(253, 228, 224)
-  } else if color == "green" {
-    strokeColor = rgb(102, 174, 62)
-    backgroundColor = rgb(235, 244, 222)
-  } else if color == "blue" {
-    strokeColor = rgb(29, 144, 208)
-    backgroundColor = rgb(232, 246, 253)
-  }
+  let strokeColor = tip-stroke
+  let backgroundColor = page-color
 
   return box(
     fill: backgroundColor,
@@ -133,7 +123,7 @@
 }
 
 #let subtle-box = (content, width: 100%) => {
-  box(radius: 0.5cm, stroke: 1pt, inset: 0.5cm, width: width)[
+  box(radius: 0.5cm, stroke: 1pt + text-color, inset: 0.5cm, width: width)[
     #content
   ]
 }

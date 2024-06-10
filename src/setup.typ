@@ -1,6 +1,7 @@
 #import "@preview/physica:0.9.3": eval, Order, Set
 #import "boxes.typ": *
 #import "@preview/natrix:0.1.0": *
+#import "colors.typ": *
 
 #let neq(content) = math.equation(
     block: true,
@@ -12,7 +13,7 @@
 #let accentcolor = rgb(255, 0, 255)
 
 #let unimportant = (
-  fill: rgb("f6f6f6"), stroke: gray + 1.5pt
+  fill: unimportant-color, stroke: gray + 1.5pt
 )
 
 // Bold math for vectors
@@ -47,7 +48,7 @@
 
 #let this-template(doc) = [
   #show: thmrules
-  #show link: set text(fill: blue.darken(30%))
+  #show link: set text(fill: link-color)
 
   #show ref: it => {
     let eq = math.equation
@@ -63,5 +64,8 @@
     }
   }
   #set page(numbering: "1")
+
+  #set text(text-color)
+  #set page(fill: page-color)
   #doc
 ]
