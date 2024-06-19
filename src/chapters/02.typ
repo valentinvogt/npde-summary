@@ -145,33 +145,27 @@ $ arrow.r dim S_1^0 (msh) = \# cal(V (M)) $ And
 $S_(1 , 0)^0 (msh)$ additionally requires functions to be zero on $partial Omega$,
 with
 $ dim S_(1 , 0)^0 (msh) = \# lr({ bx in cal(V (M)) : bx in.not partial Omega }) $
-Similarly, the 1D tent functions can be extended to 2D by requiring the cardinal
-property. This property is already enough since three points fully define a
-plane — in other words, knowing the values in three points (the vertices of a
-triangle) fully defines a linear function. Cardinal bases will produce sparse
-Galerkin matrices, as the support of a basis function only covers the triangles
-adjacent to its node, which can only interact with neighboring basis functions.
+The 1D tent functions can be extended to 2D by requiring the cardinal property. This is sufficient because three points define a plane, meaning that knowing the values at the vertices of a triangle fully determines a linear function. Cardinal bases result in sparse Galerkin matrices since a basis function's support only covers triangles adjacent to its node. Therefore, a basis function "interacts" only with neighboring basis functions.
 #v(-0.1cm)
 
 #mybox(
   "Computation of Galerkin Matrix",
 )[
-  Often, bilinear forms are defined by integration over the whole domain. But we
-  have seen that the support of basis functions is only local. We can exploit this
-  by performing integration only over the cells.
+  Often, bilinear forms are defined as integrals over the whole domain. 
+  But since the support of basis functions is local, this integral can be split into integrals over a limited number of cells, namely the ones where both basis functions have support.
   #neq(
     $ bA_(i j) = a (b_h^j , b_h^i) = sum_(K in "supp"(b_h^j) sect "supp"(b_h^i)) eval(a)_K (b_h^j , b_h^i) $,
   )<eq:galerkin_matrix_entry>
-  where $eval(a)_K$ is the local bilinear form over cell $K$.
+  where $eval(a)_K$ is the local bilinear form restricted to cell $K$.
 ]
 #v(-1.1cm)
 #mybox(
   "Cell oriented assembly",
 )[
   To further take advantage of @eq:galerkin_matrix_entry, cell oriented assembly
-  can be performed. Go through all cells and compute $eval(a)_K (b_h^j , b_h^i)$ for
-  all pairs of basis functions associated with cell $K$ (element matrix) and add
-  the values to the entry at $(i , j)$ of $bA$.
+  can be performed. For all cells, we compute the *element matrix* $bA_K$ containing $eval(a)_K (b_h^j , b_h^i)$ for
+  all pairs $i,j$ of basis functions supported on cell $K$.
+  Then, we add this value to the entry at $(i , j)$ of $bA$.
 ]
 The same procedure can be applied to calculating the right hand side vector $phi$,
 just that only one basis function is involved as the RHS comes from a linear
@@ -386,7 +380,7 @@ The following formula is usually used when computing element matrices by hand:
 #strong[Quadrature rules]
 $ integral_K f (x) dif x approx sum_(l = 1)^(P_K) w_l^K f (zeta_l^K) , quad w_l^K arrow.r upright("weights") , zeta_l^K arrow.r upright("(quadrature) nodes") $
 #subtle-box()[
-  *Order* of a quadrature rule: a quad rule is of order $q$ if
+  *Order* of a quadrature rule: a quadrature rule is of order $q$ if
 
   - for a simplex $K$, it is exact for all polynomials
     $f in cal(P)_(p - 1) (bb(R)^d)$
@@ -534,7 +528,7 @@ the reference quad is the unit square.
 When dealing with #emph[parametric] finite element methods, we know that
 $ hat(b)_Khat^i = Phi_k ^(\*) b_K^i, $ where $b_K^i:K -> RR$ are the local basis
 functions on the concrete element $K$ and $hat(b)_Khat^i$ are the local basis
-functions on the reference element $Khat$ that matches $K$.
+functions on the reference element $Khat$.
 
 To make life easier, we call everything on the reference element *local* and
 everything on the concrete element *global*.
@@ -552,8 +546,8 @@ analysis)
   $ (A_K)_(i j) = integral_K b_K^j (x) b_K^i (x) dif x = integral_(Khat) (Phi_K^(\*) b_K^j) (hat(x)) (Phi_K^(\*) b_K^i) (hat(x)) med sqrt(det (D Phi_K^top (hat(x)) D Phi_K (hat(x)))) dif x , $,
 ) <eq:mass-matrix-pullback>
 
-where we have simply applied the pullback to both functions, switched to
-integration on $Khat$, and added an integration element. Similarly, for the
+where we have simply applied the pullback to both functions and switched to
+integration on $Khat$ by @thm:transf-rule-integration. Similarly, for the
 diffusion matrix we get
 
 #neq(
@@ -564,8 +558,8 @@ diffusion matrix we get
 by pulling back the global gradients (denoted by $gradsub(x)$) of the global
 shape functions.
 
-Why is the integration element $det (D Phi_K^top (hat(x)) D Phi_K (hat(x)))$ more
-complicated than what we know from @thm:transformation-rule-for-integration? It
+Why is the "integration element" $det (D Phi_K^top (hat(x)) D Phi_K (hat(x)))$ more
+complicated than what we know from @thm:transf-rule-integration? It
 is needed when $Omega$ and $mhat(Omega)$ do not live in the same space. If, for
 example, $Omega subset bb(R)^3$ describes a 2D plane "living" in 3D space and
 $mhat(Omega) subset bb(R)^2$, we will have
@@ -576,8 +570,8 @@ For both cases, the term is provided by
   "https://craffael.github.io/lehrfempp/classlf_1_1geometry_1_1_geometry.html#a80112cf5cfa9314cb44e61756299607d",
 )[`lf::geometry::IntegrationElement`];.
 
-The next thing which needs clarification is
-$Phi_K^(\*) (gradsub(bx) b_K^i)$, pullback of the gradient. As the gradient $gradsub(bx) b_K^i (x)$ depends
+The next thing which needs clarification is the pullback of the gradient
+$Phi_K^(\*) (gradsub(bx) b_K^i)$. Since the gradient $gradsub(bx) b_K^i (x)$ depends
 on the shape of
 $K$, it would be complicated to compute this term directly.
 

@@ -77,8 +77,8 @@ polynomial degree $p$ and only do h-refinement.
       (e.g., $N_i = i$), $ eps_(i+1)/eps_i approx exp(-gamma) $
   ],
 )
-Note that in the case of h-refinement we get the relation between $N$
-and $h$ given by
+Note that in the case of h-refinement we get the following relation between $N$
+and $h$:
 #equation(
   number: "3.2.2.1",
 )[

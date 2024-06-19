@@ -91,7 +91,7 @@
   #neq(
     $ integral_Omega f (bx) dif bx = integral_(mhat(Omega)) f (Phi (hat(x))) lr(|det D Phi (hat(x))|) dif bold(hat(x)) $,
   )
-] <thm:transformation-rule-for-integration>
+] <thm:transf-rule-integration>
 
 #set heading(numbering: "1.1")
 
