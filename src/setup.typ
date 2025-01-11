@@ -13,7 +13,7 @@
 #let accentcolor = rgb(255, 0, 255)
 
 #let unimportant = (
-  fill: unimportant-color, stroke: gray + 1.5pt
+  fill: unimportant-color, stroke: unimportant-color.darken(20%) + 1.5pt,
 )
 
 // Bold math for vectors
